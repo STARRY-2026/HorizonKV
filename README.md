@@ -6,18 +6,17 @@
 
 参考配置为 **Linux + NVIDIA A100 40GB + Qwen2.5-VL-7B-Instruct**，使用 Python 3.12、PyTorch 2.9.1、torchvision 0.24.1、CUDA 13.0、Transformers 4.57.1 和 FlashAttention 2.8.3。其他显卡的显存需求取决于视频长度、分辨率和预算；本次没有验证其他显卡或 LLaVA 环境。
 
-先准备 Git、Conda/Miniconda、NVIDIA 驱动和 C++ 编译器。下面的 cu130 源码构建流程需要 **CUDA Toolkit 13.0 的 nvcc**；驱动通常需要 R580 或更新版本，详见 [NVIDIA 兼容要求](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)。PyTorch 的 pip 安装包不会提供 nvcc。
+先准备 Git、Conda/Miniconda 和兼容的 NVIDIA 驱动。下面优先安装官方预编译 FlashAttention wheel，适用于 **Linux x86_64 / Python 3.12 / PyTorch 2.9.x + CUDA 13 / CXX11 ABI=True**，无需本机 nvcc 或 C++ 编译器。cu130 需要 R580 或更新版本驱动，详见 [NVIDIA 兼容要求](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)。
 
 ```bash
 git clone https://github.com/STARRY-2026/HorizonKV.git
 cd HorizonKV
 
-# 检查显卡、驱动和本机 CUDA 编译器
+# 检查显卡和驱动
 nvidia-smi
-nvcc --version
 ```
 
-后面的命令都在仓库根目录执行。若没有 nvcc，请先配置对应的 CUDA Toolkit；`nvidia-smi` 显示的 CUDA 上限不等于本机 Toolkit 版本。
+后面的命令都在仓库根目录执行。只有选择下方源码编译备用方案时，才需要配置 CUDA Toolkit 13.0 的 `nvcc` 和 C++ 编译器。
 
 ## 2. 创建环境并安装依赖
 
@@ -29,16 +28,29 @@ python -m pip install --upgrade pip setuptools wheel
 python -m pip install torch==2.9.1 torchvision==0.24.1 \
   --index-url https://download.pytorch.org/whl/cu130
 python -m pip install -r requirements-runtime-qwen.txt
-python -m pip install packaging ninja psutil
 
-# 以本机 PyTorch / CUDA 编译 FlashAttention
-FLASH_ATTENTION_FORCE_BUILD=TRUE MAX_JOBS=4 \
-  python -m pip install flash-attn==2.8.3 --no-build-isolation --no-cache-dir
+# 直接安装官方 cu13 / torch2.9 / Python3.12 预编译 wheel
+python -m pip install --no-deps \
+  'https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3%2Bcu13torch2.9cxx11abiTRUE-cp312-cp312-linux_x86_64.whl#sha256=a4b43bd016f5d475dc34a87aa91b5a239bd0e8972c13f4fc32839b4032465d21'
 
 python -m pip check
 ```
 
-FlashAttention 编译可能耗时较长；主机内存不足时将 `MAX_JOBS=4` 改为 `MAX_JOBS=1`。这里显式要求源码构建：依据 [FlashAttention 2.8.3 的安装脚本](https://github.com/Dao-AILab/flash-attention/blob/v2.8.3/setup.py)，其预编译 wheel 推断会把 CUDA 13 归入 cu12，需要避免自动选用另一 CUDA 家族的 wheel。安装命令依据现有实测环境和官方源码整理，尚未完成全新环境重装验证。
+[FlashAttention 官方 v2.8.3 Releases](https://github.com/Dao-AILab/flash-attention/releases/tag/v2.8.3) 已提供上面的匹配 wheel，URL 中固定了官方 SHA256；`--no-deps` 保留前面安装的 PyTorch 和依赖版本。本机已通过 GPU 验证的环境同样由 cu13 预编译 wheel 安装，不需要为了运行项目重新编译。更换 Python、PyTorch、CUDA 家族、平台或 CXX11 ABI 时，需选择对应 wheel。
+
+### 没有匹配 wheel 时的备用方案
+
+只有无法使用匹配预编译 wheel 时，才使用源码构建。下面以 cu130 为例，先准备 CUDA Toolkit 13.0 的 `nvcc` 和 C++ 编译器：
+
+```bash
+nvcc --version
+python -m pip install packaging ninja psutil
+FLASH_ATTENTION_FORCE_BUILD=TRUE MAX_JOBS=4 \
+  python -m pip install flash-attn==2.8.3 --no-build-isolation --no-cache-dir
+python -m pip check
+```
+
+源码编译较慢，主机内存不足时将 `MAX_JOBS=4` 改为 `MAX_JOBS=1`。安装后继续执行第 4 节环境检查和第 5 节真实 GPU 小实验；全新环境的完整重装尚未验证。
 
 使用 `requirements-runtime-qwen.txt`；旧 `requirements_qwen.txt` / `requirements_llava.txt` 作为历史资料保留。其他 CUDA wheel 选择、ABI 和独立 DSCache 环境见 [RUNTIME_SETUP.md](RUNTIME_SETUP.md)。
 
