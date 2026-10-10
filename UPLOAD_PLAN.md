@@ -1,8 +1,8 @@
 # HERMES 上传 GitHub 审计与操作方案
 
-更新日期：2026-10-10。原项目为 `/home/yujun/program/hermes`；待上传源码为本整理目录下的 `snapshot/`。本文中的文档链接和清单路径以发布源码根目录为准。
+更新日期：2026-10-10。原项目为 `/home/yujun/program/hermes`；发布源码为本整理目录下的 `snapshot/`。本文中的文档链接和清单路径以发布源码根目录为准。
 
-建议把已整理、验证的 `snapshot/` 作为新仓库的首个提交。原项目、原 Git 历史和 Gitee 远程均未修改；目前没有创建 GitHub 仓库或推送。
+已将整理、验证的源码以独立新历史发布至 [STARRY-2026/HorizonKV](https://github.com/STARRY-2026/HorizonKV)。原项目、原 Git 历史和 Gitee 远程均未修改。本文保留导出范围、验证依据和重新发布操作说明。
 
 ## 使用独立新历史的原因
 

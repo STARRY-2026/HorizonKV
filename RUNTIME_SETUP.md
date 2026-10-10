@@ -12,6 +12,8 @@ The separately inspected LLaVA environment has PyTorch 2.9.1+cu128, CUDA build 1
 
 Use one dedicated environment. Select the PyTorch CUDA wheel family that your NVIDIA driver and GPU support. The reference Qwen environment uses `cu130`:
 
+For this cu130 source-build recipe, prepare Linux, Git/Conda, a compatible NVIDIA GPU, an R580 or newer driver, CUDA Toolkit **13.0** with `nvcc`, and a C++ compiler. Check `nvidia-smi` and `nvcc --version` first. PyTorch wheels include CUDA runtime dependencies but do not install the CUDA compiler. [NVIDIA driver requirements](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
+
 ```bash
 conda create -n hermes-release python=3.12 -y
 conda activate hermes-release
@@ -19,14 +21,15 @@ python -m pip install --upgrade pip setuptools wheel
 python -m pip install torch==2.9.1 torchvision==0.24.1 \
   --index-url https://download.pytorch.org/whl/cu130
 python -m pip install -r requirements-runtime-qwen.txt
-python -m pip install packaging ninja
-MAX_JOBS=4 python -m pip install flash-attn==2.8.3 --no-build-isolation
+python -m pip install packaging ninja psutil
+FLASH_ATTENTION_FORCE_BUILD=TRUE MAX_JOBS=4 \
+  python -m pip install flash-attn==2.8.3 --no-build-isolation --no-cache-dir
 python -m pip check
 ```
 
 PyTorch also publishes the matching 2.9.1/0.24.1 pair for CUDA 12.8 and 12.6. Changing the wheel index is an alternative installation, and requires its own import and GPU smoke validation. The unsuffixed requirements pins accept a previously installed matching CUDA build; install torch/torchvision from the chosen official index first. Do not install the `nvidia-*-cu12` lines from the old environment export into the CUDA 13.0 environment: PyTorch resolves the corresponding CUDA runtime packages itself. [Official PyTorch version commands](https://pytorch.org/get-started/previous-versions/)
 
-FlashAttention is deliberately installed separately because it depends on the installed PyTorch/CUDA/Python ABI. Source compilation requires a working compatible CUDA toolkit (`nvcc`), a compiler and build resources; follow the project's instructions and keep the toolkit aligned with the selected PyTorch CUDA build. Rebuild/reinstall FlashAttention after changing PyTorch or CUDA. A successful `pip install` alone does not establish that the binary extension imports or its kernels work. [FlashAttention installation and supported GPUs](https://github.com/Dao-AILab/flash-attention#installation-and-features)
+FlashAttention is deliberately installed separately because it depends on the installed PyTorch/CUDA/Python ABI. The explicit `FLASH_ATTENTION_FORCE_BUILD=TRUE` is based on the [v2.8.3 installer](https://github.com/Dao-AILab/flash-attention/blob/v2.8.3/setup.py): its prebuilt-wheel selection maps non-CUDA-11 PyTorch builds to cu12, including CUDA 13. For cu130, build against the local matching toolkit to avoid selecting that wheel. This source-build recipe has not been validated in a completely fresh environment. Lower `MAX_JOBS` to 1 if host memory is limited. Source compilation requires a working compatible CUDA toolkit (`nvcc`), a compiler and build resources; follow the project's instructions and keep the toolkit aligned with the selected PyTorch CUDA build. Rebuild/reinstall FlashAttention after changing PyTorch or CUDA. A successful `pip install` alone does not establish that the binary extension imports or its kernels work. [FlashAttention installation and supported GPUs](https://github.com/Dao-AILab/flash-attention#installation-and-features)
 
 For policy unit tests, plotting and profile analysis, also install:
 
