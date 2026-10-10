@@ -1,0 +1,12 @@
+{
+  "copied_files": 780,
+  "copied_bytes": 32503347,
+  "python_files": 306,
+  "shell_files": 118,
+  "runtime_candidates": 227,
+  "annotation_files": 17,
+  "experiment_result_files": 58,
+  "experiment_result_bytes": 4658524,
+  "git_history_copied": false,
+  "release_overlay_applied": true
+}

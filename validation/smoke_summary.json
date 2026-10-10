@@ -1,0 +1,283 @@
+{
+  "date": "2026-10-10",
+  "scope": "Qwen2.5-VL-7B-Instruct / StreamingBench real-prefix execution smoke",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.9.1+cu130",
+    "torchvision": "0.24.1+cu130",
+    "cuda_runtime": "13.0",
+    "transformers": "4.57.1",
+    "tokenizers": "0.22.2",
+    "flash_attn": "2.8.3",
+    "gpu": "NVIDIA A100-PCIE-40GB",
+    "dtype": "float16"
+  },
+  "cpu_tests_passed": 85,
+  "environment_checks_passed": 48,
+  "annotation": {
+    "released_file": "validation/smoke_annotation.json",
+    "source_file": "results/myobservations/native_k500_first150/anno_first150.json",
+    "video_id": 12,
+    "source_question_index": 1,
+    "video_basename": "sample_158_real.mp4",
+    "end_time_seconds": 84,
+    "clip": [
+      0,
+      84
+    ],
+    "sample_fps": 0.5,
+    "encoded_frames": 42
+  },
+  "runs": [
+    {
+      "method": "hermes",
+      "budget": 1000,
+      "entrypoint": "video_qa/run_infer.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "Strict-shrunk KV cache. New length:",
+      "status": "completed",
+      "inference_log_sha256": "1c8820aa67cb590cc818e9ea471e941ef8d0ad40d7b805cf4c2dcd5e83082587",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b"
+    },
+    {
+      "method": "uniform",
+      "budget": 1000,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[kv_head_ragged_prefill] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "488c278cf9b84cb1304c8ed11fe3b0778cf70438d4bad5bd3eb49d3d9780b28d",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 52.91,
+      "runtime_total_visual_slots": 112000,
+      "rounding_delta": 0,
+      "profile_inputs": [
+        {
+          "path": "results/observations/memory_core_budget_scores/uniform.csv",
+          "sha256": "2b2bf6c3a67bb6456a021cda3ee439a50c633a2826ed3197357a2c66b498e4c9"
+        }
+      ],
+      "compression_count_source": "independent inference.log audit"
+    },
+    {
+      "method": "dp",
+      "budget": 1000,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[kv_head_ragged_prefill] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "773fe8a665edcff866a5341f9f19ff54dfebbe7fd90d7384f34ba9252b381120",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 52.77,
+      "runtime_total_visual_slots": 112000,
+      "rounding_delta": 0,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/k1000_dp_cachecomp_score_20260924/dp_k1000_exact_budget_scores.csv",
+          "sha256": "cb54af199d489e10a73e7b257eba3d93efac50a4bd5172d406019593ffb492bc"
+        },
+        {
+          "path": "results/myobservations/k1000_dp_cachecomp_score_20260924/recent_ratio_profile.csv",
+          "sha256": "5e6ecbec75894d357133b8f20fbb3b201c22e4cd9cedea3dc3ad0daa01da838c"
+        }
+      ],
+      "compression_count_source": "independent inference.log audit"
+    },
+    {
+      "method": "v8",
+      "budget": 1000,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[kv_head_ragged_prefill] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "2cb265485dd83904c4b7692979d14a694a4fa4331a296cc563991f4158b27053",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 52.6,
+      "runtime_total_visual_slots": 112004,
+      "rounding_delta": 4,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/relocatev3/v8_blend3_scores.csv",
+          "sha256": "448217f0f745d900608cef74e4e0d9bbb86c6a9711ece65db698a5f05aecc554"
+        }
+      ],
+      "compression_count_source": "independent inference.log audit"
+    },
+    {
+      "method": "timestamp-v8",
+      "budget": 1000,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[TimestampV8] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "eafd38c130e37474e4a92507480d79bff28ea173cab5596dbd36bb8c0b6efd51",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 32.17,
+      "runtime_total_visual_slots": 112004,
+      "rounding_delta": 4,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/relocatev3/v8_blend3_scores.csv",
+          "sha256": "448217f0f745d900608cef74e4e0d9bbb86c6a9711ece65db698a5f05aecc554"
+        },
+        {
+          "path": "results/myobservations/relocatev3/v8_budget.csv",
+          "sha256": "c5cc5393fdbdaa4478deac7bc3cc5d66cc7ffb666357eadce4935e7db9115ca8"
+        }
+      ],
+      "compression_count_source": "independent inference.log audit"
+    },
+    {
+      "method": "current-ourtop",
+      "budget": 1000,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[TimestampV8] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "916461952fc1848f5d059ec9d2e35796205803e465fcee74c0a70b00d8476b50",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 33.07,
+      "runtime_total_visual_slots": 112001,
+      "rounding_delta": 1,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/current_ourtop_k1000_fixed448_g0/current_ourtop_scores.csv",
+          "sha256": "6be8656b53b9292ee2465bef18faff88c2541633a9220e14ba376ad7e99ee8a5"
+        },
+        {
+          "path": "results/myobservations/current_ourtop_k1000_fixed448_g0/current_ourtop_v8_policy.csv",
+          "sha256": "e90df41d5492bb86ceaafffde48af7fe72c4d1be38a7af2cfc751b80f231f358"
+        }
+      ],
+      "compression_count_source": "independent inference.log audit"
+    },
+    {
+      "method": "horizonkv",
+      "budget": 6000,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[HorizonKV] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "d969fac9de043f5e44798ce4b66a650c071643c62d84a86023d29d30bf6430b6",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 63.25,
+      "runtime_total_visual_slots": 672000,
+      "rounding_delta": 0,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/horizonkv_pilot_10v_fixed896/pseudo_trend_memory_budget_6000_qwen_adaptive_recent2691.csv",
+          "sha256": "a828b083cf72d099b00d75b16a9ff36fc10fa16408d436661ce8f8bd05a2f709"
+        }
+      ],
+      "compression_count_source": "manifest and inference.log"
+    },
+    {
+      "method": "dp",
+      "budget": 800,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[kv_head_ragged_prefill] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "e389e890cdd90046870060978039b9f806f5cad30115bfaa9dd087b48cd59d97",
+      "results_sha256": "9ea25febf9a02d51a259dc03e0906ca2b4635accbabacf0d8558e00e34192e9b",
+      "returncode": 0,
+      "elapsed_seconds": 61.89,
+      "runtime_total_visual_slots": 89600,
+      "rounding_delta": 0,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/two_bank_grid_dp_k800_floor600_20260928/dp_k800_exact_budget_scores.csv",
+          "sha256": "d0240d2dc83bfecd9794c3b226f8a3a934822b5bb5d38c2b67f0f2250e3ab60d"
+        },
+        {
+          "path": "results/myobservations/two_bank_grid_dp_k800_floor600_20260928/recent_ratio_profile.csv",
+          "sha256": "6ac6c2af32dd0ba350cfe24f4f6927b119c6fa3af90d01bc41ad660bdf9f38c0"
+        }
+      ],
+      "compression_count_source": "manifest and inference.log"
+    },
+    {
+      "method": "dp",
+      "budget": 100,
+      "entrypoint": "tools/run_experiment.py",
+      "prediction_rows": 1,
+      "evaluated_samples": 1,
+      "actual_compression_events": 3,
+      "compression_marker": "[kv_head_ragged_prefill] prune stats:",
+      "status": "completed",
+      "inference_log_sha256": "2003f184967f69003c519f2028bc8c558cec842cb44f7097b4e85a00c155048f",
+      "results_sha256": "49d341251e54eb53ae0eb69dd21d3049696e9033c9e3733ac74a51f2ae0d7f24",
+      "returncode": 0,
+      "elapsed_seconds": 60.82,
+      "runtime_total_visual_slots": 11200,
+      "rounding_delta": 0,
+      "profile_inputs": [
+        {
+          "path": "results/myobservations/two_bank_grid_dp_k100_floor75_20260929/dp_k100_exact_budget_scores.csv",
+          "sha256": "61b62bb6f59e9f02a22a5c836dcbdb56b35908bd1ee75d3ae16f87c1da2cd426"
+        },
+        {
+          "path": "results/myobservations/two_bank_grid_dp_k100_floor75_20260929/recent_ratio_profile.csv",
+          "sha256": "5eb24cc19f5cde8d1d72870817f6fdac2674510c4104aebbb5f867083eb8f110"
+        }
+      ],
+      "compression_count_source": "manifest and inference.log"
+    }
+  ],
+  "limits": {
+    "clean_environment_install_verified": false,
+    "full_benchmark_rerun": false,
+    "dp_budgets_gpu_tested": [
+      100,
+      800,
+      1000
+    ],
+    "dp_budgets_profile_checked": [
+      100,
+      250,
+      500,
+      800,
+      1000
+    ],
+    "other_models_certified": false
+  },
+  "notes": [
+    "Each run evaluates the same single real question; this is not an accuracy benchmark.",
+    "Earlier run manifests predate the compression-count field; their logs were independently counted.",
+    "Raw runtime logs and predictions are retained outside the source release."
+  ],
+  "clean_export_roundtrip": {
+    "cpu_tests_passed": 85,
+    "assets_only_checks_passed": 8,
+    "working_directory": "outside the source checkout",
+    "portable_smoke_annotation_relocated": true,
+    "method": "hermes",
+    "budget": 1000,
+    "returncode": 0,
+    "prediction_rows": 1,
+    "actual_compression_events": 3,
+    "inference_log_sha256": "f7fcbf97d4ef43ed0954f22ac87e43e0cc9f1bac6db8efa332b4817e81eef597"
+  }
+}

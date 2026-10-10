@@ -1,0 +1,141 @@
+id,task,questions,videos,correct,accuracy_percent
+uniform_k100_first150,Action Recognition,126,54,90,71.42857142857143
+uniform_k100_first150,Attribute Recognition,49,38,26,53.06122448979592
+uniform_k100_first150,Causal Reasoning,82,22,42,51.21951219512195
+uniform_k100_first150,Clips Summarize,29,15,27,93.10344827586206
+uniform_k100_first150,Counting,129,29,48,37.2093023255814
+uniform_k100_first150,Event Understanding,36,28,24,66.66666666666666
+uniform_k100_first150,Object Recognition,87,45,47,54.02298850574713
+uniform_k100_first150,Prospective Reasoning,58,14,38,65.51724137931035
+uniform_k100_first150,Spatial Understanding,92,34,47,51.08695652173913
+uniform_k100_first150,Text-Rich Understanding,66,29,33,50.0
+dp_k100_first150,Action Recognition,126,54,90,71.42857142857143
+dp_k100_first150,Attribute Recognition,49,38,26,53.06122448979592
+dp_k100_first150,Causal Reasoning,82,22,41,50.0
+dp_k100_first150,Clips Summarize,29,15,27,93.10344827586206
+dp_k100_first150,Counting,129,29,48,37.2093023255814
+dp_k100_first150,Event Understanding,36,28,25,69.44444444444444
+dp_k100_first150,Object Recognition,87,45,46,52.87356321839081
+dp_k100_first150,Prospective Reasoning,58,14,38,65.51724137931035
+dp_k100_first150,Spatial Understanding,92,34,44,47.82608695652174
+dp_k100_first150,Text-Rich Understanding,66,29,34,51.515151515151516
+uniform_k250_first150,Action Recognition,126,54,88,69.84126984126983
+uniform_k250_first150,Attribute Recognition,49,38,26,53.06122448979592
+uniform_k250_first150,Causal Reasoning,82,22,45,54.87804878048781
+uniform_k250_first150,Clips Summarize,29,15,27,93.10344827586206
+uniform_k250_first150,Counting,129,29,53,41.08527131782946
+uniform_k250_first150,Event Understanding,36,28,26,72.22222222222221
+uniform_k250_first150,Object Recognition,87,45,52,59.77011494252874
+uniform_k250_first150,Prospective Reasoning,58,14,40,68.96551724137932
+uniform_k250_first150,Spatial Understanding,92,34,49,53.2608695652174
+uniform_k250_first150,Text-Rich Understanding,66,29,34,51.515151515151516
+dp_k250_first150,Action Recognition,126,54,88,69.84126984126983
+dp_k250_first150,Attribute Recognition,49,38,27,55.10204081632652
+dp_k250_first150,Causal Reasoning,82,22,47,57.3170731707317
+dp_k250_first150,Clips Summarize,29,15,28,96.55172413793103
+dp_k250_first150,Counting,129,29,57,44.18604651162791
+dp_k250_first150,Event Understanding,36,28,25,69.44444444444444
+dp_k250_first150,Object Recognition,87,45,53,60.91954022988506
+dp_k250_first150,Prospective Reasoning,58,14,39,67.24137931034483
+dp_k250_first150,Spatial Understanding,92,34,53,57.608695652173914
+dp_k250_first150,Text-Rich Understanding,66,29,37,56.060606060606055
+uniform_k500_first150,Action Recognition,126,54,91,72.22222222222221
+uniform_k500_first150,Attribute Recognition,49,38,33,67.3469387755102
+uniform_k500_first150,Causal Reasoning,82,22,48,58.536585365853654
+uniform_k500_first150,Clips Summarize,29,15,28,96.55172413793103
+uniform_k500_first150,Counting,129,29,57,44.18604651162791
+uniform_k500_first150,Event Understanding,36,28,26,72.22222222222221
+uniform_k500_first150,Object Recognition,87,45,58,66.66666666666666
+uniform_k500_first150,Prospective Reasoning,58,14,41,70.6896551724138
+uniform_k500_first150,Spatial Understanding,92,34,55,59.78260869565217
+uniform_k500_first150,Text-Rich Understanding,66,29,40,60.60606060606061
+dp_k500_first150,Action Recognition,126,54,93,73.80952380952381
+dp_k500_first150,Attribute Recognition,49,38,33,67.3469387755102
+dp_k500_first150,Causal Reasoning,82,22,53,64.63414634146342
+dp_k500_first150,Clips Summarize,29,15,28,96.55172413793103
+dp_k500_first150,Counting,129,29,58,44.96124031007752
+dp_k500_first150,Event Understanding,36,28,26,72.22222222222221
+dp_k500_first150,Object Recognition,87,45,57,65.51724137931035
+dp_k500_first150,Prospective Reasoning,58,14,41,70.6896551724138
+dp_k500_first150,Spatial Understanding,92,34,59,64.13043478260869
+dp_k500_first150,Text-Rich Understanding,66,29,41,62.121212121212125
+uniform_k1000_first250,Action Recognition,207,89,162,78.26086956521739
+uniform_k1000_first250,Attribute Recognition,92,70,66,71.73913043478261
+uniform_k1000_first250,Causal Reasoning,119,38,81,68.0672268907563
+uniform_k1000_first250,Clips Summarize,39,21,36,92.3076923076923
+uniform_k1000_first250,Counting,182,44,86,47.25274725274725
+uniform_k1000_first250,Event Understanding,73,53,55,75.34246575342466
+uniform_k1000_first250,Object Recognition,157,81,110,70.06369426751591
+uniform_k1000_first250,Prospective Reasoning,105,25,84,80.0
+uniform_k1000_first250,Spatial Understanding,142,51,96,67.6056338028169
+uniform_k1000_first250,Text-Rich Understanding,139,58,99,71.22302158273382
+dp_k1000_first250,Action Recognition,207,89,159,76.81159420289855
+dp_k1000_first250,Attribute Recognition,92,70,71,77.17391304347827
+dp_k1000_first250,Causal Reasoning,119,38,82,68.90756302521008
+dp_k1000_first250,Clips Summarize,39,21,36,92.3076923076923
+dp_k1000_first250,Counting,182,44,86,47.25274725274725
+dp_k1000_first250,Event Understanding,73,53,54,73.97260273972603
+dp_k1000_first250,Object Recognition,157,81,113,71.97452229299363
+dp_k1000_first250,Prospective Reasoning,105,25,85,80.95238095238095
+dp_k1000_first250,Spatial Understanding,142,51,102,71.83098591549296
+dp_k1000_first250,Text-Rich Understanding,139,58,98,70.50359712230215
+native_v8_k1000_first150,Action Recognition,126,54,101,80.15873015873017
+native_v8_k1000_first150,Attribute Recognition,49,38,35,71.42857142857143
+native_v8_k1000_first150,Causal Reasoning,82,22,52,63.41463414634146
+native_v8_k1000_first150,Clips Summarize,29,15,28,96.55172413793103
+native_v8_k1000_first150,Counting,129,29,59,45.73643410852713
+native_v8_k1000_first150,Event Understanding,36,28,26,72.22222222222221
+native_v8_k1000_first150,Object Recognition,87,45,65,74.71264367816092
+native_v8_k1000_first150,Prospective Reasoning,58,14,45,77.58620689655173
+native_v8_k1000_first150,Spatial Understanding,92,34,63,68.47826086956522
+native_v8_k1000_first150,Text-Rich Understanding,66,29,42,63.63636363636363
+uniform_ragged_k1000_first150,Action Recognition,126,54,101,80.15873015873017
+uniform_ragged_k1000_first150,Attribute Recognition,49,38,35,71.42857142857143
+uniform_ragged_k1000_first150,Causal Reasoning,82,22,51,62.19512195121951
+uniform_ragged_k1000_first150,Clips Summarize,29,15,28,96.55172413793103
+uniform_ragged_k1000_first150,Counting,129,29,58,44.96124031007752
+uniform_ragged_k1000_first150,Event Understanding,36,28,26,72.22222222222221
+uniform_ragged_k1000_first150,Object Recognition,87,45,62,71.26436781609196
+uniform_ragged_k1000_first150,Prospective Reasoning,58,14,44,75.86206896551724
+uniform_ragged_k1000_first150,Spatial Understanding,92,34,59,64.13043478260869
+uniform_ragged_k1000_first150,Text-Rich Understanding,66,29,42,63.63636363636363
+timestamp_v8_g0_fixed448_k1000_half,Action Recognition,207,89,142,68.59903381642512
+timestamp_v8_g0_fixed448_k1000_half,Attribute Recognition,92,70,77,83.69565217391305
+timestamp_v8_g0_fixed448_k1000_half,Causal Reasoning,119,38,85,71.42857142857143
+timestamp_v8_g0_fixed448_k1000_half,Clips Summarize,39,21,36,92.3076923076923
+timestamp_v8_g0_fixed448_k1000_half,Counting,182,44,94,51.64835164835166
+timestamp_v8_g0_fixed448_k1000_half,Event Understanding,73,53,54,73.97260273972603
+timestamp_v8_g0_fixed448_k1000_half,Object Recognition,157,81,116,73.88535031847134
+timestamp_v8_g0_fixed448_k1000_half,Prospective Reasoning,105,25,87,82.85714285714286
+timestamp_v8_g0_fixed448_k1000_half,Spatial Understanding,142,51,96,67.6056338028169
+timestamp_v8_g0_fixed448_k1000_half,Text-Rich Understanding,139,58,95,68.34532374100719
+implicit_uniform_ragged_relative_fixed448_k1000_half,Action Recognition,207,89,145,70.04830917874396
+implicit_uniform_ragged_relative_fixed448_k1000_half,Attribute Recognition,92,70,75,81.52173913043478
+implicit_uniform_ragged_relative_fixed448_k1000_half,Causal Reasoning,119,38,87,73.10924369747899
+implicit_uniform_ragged_relative_fixed448_k1000_half,Clips Summarize,39,21,36,92.3076923076923
+implicit_uniform_ragged_relative_fixed448_k1000_half,Counting,182,44,102,56.043956043956044
+implicit_uniform_ragged_relative_fixed448_k1000_half,Event Understanding,73,53,55,75.34246575342466
+implicit_uniform_ragged_relative_fixed448_k1000_half,Object Recognition,157,81,114,72.61146496815286
+implicit_uniform_ragged_relative_fixed448_k1000_half,Prospective Reasoning,105,25,88,83.80952380952381
+implicit_uniform_ragged_relative_fixed448_k1000_half,Spatial Understanding,142,51,97,68.30985915492957
+implicit_uniform_ragged_relative_fixed448_k1000_half,Text-Rich Understanding,139,58,100,71.94244604316546
+historical_horizonkv_v06_k6000_half,Action Recognition,207,89,148,71.49758454106279
+historical_horizonkv_v06_k6000_half,Attribute Recognition,92,70,76,82.6086956521739
+historical_horizonkv_v06_k6000_half,Causal Reasoning,119,38,84,70.58823529411765
+historical_horizonkv_v06_k6000_half,Clips Summarize,39,21,37,94.87179487179486
+historical_horizonkv_v06_k6000_half,Counting,182,44,73,40.10989010989011
+historical_horizonkv_v06_k6000_half,Event Understanding,73,53,56,76.71232876712328
+historical_horizonkv_v06_k6000_half,Object Recognition,157,81,124,78.98089171974523
+historical_horizonkv_v06_k6000_half,Prospective Reasoning,105,25,85,80.95238095238095
+historical_horizonkv_v06_k6000_half,Spatial Understanding,142,51,105,73.94366197183099
+historical_horizonkv_v06_k6000_half,Text-Rich Understanding,139,58,114,82.01438848920863
+original_dense_hermes_k6000_half,Action Recognition,207,89,151,72.94685990338165
+original_dense_hermes_k6000_half,Attribute Recognition,92,70,81,88.04347826086956
+original_dense_hermes_k6000_half,Causal Reasoning,119,38,88,73.94957983193278
+original_dense_hermes_k6000_half,Clips Summarize,39,21,37,94.87179487179486
+original_dense_hermes_k6000_half,Counting,182,44,93,51.098901098901095
+original_dense_hermes_k6000_half,Event Understanding,73,53,55,75.34246575342466
+original_dense_hermes_k6000_half,Object Recognition,157,81,121,77.07006369426752
+original_dense_hermes_k6000_half,Prospective Reasoning,105,25,83,79.04761904761905
+original_dense_hermes_k6000_half,Spatial Understanding,142,51,105,73.94366197183099
+original_dense_hermes_k6000_half,Text-Rich Understanding,139,58,114,82.01438848920863

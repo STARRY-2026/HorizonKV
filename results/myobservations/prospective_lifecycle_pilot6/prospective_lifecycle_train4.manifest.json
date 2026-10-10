@@ -1,0 +1,40 @@
+{
+  "trace": [
+    "results/myobservations/prospective_lifecycle_pilot6/hermes_trace_0.jsonl"
+  ],
+  "target_source": "true_question",
+  "target_includes_same_observation": true,
+  "available_video_ids": [
+    "12",
+    "159",
+    "165",
+    "173",
+    "28",
+    "284"
+  ],
+  "excluded_video_ids": [
+    "12",
+    "28"
+  ],
+  "calibration_video_ids": [
+    "159",
+    "165",
+    "173",
+    "284"
+  ],
+  "num_aligned_rows": 449792,
+  "lifecycle_weight": 1.0,
+  "content_bins": 4,
+  "age_edges_sec": [
+    0,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    "inf"
+  ],
+  "output": "results/myobservations/prospective_lifecycle_pilot6/prospective_lifecycle_train4.csv"
+}

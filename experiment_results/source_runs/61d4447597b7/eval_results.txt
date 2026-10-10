@@ -1,0 +1,23 @@
+============================================================
+EVALUATION RESULTS (StreamingBench)
+============================================================
+#Samples: 251
+Average qa_acc: 72.91
+save_dir: results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-v8-native-k1000-first50
+
+============================================================
+TASK-SPECIFIC ACCURACY (StreamingBench)
+============================================================
+Action Recognition: 85.71% (n=42)
+Attribute Recognition: 73.33% (n=15)
+Object Recognition: 63.64% (n=22)
+Spatial Understanding: 72.50% (n=40)
+Event Understanding: 80.00% (n=15)
+Text-Rich Understanding: 64.71% (n=17)
+Counting: 58.14% (n=43)
+Causal Reasoning: 75.00% (n=28)
+Clips Summarize: 100.00% (n=12)
+Prospective Reasoning: 70.59% (n=17)
+============================================================
+
+%Errors: 0.00

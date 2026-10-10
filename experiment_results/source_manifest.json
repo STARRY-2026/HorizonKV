@@ -1,0 +1,198 @@
+{
+  "source_root_description": "original local Hermes worktree; paths are relative to that root",
+  "files": [
+    {
+      "path": "runs/uniform_k100_first150/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv100-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k100-first150-20260929/results.csv",
+      "bytes": 215140,
+      "sha256": "3a3e7c63fc1f5bd8e90848048f113cd9fa8862a0666bcf4d2ba1a6de76e531a0"
+    },
+    {
+      "path": "runs/uniform_k100_first150/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv100-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k100-first150-20260929/eval_results.txt",
+      "bytes": 947,
+      "sha256": "d3585848b428e4e07bb4f40c504992e5c666bb9e5768c37edfdc49f3abd82204"
+    },
+    {
+      "path": "runs/dp_k100_first150/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv100-hermes-kvheadbudget-dp_k100_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k100-native-first150-20260929/results.csv",
+      "bytes": 215052,
+      "sha256": "8cd38b9ec052c289e558845de2c634d549a8b7160aab26264c91803e6613e389"
+    },
+    {
+      "path": "runs/dp_k100_first150/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv100-hermes-kvheadbudget-dp_k100_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k100-native-first150-20260929/eval_results.txt",
+      "bytes": 1019,
+      "sha256": "a16ed0031407bce606a4e6ec361bf9374610fcc18e45995399ac4ce579583510"
+    },
+    {
+      "path": "runs/uniform_k250_first150/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv250-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k250-first150/results.csv",
+      "bytes": 215047,
+      "sha256": "455135ef64bf2f4575c92c271cd68a74bc915f01115abd8e1f51c74874709b8e"
+    },
+    {
+      "path": "runs/uniform_k250_first150/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv250-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k250-first150/eval_results.txt",
+      "bytes": 938,
+      "sha256": "4ffabe1f1da2b9042d552e410349ea9d9d14577580a919b50ea00d227f633e83"
+    },
+    {
+      "path": "runs/dp_k250_first150/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv250-hermes-kvheadbudget-dp_k250_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k250-native-first150-20260924/results.csv",
+      "bytes": 215033,
+      "sha256": "65de65c11b00a6645d399c45220a03b7df833705ba7270932007ef0ffcd30ecf"
+    },
+    {
+      "path": "runs/dp_k250_first150/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv250-hermes-kvheadbudget-dp_k250_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k250-native-first150-20260924/eval_results.txt",
+      "bytes": 1019,
+      "sha256": "a6024960f0768684e878f50d9c0a1f36253e6653e59c7103f288249c31a26bae"
+    },
+    {
+      "path": "runs/uniform_k500_first150/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv500-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k500-first150/results.csv",
+      "bytes": 215105,
+      "sha256": "5b1c2fdf9bd02d4d066737eeeb4db60f1c1c00a345c50073e644f838fd4b5529"
+    },
+    {
+      "path": "runs/uniform_k500_first150/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv500-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k500-first150/eval_results.txt",
+      "bytes": 938,
+      "sha256": "9773e09a4d7670348e1f524b17d505f83d98d068975684e11865eaab89151461"
+    },
+    {
+      "path": "runs/dp_k500_first150/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv500-hermes-kvheadbudget-dp_k500_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k500-native-first150-20260925/results.csv",
+      "bytes": 215144,
+      "sha256": "7ef0133b0ade0804d6e011d1b7d3867ebd605b8e2019eda6089d5058337e6df6"
+    },
+    {
+      "path": "runs/dp_k500_first150/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv500-hermes-kvheadbudget-dp_k500_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k500-native-first150-20260925/eval_results.txt",
+      "bytes": 1019,
+      "sha256": "b4604b17ac307eeec37b0b840adc23025e3356d798980088ccc3b63cfff7c154"
+    },
+    {
+      "path": "source_runs/38591e5a3a17/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-first50/results.csv",
+      "bytes": 72290,
+      "sha256": "33e0a9bcedebe47fb1d447dde75a6a8959662e1e887557a528a6df62eec9c7e7"
+    },
+    {
+      "path": "source_runs/38591e5a3a17/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-first50/eval_results.txt",
+      "bytes": 938,
+      "sha256": "00c315a38befd043e6a567367b26ef9ccce2ade04a1768dfa550d928b322d979"
+    },
+    {
+      "path": "source_runs/4bed7662bf95/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-51-150/results.csv",
+      "bytes": 142934,
+      "sha256": "3d92ac42426408f2c3e321424fd74029874d782a5329d8c4175a122a4ed7ccb5"
+    },
+    {
+      "path": "source_runs/4bed7662bf95/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-51-150/eval_results.txt",
+      "bytes": 936,
+      "sha256": "b0519c35f95f2146dbea1409a01bb3e354ce61d4739ae1aacafae5027a6d665c"
+    },
+    {
+      "path": "source_runs/4396d9eef0d0/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-151-250/results.csv",
+      "bytes": 139081,
+      "sha256": "622607218c6d8730e08478735c8af8ac6223df42b0cc7259af7323ec08707fa0"
+    },
+    {
+      "path": "source_runs/4396d9eef0d0/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-151-250/eval_results.txt",
+      "bytes": 937,
+      "sha256": "db023e99eb2710e6ffffab2e5129217cb719c8a12f54060d9acab0fd0fd35787"
+    },
+    {
+      "path": "runs/dp_k1000_first250/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-dp_k1000_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k1000-native-first250-20260924/results.csv",
+      "bytes": 354254,
+      "sha256": "1ce1745efa725d41928e4e6186c555f963e6f1d0150f9b845f48f193b8c75c44"
+    },
+    {
+      "path": "runs/dp_k1000_first250/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-dp_k1000_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k1000-native-first250-20260924/eval_results.txt",
+      "bytes": 1028,
+      "sha256": "4425724586ac45e57d3a7c1cd9ae858e1a6fc07586edf8dd7ca75e1a9f21e678"
+    },
+    {
+      "path": "source_runs/61d4447597b7/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-v8-native-k1000-first50/results.csv",
+      "bytes": 72311,
+      "sha256": "9b2e0307d44a88f13efdd7e4b9e69799d9ff20d01b57825452edf51d9145dfa4"
+    },
+    {
+      "path": "source_runs/61d4447597b7/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-v8-native-k1000-first50/eval_results.txt",
+      "bytes": 935,
+      "sha256": "981f8b38973c02d388d726bf75011f5282d4169e798dce0d97de03ac21120356"
+    },
+    {
+      "path": "source_runs/681670a5657d/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-v8-native-k1000-51-150/results.csv",
+      "bytes": 142963,
+      "sha256": "c8b69f90dc44bc48f5698d56f0265a88c68785fc4c2bdb0617b1b4813d17e494"
+    },
+    {
+      "path": "source_runs/681670a5657d/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-v8-native-k1000-51-150/eval_results.txt",
+      "bytes": 933,
+      "sha256": "62855d9ac15b09675c77ed486d3155ae464c0b25be6a38d88667693e01e26bb2"
+    },
+    {
+      "path": "runs/timestamp_v8_g0_fixed448_k1000_half/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-timestampv8-v8_budget-g0-ffc448-letterbox-timestamp-v8-nofloor-g0-half-k1000-canvas448/results.csv",
+      "bytes": 354050,
+      "sha256": "7ffe2d6abdc68a07e8df9fc2d2bcdbc6a114865ec0f56bbbf987f580387d5d93"
+    },
+    {
+      "path": "runs/timestamp_v8_g0_fixed448_k1000_half/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-timestampv8-v8_budget-g0-ffc448-letterbox-timestamp-v8-nofloor-g0-half-k1000-canvas448/eval_results.txt",
+      "bytes": 1005,
+      "sha256": "51d5cf1367d8e692f8ec55b390d34bedc1e8a1b87bf2c72e5d17475e7cc09501"
+    },
+    {
+      "path": "runs/implicit_uniform_ragged_relative_fixed448_k1000_half/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-ffc448-letterbox-hermes-half-k1000-canvas448-uniform/results.csv",
+      "bytes": 354121,
+      "sha256": "cba3b45812a3d4f07ba76367f774ec4b87219f23843b0c863681f8bc5749f144"
+    },
+    {
+      "path": "runs/implicit_uniform_ragged_relative_fixed448_k1000_half/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-ffc448-letterbox-hermes-half-k1000-canvas448-uniform/eval_results.txt",
+      "bytes": 902,
+      "sha256": "8056f7f91c5b4bd339269c9837bf21359b77a8ac2fd36ac64e1c61c8468f93c8"
+    },
+    {
+      "path": "runs/historical_horizonkv_v06_k6000_half/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-horizonkv-pseudo_trend_memory_budget_6000_qwen_adaptive_recent2691-r2691-g0.9-horizonkv-v06-half/results.csv",
+      "bytes": 353943,
+      "sha256": "285bbe8e555651cc8fcb4aae5bb822ccaacc8c0dbd80c5dc9bbdbaa19512b0f7"
+    },
+    {
+      "path": "runs/historical_horizonkv_v06_k6000_half/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-horizonkv-pseudo_trend_memory_budget_6000_qwen_adaptive_recent2691-r2691-g0.9-horizonkv-v06-half/eval_results.txt",
+      "bytes": 946,
+      "sha256": "c89da447977e3f5b70cc720db238c4840877a189d5884f75b201f29deb05bf3d"
+    },
+    {
+      "path": "runs/original_dense_hermes_k6000_half/results.csv",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-half/1_0.csv",
+      "bytes": 353985,
+      "sha256": "72b9699b3bf041c541f88318d85bc6dabeaf01506e8bbf597627ba10760962bf"
+    },
+    {
+      "path": "runs/original_dense_hermes_k6000_half/eval_results.txt",
+      "original_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-half/eval_results.txt",
+      "bytes": 854,
+      "sha256": "2649e97599346aa5a79dbcdc0936bc67a5c00425db37d8b1a4869b30bcbbe4ca"
+    }
+  ],
+  "all_copied_source_files_sha256_verified": true
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "video_id": 12,
+    "video_path": "sample_158_real.mp4",
+    "conversations": [
+      {
+        "question": "What pattern is on the stocking the person is wearing?",
+        "answer": "Checkered.",
+        "choices": [
+          "Stripes.",
+          "Polka dots.",
+          "Checkered.",
+          "Floral."
+        ],
+        "end_time": 84.0,
+        "task": "Attribute Recognition",
+        "time_stamp": "0:01:24",
+        "required_ability": "working memory"
+      }
+    ],
+    "clip": [
+      0,
+      84.0
+    ]
+  }
+]

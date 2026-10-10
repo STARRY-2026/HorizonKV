@@ -1,0 +1,119 @@
+{
+  "raw_csv": "results/myobservations/query_head_answer_router_disjoint14_20260916/raw_prev_current_attention_disjoint.csv",
+  "num_rows": 139552,
+  "num_heads": 784,
+  "num_layers": 28,
+  "heads_per_layer": 28,
+  "local_global_current_share_corr": 0.9881307461132551,
+  "mean_global_minus_local_current_share": 0.005926288865915161,
+  "mean_abs_global_minus_local_current_share": 0.014179193172869977,
+  "median_abs_global_minus_local_current_share": 0.010595718277042754,
+  "s_current_share_mean": 0.23691311881507346,
+  "s_current_share_std": 0.12024926170790709,
+  "s_current_share_iqr": 0.14851280077907042,
+  "s_current_share_quantiles": {
+    "0": 0.016881039206872468,
+    "0.05": 0.07377794310180512,
+    "0.1": 0.09834372845316156,
+    "0.25": 0.1558893866587741,
+    "0.5": 0.21471855829710534,
+    "0.75": 0.30440218743784453,
+    "0.9": 0.3934461741566951,
+    "0.95": 0.45328523243072416,
+    "1": 0.7411747844366545
+  },
+  "b_log_per_token_ratio_mean": -3.0207789059987857,
+  "b_log_per_token_ratio_std": 1.7466745907215562,
+  "b_log_per_token_ratio_quantiles": {
+    "0": -25.0514950702786,
+    "0.05": -5.36715213363222,
+    "0.1": -4.8001711628630535,
+    "0.25": -3.8085890419116115,
+    "0.5": -2.8624256933247016,
+    "0.75": -2.1068700011086055,
+    "0.9": -1.4224991747126512,
+    "0.95": -0.8626193030736078,
+    "1": 4.292271834193481
+  },
+  "r_per_token_ratio_median": 0.2027799443447465,
+  "r_per_token_ratio_quantiles": {
+    "0": 0.005763712529161837,
+    "0.05": 0.03329282328621725,
+    "0.1": 0.04887212556809682,
+    "0.25": 0.10012731070533161,
+    "0.5": 0.2027799443447465,
+    "0.75": 0.788170952678878,
+    "0.9": 5.152386159791837,
+    "0.95": 26.46745561696535,
+    "1": 9468522.832572259
+  },
+  "class_counts": {
+    "s_lt_0p25": 471,
+    "s_gt_0p75": 0,
+    "global_lt_0p25": 462,
+    "global_gt_0p75": 0,
+    "b_bottom20_memory": 157,
+    "b_top20_current": 157,
+    "b_mixed": 470,
+    "r_gt_1": 162,
+    "r_lt_1": 620,
+    "r_lt_0p5": 537
+  },
+  "stability": {
+    "video_split_s_obs_corr": 0.9853631019314504,
+    "video_split_s_obs_left_videos": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      7,
+      8
+    ],
+    "video_split_s_obs_right_videos": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "video_split_b_obs_corr": 0.9911770121319207,
+    "video_split_b_obs_left_videos": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      7,
+      8
+    ],
+    "video_split_b_obs_right_videos": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "chunk_split_s_obs_corr": 0.7477625115404443,
+    "chunk_split_b_obs_corr": 0.8536528263887344
+  },
+  "outputs": {
+    "head_scores_csv": "results/myobservations/query_head_answer_router_disjoint14_20260916/head_profile_scores.csv",
+    "s_heatmap": "results/myobservations/query_head_answer_router_disjoint14_20260916/s_h_query_robust_current_share_heatmap.png",
+    "b_heatmap": "results/myobservations/query_head_answer_router_disjoint14_20260916/b_h_log_per_token_ratio_heatmap.png",
+    "r_heatmap": "results/myobservations/query_head_answer_router_disjoint14_20260916/r_h_per_token_ratio_heatmap.png",
+    "local_global_scatter": "results/myobservations/query_head_answer_router_disjoint14_20260916/local_global_current_share_scatter.png",
+    "s_histogram": "results/myobservations/query_head_answer_router_disjoint14_20260916/s_h_current_share_histogram.png",
+    "b_histogram": "results/myobservations/query_head_answer_router_disjoint14_20260916/b_h_log_per_token_ratio_histogram.png",
+    "video_split_s_scatter": "results/myobservations/query_head_answer_router_disjoint14_20260916/video_split_s_h_stability_scatter.png",
+    "video_split_b_scatter": "results/myobservations/query_head_answer_router_disjoint14_20260916/video_split_b_h_stability_scatter.png",
+    "chunk_split_s_scatter": "results/myobservations/query_head_answer_router_disjoint14_20260916/chunk_split_s_h_stability_scatter.png",
+    "chunk_split_b_scatter": "results/myobservations/query_head_answer_router_disjoint14_20260916/chunk_split_b_h_stability_scatter.png",
+    "summary_json": "results/myobservations/query_head_answer_router_disjoint14_20260916/head_profile_summary.json",
+    "stability_json": "results/myobservations/query_head_answer_router_disjoint14_20260916/head_profile_stability.json"
+  }
+}

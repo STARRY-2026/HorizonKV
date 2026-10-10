@@ -1,0 +1,207 @@
+{
+  "trace_schema_version": 1,
+  "predictor_source": "hermes",
+  "target_source": "true_question",
+  "target_includes_same_observation": false,
+  "note": "Existing pilot traces contain the standard HERMES pseudo score, not separate local/global pseudo streams. This evaluates the single-pseudo profile-gated variant.",
+  "folds": [
+    {
+      "fold": 0,
+      "train_videos": [
+        "12",
+        "159",
+        "165",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "173"
+      ]
+    },
+    {
+      "fold": 1,
+      "train_videos": [
+        "12",
+        "159",
+        "173",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "165"
+      ]
+    },
+    {
+      "fold": 2,
+      "train_videos": [
+        "159",
+        "165",
+        "173",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "12"
+      ]
+    },
+    {
+      "fold": 3,
+      "train_videos": [
+        "12",
+        "159",
+        "165",
+        "173",
+        "28"
+      ],
+      "test_videos": [
+        "284"
+      ]
+    },
+    {
+      "fold": 4,
+      "train_videos": [
+        "12",
+        "159",
+        "165",
+        "173",
+        "284"
+      ],
+      "test_videos": [
+        "28"
+      ]
+    },
+    {
+      "fold": 5,
+      "train_videos": [
+        "12",
+        "165",
+        "173",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "159"
+      ]
+    }
+  ],
+  "params": {
+    "lifecycle_weight": 0.1,
+    "gate_weight": 0.5
+  },
+  "metrics": {
+    "hermes": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7407296388022591,
+        0.7725255574260131
+      ]
+    },
+    "pseudo": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7407296388022591,
+        0.7725255574260131
+      ]
+    },
+    "pseudo_global_lifecycle": {
+      "groups": 4480,
+      "frame_auc": 0.6387154458962738,
+      "ndcg": 0.7377050361660169,
+      "future_topk_recall": 0.20145791582777603,
+      "ndcg_ci95": [
+        0.7151874861634153,
+        0.7577205330707555
+      ]
+    },
+    "pseudo_head_lifecycle": {
+      "groups": 4480,
+      "frame_auc": 0.6539503046133618,
+      "ndcg": 0.7554098740181138,
+      "future_topk_recall": 0.21945892181192345,
+      "ndcg_ci95": [
+        0.7366689808555178,
+        0.7730703359465918
+      ]
+    },
+    "pseudo_head_shuffled": {
+      "groups": 4480,
+      "frame_auc": 0.652388095204467,
+      "ndcg": 0.7501058621524747,
+      "future_topk_recall": 0.21210746733637212,
+      "ndcg_ci95": [
+        0.7318078454420608,
+        0.7656442120016568
+      ]
+    },
+    "pseudo_head_reversed": {
+      "groups": 4480,
+      "frame_auc": 0.6388265446719313,
+      "ndcg": 0.7551951227403738,
+      "future_topk_recall": 0.22650298186306175,
+      "ndcg_ci95": [
+        0.7370103149342707,
+        0.7747331491063268
+      ]
+    },
+    "pseudo_future_gate": {
+      "groups": 4480,
+      "frame_auc": 0.6522280932117321,
+      "ndcg": 0.7485903765080815,
+      "future_topk_recall": 0.2111775785402724,
+      "ndcg_ci95": [
+        0.7271021797284651,
+        0.7674820722961477
+      ]
+    }
+  },
+  "paired_ndcg_deltas": {
+    "hermes_minus_pseudo": {
+      "ndcg_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pseudo_global_lifecycle_minus_pseudo": {
+      "ndcg_delta": -0.01990156192407133,
+      "ci95": [
+        -0.02665082157079946,
+        -0.012177188433060144
+      ]
+    },
+    "pseudo_head_lifecycle_minus_pseudo": {
+      "ndcg_delta": -0.002196724071974465,
+      "ci95": [
+        -0.008613579927981396,
+        0.005316794508785305
+      ]
+    },
+    "pseudo_head_shuffled_minus_pseudo": {
+      "ndcg_delta": -0.0075007359376135785,
+      "ci95": [
+        -0.011602510147831063,
+        -0.002646709678130877
+      ]
+    },
+    "pseudo_head_reversed_minus_pseudo": {
+      "ndcg_delta": -0.0024114753497144203,
+      "ci95": [
+        -0.010183445696305813,
+        0.012374821291800123
+      ]
+    },
+    "pseudo_future_gate_minus_pseudo": {
+      "ndcg_delta": -0.009016221582006767,
+      "ci95": [
+        -0.015040847333669258,
+        -0.0020963679742304403
+      ]
+    }
+  }
+}

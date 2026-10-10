@@ -1,0 +1,7 @@
+DERIVED EVALUATION SUMMARY — concatenated completed, disjoint historical shards
+Original per-shard CSV/report files are preserved under source_runs/.
+#Samples: 754
+Average qa_acc: 67.11
+Correct predictions: 506
+Videos: 150
+No questions were deduplicated; source row order is preserved.

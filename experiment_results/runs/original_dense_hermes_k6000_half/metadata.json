@@ -1,0 +1,83 @@
+{
+  "id": "original_dense_hermes_k6000_half",
+  "label": "Original dense HERMES",
+  "method": "original_dense_hermes",
+  "budget": 6000,
+  "split": "half250",
+  "canvas": 0,
+  "comparison_group": "native_k6000_half",
+  "notes": [
+    "Original prediction remains in 1_0.csv rather than results.csv, but contains all1255 expected QA and matches saved evaluation report.",
+    "core dense HERMES path and nominal K6000 native preprocessing; result produced by older source revision, not byte-identical runtime certification"
+  ],
+  "questions": 1255,
+  "videos": 250,
+  "correct": 928,
+  "accuracy_percent": 73.94422310756971,
+  "model": "Qwen2.5-VL-7B-Instruct",
+  "sample_fps": 0.5,
+  "prediction_file": "runs/original_dense_hermes_k6000_half/results.csv",
+  "evaluation_file": "runs/original_dense_hermes_k6000_half/eval_results.txt",
+  "derived_from_shards": false,
+  "source_parts": [
+    {
+      "prediction": "runs/original_dense_hermes_k6000_half/results.csv",
+      "evaluation": "runs/original_dense_hermes_k6000_half/eval_results.txt"
+    }
+  ],
+  "annotation_reference": "data/streamingbench/streamingbench_realtime_half.json",
+  "annotation_sha256": "343087d65c9b3f9532f122f31df9a942c59bec2e4d9021a9502e011e00b6f617",
+  "ordered_qa_identity_sha256": "535c23b6aa004ed4b4d9d20990c9b902933aaa18a9e3fa8885e1896f2b2d8df3",
+  "questions_choices_answers_and_order_match_annotation": true,
+  "predictions_sha256": "72b9699b3bf041c541f88318d85bc6dabeaf01506e8bbf597627ba10760962bf",
+  "original_repeated_qa_occurrences_preserved": true,
+  "configuration_audit": {
+    "id": "original_dense_hermes_k6000_half",
+    "model": "qwen2.5_vl_7b",
+    "sample_fps": 0.5,
+    "annotation_reference": "data/streamingbench/streamingbench_realtime_half.json",
+    "prediction_shards": [
+      {
+        "prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-half/1_0.csv",
+        "absolute_prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-half/1_0.csv",
+        "evaluation_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-half/eval_results.txt",
+        "rows": 1255,
+        "videos": 250,
+        "correct": 928,
+        "accuracy_percent": 73.94422310756973,
+        "report_sample_count": 1255,
+        "report_accuracy_percent": 73.94,
+        "report_matches_csv": true,
+        "sha256": "72b9699b3bf041c541f88318d85bc6dabeaf01506e8bbf597627ba10760962bf",
+        "all_task_specific_report_counts_and_accuracies_match": true
+      }
+    ],
+    "rows": 1255,
+    "videos": 250,
+    "unique_qa_by_video_and_source_question_index": 1255,
+    "unique_video_question_text": 1046,
+    "source_questions_choices_answers_order_match": true,
+    "all_videos_have_complete_question_sequence": true,
+    "qa_identity_sha256": "dae6c8ac8f9b778d22068688a9a5d50902b25b2a040a0565aaa941d7a6faf48d",
+    "correct": 928,
+    "accuracy_percent": 73.94422310756973,
+    "method": "original_dense_hermes",
+    "budget": 6000,
+    "canvas": 0,
+    "split": "half250",
+    "portable_protocol": "hermes",
+    "portable_match": "core dense HERMES path and nominal K6000 native preprocessing; result produced by older source revision, not byte-identical runtime certification",
+    "comparison_group": "native_k6000_half",
+    "config_evidence": [
+      "logs/half_run.log"
+    ],
+    "runtime_options": {
+      "kv_head_ragged_prefill": false,
+      "kv_head_budget_scores": null,
+      "fixed_frame_canvas_size": 0
+    },
+    "visual_slots": 672000,
+    "caveat": "Original prediction remains in 1_0.csv rather than results.csv, but contains all1255 expected QA and matches saved evaluation report.",
+    "historical_command_caveat": "The current scripts/run_sb_hermes.sh now targets a full rerun; it is not evidence for the exact archived half command. Historical source/environment were not fully frozen."
+  }
+}

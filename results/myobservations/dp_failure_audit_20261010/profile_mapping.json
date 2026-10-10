@@ -1,0 +1,71 @@
+{
+  "100": {
+    "capacity_sum": 11200,
+    "heads_at_floor": 70,
+    "heads_at_cap": 28,
+    "recent_below32": 74,
+    "zero_MAD_layers": [
+      3,
+      9,
+      21,
+      22,
+      23,
+      24,
+      26,
+      27
+    ],
+    "zero_MAD_layers_with_distinct_profiles": [
+      21,
+      22,
+      23,
+      26
+    ],
+    "heads_both_parameters_unchanged": 53,
+    "runtime_budget_roundtrip_max_abs_error": 0
+  },
+  "250": {
+    "capacity_sum": 28000,
+    "heads_at_floor": 59,
+    "heads_at_cap": 25,
+    "recent_below32": 44,
+    "zero_MAD_layers": [
+      2,
+      3
+    ],
+    "zero_MAD_layers_with_distinct_profiles": [
+      2,
+      3
+    ],
+    "heads_both_parameters_unchanged": 39,
+    "runtime_budget_roundtrip_max_abs_error": 0
+  },
+  "500": {
+    "capacity_sum": 56000,
+    "heads_at_floor": 63,
+    "heads_at_cap": 21,
+    "recent_below32": 25,
+    "zero_MAD_layers": [],
+    "zero_MAD_layers_with_distinct_profiles": [],
+    "heads_both_parameters_unchanged": 35,
+    "runtime_budget_roundtrip_max_abs_error": 0
+  },
+  "1000": {
+    "capacity_sum": 112000,
+    "heads_at_floor": 60,
+    "heads_at_cap": 20,
+    "recent_below32": 16,
+    "zero_MAD_layers": [
+      1,
+      3,
+      26,
+      27
+    ],
+    "zero_MAD_layers_with_distinct_profiles": [
+      3,
+      26,
+      27
+    ],
+    "heads_both_parameters_unchanged": 42,
+    "runtime_budget_roundtrip_max_abs_error": 0
+  }
+}

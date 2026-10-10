@@ -1,0 +1,230 @@
+[
+  {
+    "video_id": 18,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_58_real.mp4",
+    "conversations": [
+      {
+        "question": "What are the hands doing right now?",
+        "answer": "Rotating a decorative paper wreath.",
+        "choices": [
+          "Arranging flowers on a table.",
+          "Rotating a decorative paper wreath.",
+          "Painting a wreath.",
+          "Holding a black screen."
+        ],
+        "end_time": 8.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:00:08",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the machine doing right now?",
+        "answer": "Initiating a new cutting sequence.",
+        "choices": [
+          "Pausing the cutting process.",
+          "Initiating a new cutting sequence.",
+          "Moving the cutting mat.",
+          "Changing the blade."
+        ],
+        "end_time": 138.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:02:18",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What are the hands doing right now?",
+        "answer": "Adding dimension by scoring the red petals.",
+        "choices": [
+          "Assembling cream-colored paper petals together.",
+          "Adding dimension by scoring the red petals.",
+          "Sorting finished cream-colored flowers.",
+          "Disposing of unwanted petals."
+        ],
+        "end_time": 260.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:04:20",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What are the person's hands doing right now?",
+        "answer": "Placing a finished flower with others.",
+        "choices": [
+          "Cutting paper into flower shapes.",
+          "Placing a finished flower with others.",
+          "Assembling a new set of flower petals.",
+          "Drawing a design on the cutting mat."
+        ],
+        "end_time": 362.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:06:02",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What are the person's hands doing right now?",
+        "answer": "Rearranging flowers and leaves on the wreath.",
+        "choices": [
+          "Spraying water on the flowers.",
+          "Rearranging flowers and leaves on the wreath.",
+          "Cutting the flowers with scissors.",
+          "Painting the flowers on the wreath."
+        ],
+        "end_time": 502.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:08:22",
+        "required_ability": "working memory"
+      }
+    ]
+  },
+  {
+    "video_id": 129,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_242_real.mp4",
+    "conversations": [
+      {
+        "question": "Why is the teddy bear seen flying in the toy plane in the sky?",
+        "answer": "Because Mr. Bean uses a remote control to operate the toy plane.",
+        "choices": [
+          "Because someone threw the teddy bear.",
+          "Because the wind carried the teddy bear.",
+          "Because Mr. Bean uses a remote control to operate the toy plane.",
+          "Because the teddy bear has wings."
+        ],
+        "end_time": 24.0,
+        "task": "Causal Reasoning",
+        "time_stamp": "00:00:24",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "Why does Mr.Bean climb the tree?",
+        "answer": "Because Mr.Bean wants to retrieve the toy stuck in the tree.",
+        "choices": [
+          "Because Mr.Bean wants to retrieve the toy stuck in the tree.",
+          "Because Mr.Bean wants to collect leaves from the tree.",
+          "Because Mr.Bean wants a better view from the top of the tree.",
+          "Because Mr.Bean is practicing climbing skills."
+        ],
+        "end_time": 144.0,
+        "task": "Causal Reasoning",
+        "time_stamp": "0:02:24",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "Why are the books stacked on the floor?",
+        "answer": "As a step for the bird to walk down from the table.",
+        "choices": [
+          "Because there was no more space on the shelves.",
+          "As a step for the bird to walk down from the table.",
+          "Because the books were being sorted for donation.",
+          "Because they were recently used and not yet put away."
+        ],
+        "end_time": 253.0,
+        "task": "Causal Reasoning",
+        "time_stamp": "0:04:13",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "Why does the bird fly out of the window with an item?",
+        "answer": "Because this item is very precious, the bird wants to steal it away.",
+        "choices": [
+          "Because the bird is building a nest and needs materials.",
+          "Because the bird is curious and wants to explore outside.",
+          "Because the bird is attracted to shiny objects.",
+          "Because this item is very precious, the bird wants to steal it away."
+        ],
+        "end_time": 413.0,
+        "task": "Causal Reasoning",
+        "time_stamp": "0:06:53",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "Where did Mr. Bean get all this gold from?",
+        "answer": "The bird kept by Mr. Bean stole from the old lady's house.",
+        "choices": [
+          "Mr. Bean won it in a lottery.",
+          "Mr. Bean found it buried in his backyard.",
+          "The bird kept by Mr. Bean stole from the old lady's house.",
+          "Mr. Bean inherited it from a distant relative."
+        ],
+        "end_time": 487.0,
+        "task": "Causal Reasoning",
+        "time_stamp": "0:08:07",
+        "required_ability": "episodic memory"
+      }
+    ]
+  },
+  {
+    "video_id": 237,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_79_real.mp4",
+    "conversations": [
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "0.",
+        "choices": [
+          "2.",
+          "3.",
+          "0.",
+          "4."
+        ],
+        "end_time": 18.0,
+        "task": "Counting",
+        "time_stamp": "00:00:18",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "2.",
+        "choices": [
+          "3.",
+          "4.",
+          "2.",
+          "0."
+        ],
+        "end_time": 185.0,
+        "task": "Counting",
+        "time_stamp": "00:03:05",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "3.",
+        "choices": [
+          "5.",
+          "6.",
+          "3.",
+          "4."
+        ],
+        "end_time": 242.0,
+        "task": "Counting",
+        "time_stamp": "00:04:02",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "3.",
+        "choices": [
+          "2.",
+          "5.",
+          "3.",
+          "4."
+        ],
+        "end_time": 301.0,
+        "task": "Counting",
+        "time_stamp": "00:05:01",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "4.",
+        "choices": [
+          "2.",
+          "3.",
+          "4.",
+          "5."
+        ],
+        "end_time": 333.0,
+        "task": "Counting",
+        "time_stamp": "00:05:33",
+        "required_ability": "episodic memory"
+      }
+    ]
+  }
+]

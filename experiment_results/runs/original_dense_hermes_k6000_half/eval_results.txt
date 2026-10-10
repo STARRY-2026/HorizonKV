@@ -1,0 +1,23 @@
+============================================================
+EVALUATION RESULTS (StreamingBench)
+============================================================
+#Samples: 1255
+Average qa_acc: 73.94
+save_dir: results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-half
+
+============================================================
+TASK-SPECIFIC ACCURACY (StreamingBench)
+============================================================
+Action Recognition: 72.95% (n=207)
+Attribute Recognition: 88.04% (n=92)
+Object Recognition: 77.07% (n=157)
+Spatial Understanding: 73.94% (n=142)
+Event Understanding: 75.34% (n=73)
+Text-Rich Understanding: 82.01% (n=139)
+Counting: 51.10% (n=182)
+Causal Reasoning: 73.95% (n=119)
+Clips Summarize: 94.87% (n=39)
+Prospective Reasoning: 79.05% (n=105)
+============================================================
+
+%Errors: 0.00

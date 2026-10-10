@@ -1,0 +1,762 @@
+[
+  {
+    "video_id": 103,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_73_real.mp4",
+    "conversations": [
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "2.",
+        "choices": [
+          "2.",
+          "3.",
+          "4.",
+          "0."
+        ],
+        "end_time": 192.0,
+        "task": "Counting",
+        "time_stamp": "00:03:12",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "4.",
+        "choices": [
+          "1.",
+          "4.",
+          "2.",
+          "0."
+        ],
+        "end_time": 271.0,
+        "task": "Counting",
+        "time_stamp": "00:04:31",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "5.",
+        "choices": [
+          "1.",
+          "3.",
+          "2.",
+          "5."
+        ],
+        "end_time": 318.0,
+        "task": "Counting",
+        "time_stamp": "00:05:18",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "7.",
+        "choices": [
+          "1.",
+          "3.",
+          "7.",
+          "5."
+        ],
+        "end_time": 438.0,
+        "task": "Counting",
+        "time_stamp": "00:07:18",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How many times in total have movie clips been inserted during this person's explanation so far?",
+        "answer": "11.",
+        "choices": [
+          "10.",
+          "11.",
+          "9.",
+          "12."
+        ],
+        "end_time": 741.0,
+        "task": "Counting",
+        "time_stamp": "00:12:21",
+        "required_ability": "episodic memory"
+      }
+    ]
+  },
+  {
+    "video_id": 106,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_126_real.mp4",
+    "conversations": [
+      {
+        "question": "What is the artist doing with the gold leaf in the video?",
+        "answer": "Applying it to a painted surface.",
+        "choices": [
+          "Applying it to a painted surface.",
+          "Cutting it into smaller pieces.",
+          "Mixing it with paint.",
+          "Discarding it."
+        ],
+        "end_time": 8.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:00:08",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the sequence of actions just performed by the artist?",
+        "answer": "Painting the nose, then the cheek, followed by the forehead.",
+        "choices": [
+          "Painting the background, then the nose, followed by the cheek, and finally the forehead.",
+          "Painting the nose, then the cheek, followed by the forehead.",
+          "Painting the forehead, then the nose, followed by the cheek.",
+          "Painting the cheek, then the forehead, followed by the nose."
+        ],
+        "end_time": 180.0,
+        "task": "Event Understanding",
+        "time_stamp": "00:03:00",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What did the artist do just now?",
+        "answer": "Applying meticulous strokes to the ear area.",
+        "choices": [
+          "Sketching the ear.",
+          "Applying meticulous strokes to the ear area.",
+          "Cleaning the paintbrush.",
+          "Painting the background."
+        ],
+        "end_time": 338.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:05:38",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "Where are the other brushes and pencils located in relation to the artwork?",
+        "answer": "Scattered around the artwork on the table.",
+        "choices": [
+          "On a shelf above the artwork.",
+          "Scattered around the artwork on the table.",
+          "Inside a drawer next to the table.",
+          "Held in the artist's other hand."
+        ],
+        "end_time": 490.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:08:10",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "Which of the following best summarizes the painting shown in the video?",
+        "answer": "A detailed illustration of a woman's profile with leaves in her hair being painted.",
+        "choices": [
+          "A detailed painting of a woman with blonde hair on a dark blue background with a full moon and clouds.",
+          "A landscape painting with mountains and rivers.",
+          "A detailed illustration of a woman's profile with leaves in her hair being painted.",
+          "A close-up portrait of an elderly man."
+        ],
+        "end_time": 500.0,
+        "task": "Clips Summarize",
+        "time_stamp": "00:08:20",
+        "required_ability": "episodic memory"
+      }
+    ]
+  },
+  {
+    "video_id": 107,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_64_real.mp4",
+    "conversations": [
+      {
+        "question": "What are the hands doing right now?",
+        "answer": "Placing the keychain into the packaging.",
+        "choices": [
+          "Writing the name \"Alli\" on a keychain.",
+          "Holding the box closed.",
+          "Removing the keychain from the packaging.",
+          "Placing the keychain into the packaging."
+        ],
+        "end_time": 16.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:00:16",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the person doing right now?",
+        "answer": "Pressing down a transparent plastic sheet.",
+        "choices": [
+          "Picking up a light pink cardboard piece.",
+          "Applying adhesive to a cardboard piece.",
+          "Pressing down a transparent plastic sheet.",
+          "Holding a cylindrical bottle."
+        ],
+        "end_time": 117.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:01:57",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the cursor doing right now?",
+        "answer": "Selecting multiple icons.",
+        "choices": [
+          "Clicking the \"Undo\" button.",
+          "Selecting multiple icons.",
+          "Opening a subfolder.",
+          "Deleting a document."
+        ],
+        "end_time": 224.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:03:44",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What did the cursor indicate just now?",
+        "answer": "Moving to the Layers panel on the right.",
+        "choices": [
+          "Selecting shapes on the canvas.",
+          "Displaying a pop-up menu.",
+          "Moving to the Layers panel on the right.",
+          "Highlighting text input fields."
+        ],
+        "end_time": 309.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:05:09",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What action did the user perform just now?",
+        "answer": "Chose the \"Medium Cardstock - 80 lb (216 gsm)\" as the base material.",
+        "choices": [
+          "Selected the \"Score\" tool.",
+          "Added a new shape to the design.",
+          "Chose the \"Medium Cardstock - 80 lb (216 gsm)\" as the base material.",
+          "Connected the Maker 3."
+        ],
+        "end_time": 420.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:07:00",
+        "required_ability": "episodic memory"
+      }
+    ]
+  },
+  {
+    "video_id": 109,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_54_real.mp4",
+    "conversations": [
+      {
+        "question": "What are the hands doing right now?",
+        "answer": "Holding and adjusting a mask.",
+        "choices": [
+          "Painting the ornament.",
+          "Hanging the ornament on a tree.",
+          "Mixing resin components.",
+          "Holding and adjusting a mask."
+        ],
+        "end_time": 19.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:00:19",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the gloved hand doing right now?",
+        "answer": "Pouring resin with pink mica into the white circular object.",
+        "choices": [
+          "Shaking a beaker filled with golden liquid.",
+          "Stirring the resin with a wooden stick.",
+          "Holding a pair of tweezers.",
+          "Pouring resin with pink mica into the white circular object."
+        ],
+        "end_time": 113.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:01:53",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What did the right hand do just now?",
+        "answer": "Steadily moved the stick to distribute the resin.",
+        "choices": [
+          "Adjusted the position of the ornament.",
+          "Lifted the ornament to inspect it.",
+          "Held the ornament securely.",
+          "Steadily moved the stick to distribute the resin."
+        ],
+        "end_time": 209.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:03:29",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "How is the glittery substance being applied to the circular object right now?",
+        "answer": "Spreading it with a wooden stick.",
+        "choices": [
+          "Using a paintbrush.",
+          "Pouring it directly from the cup.",
+          "Applying it with fingers.",
+          "Spreading it with a wooden stick."
+        ],
+        "end_time": 310.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:05:10",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the person doing right now?",
+        "answer": "Giving the string one final tug to secure it.",
+        "choices": [
+          "Placing the ornament on the mat.",
+          "Peeling off tape from the ornament.",
+          "Tying a knot in the string attached to the ornament.",
+          "Giving the string one final tug to secure it."
+        ],
+        "end_time": 407.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:06:47",
+        "required_ability": "working memory"
+      }
+    ]
+  },
+  {
+    "video_id": 110,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_69_real.mp4",
+    "conversations": [
+      {
+        "question": "What was held up close to the camera right now?",
+        "answer": "Two Christmas ornaments.",
+        "choices": [
+          "Two Christmas ornaments.",
+          "A pair of painted canvases.",
+          "A set of colorful ribbons.",
+          "Two Christmas cards."
+        ],
+        "end_time": 9.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:00:09",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What did the right hand do just now?",
+        "answer": "Picked up shaked and the transparent plastic sphere.",
+        "choices": [
+          "Picked up the blue paint tube.",
+          "Picked up shaked and the transparent plastic sphere.",
+          "Squeezed the white paint tube.",
+          "Put down the green paint tube."
+        ],
+        "end_time": 79.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:01:19",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What is the person doing right now?",
+        "answer": "Wiping the sphere's surface.",
+        "choices": [
+          "Painting the sphere.",
+          "Wiping the sphere's surface.",
+          "Mixing paint colors.",
+          "Discarding the paint tubes."
+        ],
+        "end_time": 144.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:02:24",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the person doing right now?",
+        "answer": "Lift the bauble to show the paint inside.",
+        "choices": [
+          "Add blue-green paint to the bauble.",
+          "Squeeze more black paint into the bauble.",
+          "Lift the bauble to show the paint inside.",
+          "Clean the paint tubes."
+        ],
+        "end_time": 195.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:03:15",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What are the hands doing right now?",
+        "answer": "Rotating the ornament to reveal different perspectives.",
+        "choices": [
+          "Applying paint to the ornament.",
+          "Rotating the ornament to reveal different perspectives.",
+          "Placing the ornament back on the towel.",
+          "Cleaning the paint tubes."
+        ],
+        "end_time": 233.0,
+        "task": "Action Recognition",
+        "time_stamp": "00:03:53",
+        "required_ability": "working memory"
+      }
+    ]
+  },
+  {
+    "video_id": 112,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_122_real.mp4",
+    "conversations": [
+      {
+        "question": "What text is prominently shown on the packaging of the darker graphics card right now?",
+        "answer": "INSPIRED BY GAMERS. BUILT BY NVIDIA.",
+        "choices": [
+          "DESIGNED BY GAMERS, BUILT BY NVIDIA.",
+          "CREATED BY GAMERS, DEVELOPED BY NVIDIA.",
+          "INSPIRED BY GAMERS. BUILT BY NVIDIA.",
+          "ENGINEERED BY GAMERS, MADE BY NVIDIA."
+        ],
+        "end_time": 15.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:00:15",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What titles are not listed on the comparison chart shown right now?",
+        "answer": "GTA V.",
+        "choices": [
+          "GTA V.",
+          "Shadow of the Tomb Raider.",
+          "Forza Horizon 5.",
+          "God of War."
+        ],
+        "end_time": 96.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:01:36",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the brand name of the graphics card shown right now?",
+        "answer": "AMD.",
+        "choices": [
+          "NVIDIA.",
+          "GE FORCE.",
+          "AMD.",
+          "RADEON."
+        ],
+        "end_time": 180.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:03:00",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the design feature of the graphics card on the right right now?",
+        "answer": "It has three fans with a geometric, aggressive design.",
+        "choices": [
+          "It has dual fans with a sleek design.",
+          "It has three fans with a geometric, aggressive design.",
+          "It features a single large fan in the center.",
+          "It is completely fanless with a passive cooling system."
+        ],
+        "end_time": 251.0,
+        "task": "Attribute Recognition",
+        "time_stamp": "00:04:11",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "How many fans does the graphics card on the right have right now?",
+        "answer": "Three.",
+        "choices": [
+          "One.",
+          "Two.",
+          "Three.",
+          "Four."
+        ],
+        "end_time": 286.0,
+        "task": "Counting",
+        "time_stamp": "00:04:46",
+        "required_ability": "working memory"
+      }
+    ]
+  },
+  {
+    "video_id": 115,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_151_real.mp4",
+    "conversations": [
+      {
+        "question": "What is the woman in the white dress doing when the scene transitions?",
+        "answer": "Getting her hair styled by another person.",
+        "choices": [
+          "Dancing.",
+          "Styling another person's hair.",
+          "Getting her hair styled by another person.",
+          "Eating."
+        ],
+        "end_time": 10.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:00:10",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the color of the undershirt worn by the woman on the left?",
+        "answer": "White.",
+        "choices": [
+          "Black.",
+          "White.",
+          "Red.",
+          "Blue."
+        ],
+        "end_time": 115.0,
+        "task": "Attribute Recognition",
+        "time_stamp": "00:01:55",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What activity are the two women primarily engaged in?",
+        "answer": "Dressing.",
+        "choices": [
+          "Cooking.",
+          "Cleaning.",
+          "Dressing.",
+          "Sewing."
+        ],
+        "end_time": 120.0,
+        "task": "Event Understanding",
+        "time_stamp": "00:02:00",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What color is the assistant's dress?",
+        "answer": "Red and white.",
+        "choices": [
+          "Blue and red.",
+          "Red and white.",
+          "Green and red.",
+          "Purple and white."
+        ],
+        "end_time": 206.0,
+        "task": "Attribute Recognition",
+        "time_stamp": "0:03:26",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is the man with medium-length, curly, white hair wearing?",
+        "answer": "A black top with a white neckline.",
+        "choices": [
+          "A white top with a black neckline.",
+          "A black top with a white neckline.",
+          "A dark robe with yellow-gold sleeves.",
+          "A dress with intricate gold stitching."
+        ],
+        "end_time": 319.0,
+        "task": "Object Recognition",
+        "time_stamp": "00:05:19",
+        "required_ability": "working memory"
+      }
+    ]
+  },
+  {
+    "video_id": 117,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_172_real.mp4",
+    "conversations": [
+      {
+        "question": "What is located on the right side of the cyclist right now?",
+        "answer": "A row of flags.",
+        "choices": [
+          "A supermarket entrance.",
+          "A row of flags.",
+          "A bus stop.",
+          "A park."
+        ],
+        "end_time": 14.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:00:14",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What structure is located straight ahead on the right side of the road, visible right now?",
+        "answer": "A billboard.",
+        "choices": [
+          "A bridge.",
+          "A gym.",
+          "A billboard.",
+          "A roundabout."
+        ],
+        "end_time": 141.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:02:21",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What is located on the right side of the road right now?",
+        "answer": "A series of road signs.",
+        "choices": [
+          "A series of road signs.",
+          "A parked car.",
+          "A bus stop.",
+          "A pedestrian crossing."
+        ],
+        "end_time": 263.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:04:23",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "Where is the cyclist right now?",
+        "answer": "On a straight road.",
+        "choices": [
+          "Turning a corner.",
+          "Going uphill.",
+          "On a straight road.",
+          "About to reach a roundabout."
+        ],
+        "end_time": 374.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:06:14",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "Where is the big red truck?",
+        "answer": "On the left side of the cyclist.",
+        "choices": [
+          "On the left side of the cyclist.",
+          "Behind the cyclist, on the right.",
+          "On the right side of the main path.",
+          "Ahead, to the left."
+        ],
+        "end_time": 560.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:09:20",
+        "required_ability": "working memory"
+      }
+    ]
+  },
+  {
+    "video_id": 118,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_209_real.mp4",
+    "conversations": [
+      {
+        "question": "What happens after the first green block is placed on the yellow block?",
+        "answer": "The hand adds another green block.",
+        "choices": [
+          "The hand removes the green block.",
+          "The hand moves away and does nothing.",
+          "The hand removes the yellow block.",
+          "The hand adds another green block."
+        ],
+        "end_time": 25.0,
+        "task": "Event Understanding",
+        "time_stamp": "00:00:25",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What action do the hands perform just before moving away from the structure?",
+        "answer": "Pressing down the green blocks.",
+        "choices": [
+          "Adding a yellow block.",
+          "Adding a blue block.",
+          "Adjusting the blue block.",
+          "Pressing down the green blocks."
+        ],
+        "end_time": 118.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:01:58",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "What sequence of actions occured with the green and yellow blocks just now?",
+        "answer": "The green block is placed first, followed by the yellow block.",
+        "choices": [
+          "The green block is placed first, followed by the yellow block.",
+          "The yellow block is placed first, followed by the green block.",
+          "The green block is removed, then the yellow block is placed.",
+          "The yellow block is adjusted, then the green block is placed."
+        ],
+        "end_time": 210.0,
+        "task": "Event Understanding",
+        "time_stamp": "00:03:30",
+        "required_ability": "episodic memory"
+      },
+      {
+        "question": "Where is the new yellow and green block placed relative to the original structure?",
+        "answer": "In front of the original structure.",
+        "choices": [
+          "Behind the original structure.",
+          "Next to the original structure.",
+          "On top of the original structure.",
+          "In front of the original structure."
+        ],
+        "end_time": 212.0,
+        "task": "Spatial Understanding",
+        "time_stamp": "00:03:32",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What did the person do with the yellow block just now?",
+        "answer": "Placed them above the green block and another yellow block.",
+        "choices": [
+          "Removed them from the structure.",
+          "Arranged them on the blue block and adjusted for alignment.",
+          "Stacked them on top of the blue blocks.",
+          "Placed them above the green block and another yellow block."
+        ],
+        "end_time": 315.0,
+        "task": "Action Recognition",
+        "time_stamp": "0:05:15",
+        "required_ability": "episodic memory"
+      }
+    ]
+  },
+  {
+    "video_id": 121,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_106_real.mp4",
+    "conversations": [
+      {
+        "question": "What is the boost clock speed of the RTX 4090 right now?",
+        "answer": "2520 MHz.",
+        "choices": [
+          "1665 MHz.",
+          "1695 MHz.",
+          "2520 MHz.",
+          "2505 MHz."
+        ],
+        "end_time": 20.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:00:20",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "Which performance metrics are being shown right now?",
+        "answer": "CPU clock, CPU Usage, VRAM Usage, GPU Power, GPU Temp, and FPS for 4070TiS.",
+        "choices": [
+          "CPU benchmarks for various processors.",
+          "FPS results for different games.",
+          "CPU clock, CPU Usage, VRAM Usage, GPU Power, GPU Temp, and FPS for 4070TiS.",
+          "RAM speed metrics for different memory types."
+        ],
+        "end_time": 220.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:03:40",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "Which graphics card is labeled in green in the performance comparison right now?",
+        "answer": "RTX 4070 Ti SUPER.",
+        "choices": [
+          "RTX 3060 Ti.",
+          "RTX 4060 Ti.",
+          "RTX 4070 Ti SUPER.",
+          "RTX 2070."
+        ],
+        "end_time": 419.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:06:59",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "Which GPU shows the best performance for \"SDXL(512x512)\" right now?",
+        "answer": "RTX 4080.",
+        "choices": [
+          "RTX 4070.",
+          "RTX 4070 Ti.",
+          "RTX 4080.",
+          "SD1.5(512x512)."
+        ],
+        "end_time": 620.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:10:20",
+        "required_ability": "working memory"
+      },
+      {
+        "question": "What emojis are currently displayed around the man and the graphics card?",
+        "answer": "\"like,\" \"insert coins,\" \"favorite,\" and \"share\".",
+        "choices": [
+          "\"like,\" \"comment,\" \"follow,\" and \"share\".",
+          "\"like,\" \"save,\" \"comment,\" and \"share\".",
+          "\"like,\" \"insert coins,\" \"favorite,\" and \"share\".",
+          "\"like,\" \"comment,\" \"subscribe,\" and \"share\"."
+        ],
+        "end_time": 763.0,
+        "task": "Text-Rich Understanding",
+        "time_stamp": "00:12:43",
+        "required_ability": "working memory"
+      }
+    ]
+  }
+]

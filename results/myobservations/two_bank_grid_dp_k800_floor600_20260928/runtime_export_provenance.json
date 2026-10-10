@@ -1,0 +1,42 @@
+{
+  "generator": "tools/export_frozen_dp_profiles.py --write-k800",
+  "formula": "score = capacity_n - (int((K-32)*0.2)+32); recent_ratio=recent_r/capacity_n",
+  "note": "K800 derived from frozen allocation; no new DP fit or inference has been performed.",
+  "cross_checks": [
+    {
+      "budget": 100,
+      "source": "results/myobservations/two_bank_grid_dp_k100_floor75_20260929/per_head_allocation.csv",
+      "source_sha256": "2f7359332cb81c7fc359af5948cdb924c456c375c2ce1f514ecc4d0c4eaa8a39",
+      "exact_runtime_total": 11200,
+      "historical_export_matches": true
+    },
+    {
+      "budget": 250,
+      "source": "results/myobservations/two_bank_grid_dp_k250_floor188_20260923/per_head_allocation.csv",
+      "source_sha256": "5cf9b4708bb4b900472f65b899cea9efe25426bf06c689b0a942d5a556328911",
+      "exact_runtime_total": 28000,
+      "historical_export_matches": true
+    },
+    {
+      "budget": 500,
+      "source": "results/myobservations/two_bank_grid_dp_k500_floor375_20260925/per_head_allocation.csv",
+      "source_sha256": "fa164606d409a30acda7a6c881a9af24a2e956d7d494ff0417fc03aa90acff84",
+      "exact_runtime_total": 56000,
+      "historical_export_matches": true
+    },
+    {
+      "budget": 800,
+      "source": "results/myobservations/two_bank_grid_dp_k800_floor600_20260928/per_head_allocation.csv",
+      "source_sha256": "874ba71a3609ac949585911714d3a8540c7c334640e9ce5058989d86af5f0b1c",
+      "exact_runtime_total": 89600,
+      "historical_export_matches": false
+    },
+    {
+      "budget": 1000,
+      "source": "results/myobservations/two_bank_grid_dp_floor750_20260923/per_head_allocation.csv",
+      "source_sha256": "64dc6e58bce020c7748cbe9dfde0d4c854ae70ccfd9db8bffdf3801947e1b616",
+      "exact_runtime_total": 112000,
+      "historical_export_matches": true
+    }
+  ]
+}

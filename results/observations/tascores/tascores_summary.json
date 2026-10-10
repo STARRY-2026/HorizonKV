@@ -1,0 +1,41 @@
+{
+  "method": "TAScore",
+  "formula": "score = utility^\u03b1 \u00d7 selectivity^\u03b2 \u00d7 boundary_penalty^\u03b3",
+  "alpha": 1.0,
+  "beta": 0.5,
+  "gamma": 0.5,
+  "n_clusters": 4,
+  "silhouette_score": 0.3745989726289552,
+  "cluster_types": {
+    "0": "boundary",
+    "1": "boundary",
+    "2": "detail",
+    "3": "diffuse"
+  },
+  "cluster_sizes": {
+    "0": 8,
+    "1": 39,
+    "2": 26,
+    "3": 39
+  },
+  "num_tasks": 4,
+  "task_observation_counts": {
+    "Attribute Recognition": 3360,
+    "Clips Summarize": 3024,
+    "Object Recognition": 1120,
+    "Prospective Reasoning": 1456
+  },
+  "bayesian_shrinkage_min_obs": 20,
+  "outputs": {
+    "task_conditioned_dir": "results/observations/tascores/task_conditioned",
+    "optimistic": "results/observations/tascores/tascores_optimistic.csv",
+    "balanced": "results/observations/tascores/tascores_balanced.csv",
+    "head_types": "results/observations/tascores/head_types.csv",
+    "controls": {
+      "uniform": "results/observations/tascores/tascores_uniform.csv",
+      "inverted": "results/observations/tascores/tascores_inverted.csv",
+      "random": "results/observations/tascores/tascores_random_seed42.csv"
+    },
+    "ablation_dir": "results/observations/tascores/ablation"
+  }
+}

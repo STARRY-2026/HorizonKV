@@ -1,0 +1,91 @@
+{
+  "id": "timestamp_v8_g0_fixed448_k1000_half",
+  "label": "Timestamp v8 (g0)",
+  "method": "timestamp_v8",
+  "budget": 1000,
+  "split": "half250",
+  "canvas": 448,
+  "comparison_group": "fixed448_k1000_half",
+  "notes": [
+    "exact frozen timestamp-v8 K1000 g0 fixed448 protocol"
+  ],
+  "questions": 1255,
+  "videos": 250,
+  "correct": 882,
+  "accuracy_percent": 70.2788844621514,
+  "model": "Qwen2.5-VL-7B-Instruct",
+  "sample_fps": 0.5,
+  "prediction_file": "runs/timestamp_v8_g0_fixed448_k1000_half/results.csv",
+  "evaluation_file": "runs/timestamp_v8_g0_fixed448_k1000_half/eval_results.txt",
+  "derived_from_shards": false,
+  "source_parts": [
+    {
+      "prediction": "runs/timestamp_v8_g0_fixed448_k1000_half/results.csv",
+      "evaluation": "runs/timestamp_v8_g0_fixed448_k1000_half/eval_results.txt"
+    }
+  ],
+  "annotation_reference": "data/streamingbench/streamingbench_realtime_half.json",
+  "annotation_sha256": "343087d65c9b3f9532f122f31df9a942c59bec2e4d9021a9502e011e00b6f617",
+  "ordered_qa_identity_sha256": "535c23b6aa004ed4b4d9d20990c9b902933aaa18a9e3fa8885e1896f2b2d8df3",
+  "questions_choices_answers_and_order_match_annotation": true,
+  "predictions_sha256": "7ffe2d6abdc68a07e8df9fc2d2bcdbc6a114865ec0f56bbbf987f580387d5d93",
+  "original_repeated_qa_occurrences_preserved": true,
+  "configuration_audit": {
+    "id": "timestamp_v8_g0_fixed448_k1000_half",
+    "model": "qwen2.5_vl_7b",
+    "sample_fps": 0.5,
+    "annotation_reference": "data/streamingbench/streamingbench_realtime_half.json",
+    "prediction_shards": [
+      {
+        "prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-timestampv8-v8_budget-g0-ffc448-letterbox-timestamp-v8-nofloor-g0-half-k1000-canvas448/results.csv",
+        "absolute_prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-timestampv8-v8_budget-g0-ffc448-letterbox-timestamp-v8-nofloor-g0-half-k1000-canvas448/results.csv",
+        "evaluation_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-v8_blend3_scores-sparsemm-union1-r0.2-w32-raggedprefill-timestampv8-v8_budget-g0-ffc448-letterbox-timestamp-v8-nofloor-g0-half-k1000-canvas448/eval_results.txt",
+        "rows": 1255,
+        "videos": 250,
+        "correct": 882,
+        "accuracy_percent": 70.2788844621514,
+        "report_sample_count": 1255,
+        "report_accuracy_percent": 70.28,
+        "report_matches_csv": true,
+        "sha256": "7ffe2d6abdc68a07e8df9fc2d2bcdbc6a114865ec0f56bbbf987f580387d5d93",
+        "all_task_specific_report_counts_and_accuracies_match": true
+      }
+    ],
+    "rows": 1255,
+    "videos": 250,
+    "unique_qa_by_video_and_source_question_index": 1255,
+    "unique_video_question_text": 1046,
+    "source_questions_choices_answers_order_match": true,
+    "all_videos_have_complete_question_sequence": true,
+    "qa_identity_sha256": "dae6c8ac8f9b778d22068688a9a5d50902b25b2a040a0565aaa941d7a6faf48d",
+    "correct": 882,
+    "accuracy_percent": 70.2788844621514,
+    "method": "timestamp_v8",
+    "budget": 1000,
+    "canvas": 448,
+    "split": "half250",
+    "portable_protocol": "timestamp-v8",
+    "portable_match": "exact frozen timestamp-v8 K1000 g0 fixed448 protocol",
+    "comparison_group": "fixed448_k1000_half",
+    "config_evidence": [
+      "scripts/run_timestamp_v8_nofloor_g0_half_gpu0.sh",
+      "logs/timestamp_v8_nofloor_g0_half_gpu0.log",
+      "logs/timestamp_v8_nofloor_g0_half_gpu0.status"
+    ],
+    "runtime_options": {
+      "kv_head_ragged_prefill": true,
+      "kv_head_budget_scores": "results/myobservations/relocatev3/v8_blend3_scores.csv",
+      "kv_head_budget_scheme": "sparsemm",
+      "kv_head_budget_sparsemm_ratio": 0.2,
+      "kv_head_budget_sparsemm_window_size": 32,
+      "kv_head_budget_union_cap_ratio": 1.0,
+      "timestamp_v8_policy": "results/myobservations/relocatev3/v8_budget.csv",
+      "timestamp_v8_grace_frames": 0,
+      "kv_head_budget_floor_ratio": 0.0,
+      "fixed_frame_canvas_size": 448,
+      "fixed_frame_pad_mode": "letterbox"
+    },
+    "visual_slots": 112004,
+    "rounding_delta": 4
+  }
+}

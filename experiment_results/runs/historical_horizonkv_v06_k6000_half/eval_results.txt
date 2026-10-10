@@ -1,0 +1,23 @@
+============================================================
+EVALUATION RESULTS (StreamingBench)
+============================================================
+#Samples: 1255
+Average qa_acc: 71.87
+save_dir: results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes-horizonkv-pseudo_trend_memory_budget_6000_qwen_adaptive_recent2691-r2691-g0.9-horizonkv-v06-half
+
+============================================================
+TASK-SPECIFIC ACCURACY (StreamingBench)
+============================================================
+Action Recognition: 71.50% (n=207)
+Attribute Recognition: 82.61% (n=92)
+Object Recognition: 78.98% (n=157)
+Spatial Understanding: 73.94% (n=142)
+Event Understanding: 76.71% (n=73)
+Text-Rich Understanding: 82.01% (n=139)
+Counting: 40.11% (n=182)
+Causal Reasoning: 70.59% (n=119)
+Clips Summarize: 94.87% (n=39)
+Prospective Reasoning: 80.95% (n=105)
+============================================================
+
+%Errors: 0.00

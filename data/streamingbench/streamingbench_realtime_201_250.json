@@ -1,0 +1,3802 @@
+[
+    {
+        "video_id": 3,
+        "video_path": "/data/streamingbench/videos/sample_221_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to calculate perimeter.",
+                "choices": [
+                    "The area of different shapes.",
+                    "How to measure the diameter.",
+                    "The concept of length in 2-dimensional shapes.",
+                    "How to calculate perimeter."
+                ],
+                "end_time": 11.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What will the speaker most likely explain next?",
+                "answer": "How to calculate the perimeter of the shape.",
+                "choices": [
+                    "How to calculate the perimeter of the shape.",
+                    "How to convert meters into centimeters.",
+                    "The differences between perimeter and area.",
+                    "How to measure the perimeter accurately."
+                ],
+                "end_time": 133.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:13",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to find the perimeter of a rectangle.",
+                "choices": [
+                    "How to calculate the area of the rectangle.",
+                    "How to find the perimeter of a rectangle.",
+                    "How to label the units.",
+                    "How to measure with a ruler."
+                ],
+                "end_time": 213.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:33",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to calculate the perimeter of any regular polygon.",
+                "choices": [
+                    "How to calculate the perimeter of any regular polygon.",
+                    "The significance of repeated addition.",
+                    "The properties of regular polygons.",
+                    "The importance of perimeter in geometry."
+                ],
+                "end_time": 306.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:06",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker ask the students to do next?",
+                "answer": "Determine the perimeter of the shape.",
+                "choices": [
+                    "Calculate the area of the shape.",
+                    "Determine the perimeter of the shape.",
+                    "Measure each side length.",
+                    "Convert the measurements to centimeters."
+                ],
+                "end_time": 392.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:32",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 23,
+        "video_path": "/data/streamingbench/videos/sample_240_real.mp4",
+        "conversations": [
+            {
+                "question": "Where does this letter on the ground come from?",
+                "answer": "Mr. Bean just stuffed it in.",
+                "choices": [
+                    "It was delivered by the postman earlier.",
+                    "It fell out of someone's pocket as they walked by.",
+                    "It was dropped by a courier who was in a hurry.",
+                    "Mr. Bean just stuffed it in."
+                ],
+                "end_time": 39.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:39",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr. Bean's sitting figure react with confusion or surprise?",
+                "answer": "Because Mr. Bean interacts with the TV remote.",
+                "choices": [
+                    "Because Mr. Bean interacts with the TV remote.",
+                    "Because Mr. Bean gets distracted by a phone call.",
+                    "Because the TV suddenly turns off.",
+                    "Because Mr. Bean falls asleep while watching TV."
+                ],
+                "end_time": 149.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:29",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the wall have green patterns painted on it?",
+                "answer": "Because the man applied green paint using a teddy bear attached to a stick.",
+                "choices": [
+                    "Because the wall was decorated with a stencil and green spray paint.",
+                    "Because the man accidentally spilled green paint while working on a project.",
+                    "Because the man applied green paint using a teddy bear attached to a stick.",
+                    "Because the wall was originally green, and someone tried to cover it up but failed."
+                ],
+                "end_time": 277.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:37",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the person with multiple cameras leave the room?",
+                "answer": "Because he has finished taking the photos.",
+                "choices": [
+                    "Because the person with cameras needed to recharge their equipment.",
+                    "Because the person with cameras had an urgent phone call.",
+                    "Because he has finished taking the photos.",
+                    "Because the person with cameras spotted something interesting in the other room."
+                ],
+                "end_time": 394.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:34",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is the queenly figure angry right now?",
+                "answer": "Because the Mr.bean pushing the broom past her face.",
+                "choices": [
+                    "Because someone accidentally spilled tea on her dress.",
+                    "Because her crown was knocked off by a gust of wind.",
+                    "Because the Mr.bean pushing the broom past her face.",
+                    "Because Mr. Bean interrupted her speech with loud noises."
+                ],
+                "end_time": 515.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:08:35",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 33,
+        "video_path": "/data/streamingbench/videos/sample_245_real.mp4",
+        "conversations": [
+            {
+                "question": "Why did the elderly woman step off the bus with a tray of tea?",
+                "answer": "To deliver food to the elderly lady in a pink dress who has a foot injury.",
+                "choices": [
+                    "To serve tea to the bus driver during his break.",
+                    "To offer refreshments to passengers waiting at the bus stop.",
+                    "To deliver food to the elderly lady in a pink dress who has a foot injury.",
+                    "To serve tea to passengers waiting at the bus stop."
+                ],
+                "end_time": 21.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:21",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean in the hospital ward?",
+                "answer": "Because this is his fantasy.",
+                "choices": [
+                    "Because he is visiting a friend who is a patient.",
+                    "Because this is his fantasy.",
+                    "Because he mistakenly walked into the wrong building.",
+                    "Because he is participating in a medical study."
+                ],
+                "end_time": 149.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:29",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the character try to manipulate the thermometer reading?",
+                "answer": "To pretend to be sick.",
+                "choices": [
+                    "To pretend to be sick.",
+                    "To make the nurse angry.",
+                    "To make the nurse laugh.",
+                    "To test the accuracy of the thermometer."
+                ],
+                "end_time": 287.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:47",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is the patient prepped for surgery?",
+                "answer": "Because Mr. Bean tampered with the check, making himself appear very unhealthy.",
+                "choices": [
+                    "Because Mr. Bean tampered with the check, making himself appear very unhealthy.",
+                    "Because the patient requested the surgery as a precaution.",
+                    "Because the doctor misread the patient's medical chart.",
+                    "Because the patient was mistakenly identified as someone else."
+                ],
+                "end_time": 423.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:07:03",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why do the babies start crying?",
+                "answer": "Because the person in the wheelchair enters the room.",
+                "choices": [
+                    "Because they are hungry.",
+                    "Because they need a diaper change.",
+                    "Because the person in the wheelchair enters the room.",
+                    "Because they are tired."
+                ],
+                "end_time": 556.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:09:16",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 67,
+        "video_path": "/data/streamingbench/videos/sample_237_real.mp4",
+        "conversations": [
+            {
+                "question": "Why is Mr. Bean constantly posing right now?",
+                "answer": "Because he is imitating the characters on the television.",
+                "choices": [
+                    "Because he is trying to practice his modeling skills.",
+                    "Because he is preparing for a photo shoot.",
+                    "Because he is showing off his new outfit in front of a mirror.",
+                    "Because he is imitating the characters on the television."
+                ],
+                "end_time": 64.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:01:04",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the bed get pulled out through the window?",
+                "answer": "Because the man ties the rope to the bed.",
+                "choices": [
+                    "Because the man ties the rope to the bed.",
+                    "Because the bed is on wheels.",
+                    "Because the window is too large.",
+                    "Because the bed is not secured properly to the floor."
+                ],
+                "end_time": 154.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:34",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the Mr. Bean peer through the door's mail slot or window?",
+                "answer": "Because he wanted to observe the activities of the four people outside.",
+                "choices": [
+                    "Because he lost his keys and is trying to see if anyone is home.",
+                    "Because he heard a strange noise and wants to check what it is.",
+                    "Because he wanted to observe the activities of the four people outside.",
+                    "Because he is waiting for an important package to be delivered."
+                ],
+                "end_time": 268.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr.Bean drop their coat and bag?",
+                "answer": "Because his disguise mission has ended.",
+                "choices": [
+                    "Because he realized he grabbed the wrong coat and bag.",
+                    "Because he was startled by a sudden loud noise.",
+                    "Because his disguise mission has ended.",
+                    "Because he spotted someone he knows and wanted to quickly greet them."
+                ],
+                "end_time": 387.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:27",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the police officer react and possibly make a call for backup or additional assistance?",
+                "answer": "Because the police officer believes the photographs show a potential crime.",
+                "choices": [
+                    "Because the police officer needs to record the event.",
+                    "Because the police officer needs to clock off for the day.",
+                    "Because the police officer believes the photographs show a potential crime.",
+                    "Because the police officer wants to review the photos later."
+                ],
+                "end_time": 525.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:08:45",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 80,
+        "video_path": "/data/streamingbench/videos/sample_238_real.mp4",
+        "conversations": [
+            {
+                "question": "Why are they two people shaking hands now?",
+                "answer": "Because they appeared together in a photo when they were young.",
+                "choices": [
+                    "Because they just reached an important business agreement.",
+                    "Because they appeared together in a photo when they were young.",
+                    "Because they are meeting for the first time after many years.",
+                    "Because they are congratulating each other on a job well done."
+                ],
+                "end_time": 117.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:01:57",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean very angry now?",
+                "answer": "Because another person ate all the food in the refrigerator.",
+                "choices": [
+                    "Because another person ate all the food in the refrigerator.",
+                    "Because someone spilled a drink on his favorite chair.",
+                    "Because his television stopped working during his favorite show.",
+                    "Because he just realized he lost his wallet."
+                ],
+                "end_time": 180.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:03:00",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the person in the smaller bed become annoyed and awake?",
+                "answer": "Because the snoring sound from sleeping on the ground is too loud.",
+                "choices": [
+                    "Because the person with a larger build speaks loudly.",
+                    "Because the snoring sound from sleeping on the ground is too loud.",
+                    "Because the person in the smaller bed has a nightmare.",
+                    "Because a noise from outside wakes them up."
+                ],
+                "end_time": 268.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean very angry now?",
+                "answer": "Because another person also ate the ice cream that belonged to Mr. Bean.",
+                "choices": [
+                    "Because someone borrowed his car without asking.",
+                    "Because another person also ate the ice cream that belonged to Mr. Bean.",
+                    "Because his favorite TV show was canceled.",
+                    "Because his favorite shirt got ruined in the wash."
+                ],
+                "end_time": 402.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:42",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr. Bean want to escape?",
+                "answer": "Because he doesn't want to pay the bill.",
+                "choices": [
+                    "Because he accidentally broke something in the store.",
+                    "Because he doesn't want to pay the bill.",
+                    "Because he saw someone he is trying to avoid.",
+                    "Because he is late for an important appointment."
+                ],
+                "end_time": 617.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:10:17",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 89,
+        "video_path": "/data/streamingbench/videos/sample_233_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the rabbit strike the door with its fist several times?",
+                "answer": "Because the rabbit wants to get food.",
+                "choices": [
+                    "Because the rabbit is practicing its strength.",
+                    "Because the rabbit is knocking to check if someone is inside.",
+                    "Because the rabbit wants to open the door.",
+                    "Because the rabbit wants to get food."
+                ],
+                "end_time": 25.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:00:25",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why would the rabbit inside the iron gate be very panicked now?",
+                "answer": "Because the toilet paper he was holding in his hand fell.",
+                "choices": [
+                    "Because he just realized the gate is locked, and he can't get out.",
+                    "Because he heard loud footsteps approaching from outside.",
+                    "Because the lights suddenly went out, and he is afraid of the dark.",
+                    "Because the toilet paper he was holding in his hand fell."
+                ],
+                "end_time": 134.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:14",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What causes the bunny character to react with shock and sweat?",
+                "answer": "Because the rabbit wearing red and white clothes is perfectly fine.",
+                "choices": [
+                    "Because the bunny just realized it forgot something important.",
+                    "Because a loud noise startled the bunny from behind.",
+                    "Because the rabbit wearing red and white clothes is perfectly fine.",
+                    "Because the bunny suddenly noticed a large shadow looming over it."
+                ],
+                "end_time": 208.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:03:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why do the rectangular characters arm themselves?",
+                "answer": "Because the rabbit-like figure has glowing eyes and a menacing demeanor.",
+                "choices": [
+                    "Because they are excited to see the rabbit-like figure.",
+                    "Because the rabbit-like figure has glowing eyes and a menacing demeanor.",
+                    "Because they want to celebrate with the rabbit-like figure.",
+                    "Because they see another group approaching."
+                ],
+                "end_time": 281.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:41",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the rabbit break through the wall to escape?",
+                "answer": "Because the rabbit is inspired by the advertisement for new shoes.",
+                "choices": [
+                    "Because the rabbit wants to catch a thief.",
+                    "Because the rabbit is afraid of a predator.",
+                    "Because the rabbit wants to retrieve the advertisement.",
+                    "Because the rabbit is inspired by the advertisement for new shoes."
+                ],
+                "end_time": 376.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:16",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 91,
+        "video_path": "/data/streamingbench/videos/sample_214_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The concept of Area.",
+                "choices": [
+                    "Calculating the perimeter of shapes.",
+                    "Understanding different geometric figures.",
+                    "The concept of Area.",
+                    "The concept of volume."
+                ],
+                "end_time": 24.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What formula might the speaker likely introduce next?",
+                "answer": "Area of a triangle.",
+                "choices": [
+                    "Perimeter of a rectangle.",
+                    "Volume of a cube.",
+                    "Circumference of a circle.",
+                    "Area of a triangle."
+                ],
+                "end_time": 123.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:03",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to calculate the area of another shapes.",
+                "choices": [
+                    "How to convert between different units of length.",
+                    "The concept of volume measurement.",
+                    "The perimeter of different shapes.",
+                    "How to calculate the area of another shapes."
+                ],
+                "end_time": 285.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:45",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The height of the triangle.",
+                "choices": [
+                    "The angle of the base.",
+                    "The formula for area.",
+                    "The hypotenuse of the triangle.",
+                    "The height of the triangle."
+                ],
+                "end_time": 415.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:55",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Calculating the area of a different triangle.",
+                "choices": [
+                    "Discussing the properties of different quadrilaterals.",
+                    "Solving for the perimeter of the triangle.",
+                    "Simplifying algebraic expressions.",
+                    "Calculating the area of a different triangle."
+                ],
+                "end_time": 525.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:45",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 93,
+        "video_path": "/data/streamingbench/videos/sample_216_real.mp4",
+        "conversations": [
+            {
+                "question": "What concept might the speaker explain next?",
+                "answer": "Differences between continuous and discrete data.",
+                "choices": [
+                    "How to visualize data on a graph.",
+                    "The types of charts used in data representation.",
+                    "Differences between continuous and discrete data.",
+                    "Examples of data collection methods."
+                ],
+                "end_time": 40.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:40",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to fill in the data in the data table.",
+                "choices": [
+                    "How to create a bar graph.",
+                    "How to fill in the data in the data table.",
+                    "How to interpret the data in the data table.",
+                    "How to convert the data table into a pie chart."
+                ],
+                "end_time": 179.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:59",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The meaning of the scale on the graph.",
+                "choices": [
+                    "The average precipitation in May.",
+                    "The meaning of the scale on the graph.",
+                    "The total annual precipitation.",
+                    "The method used to calculate the average precipitation."
+                ],
+                "end_time": 338.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:38",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The overall trend of investment income throughout the year.",
+                "choices": [
+                    "The use of the negative coordinate axis.",
+                    "How the fluctuation in investment income impacts yearly analysis.",
+                    "Strategies to improve investment returns.",
+                    "The overall trend of investment income throughout the year."
+                ],
+                "end_time": 481.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:01",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Interpret the trends shown in the graphs.",
+                "choices": [
+                    "Interpret the trends shown in the graphs.",
+                    "Introduce new data sets for comparison.",
+                    "Calculate the mean of the data sets.",
+                    "Convert the temperatures to Celsius."
+                ],
+                "end_time": 609.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "0:10:09",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 118,
+        "video_path": "/data/streamingbench/videos/sample_209_real.mp4",
+        "conversations": [
+            {
+                "question": "What happens after the first green block is placed on the yellow block?",
+                "answer": "The hand adds another green block.",
+                "choices": [
+                    "The hand removes the green block.",
+                    "The hand moves away and does nothing.",
+                    "The hand removes the yellow block.",
+                    "The hand adds another green block."
+                ],
+                "end_time": 25.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:00:25",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What action do the hands perform just before moving away from the structure?",
+                "answer": "Pressing down the green blocks.",
+                "choices": [
+                    "Adding a yellow block.",
+                    "Adding a blue block.",
+                    "Adjusting the blue block.",
+                    "Pressing down the green blocks."
+                ],
+                "end_time": 118.0,
+                "task": "Action Recognition",
+                "time_stamp": "0:01:58",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What sequence of actions occured with the green and yellow blocks just now?",
+                "answer": "The green block is placed first, followed by the yellow block.",
+                "choices": [
+                    "The green block is placed first, followed by the yellow block.",
+                    "The yellow block is placed first, followed by the green block.",
+                    "The green block is removed, then the yellow block is placed.",
+                    "The yellow block is adjusted, then the green block is placed."
+                ],
+                "end_time": 210.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:03:30",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Where is the new yellow and green block placed relative to the original structure?",
+                "answer": "In front of the original structure.",
+                "choices": [
+                    "Behind the original structure.",
+                    "Next to the original structure.",
+                    "On top of the original structure.",
+                    "In front of the original structure."
+                ],
+                "end_time": 212.0,
+                "task": "Spatial Understanding",
+                "time_stamp": "00:03:32",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What did the person do with the yellow block just now?",
+                "answer": "Placed them above the green block and another yellow block.",
+                "choices": [
+                    "Removed them from the structure.",
+                    "Arranged them on the blue block and adjusted for alignment.",
+                    "Stacked them on top of the blue blocks.",
+                    "Placed them above the green block and another yellow block."
+                ],
+                "end_time": 315.0,
+                "task": "Action Recognition",
+                "time_stamp": "0:05:15",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 125,
+        "video_path": "/data/streamingbench/videos/sample_212_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to add mixed numbers.",
+                "choices": [
+                    "How to add mixed numbers.",
+                    "The subtraction of mixed numbers.",
+                    "The multiplication of fractions.",
+                    "The properties of whole numbers."
+                ],
+                "end_time": 20.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:20",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to add those two mixed numbers.",
+                "choices": [
+                    "How to add those two mixed numbers.",
+                    "The process of converting mixed numbers to improper fractions.",
+                    "Subtracting mixed numbers.",
+                    "The definition of mixed numbers."
+                ],
+                "end_time": 130.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:10",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker do next?",
+                "answer": "How to add those two mixed numbers.",
+                "choices": [
+                    "How to add those two mixed numbers.",
+                    "Subtract the fractions.",
+                    "Multiply the fractions.",
+                    "Divide the fractions."
+                ],
+                "end_time": 248.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:08",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to add those two fractions numbers.",
+                "choices": [
+                    "How to add mixed numbers.",
+                    "How to convert fractions to decimals.",
+                    "The process of subtracting fractions.",
+                    "How to add those two fractions numbers."
+                ],
+                "end_time": 396.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:36",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Adding the fractions together.",
+                "choices": [
+                    "Adding the fractions together.",
+                    "Converting the results back to whole numbers.",
+                    "Finding a different common denominator.",
+                    "Subtracting the fractions."
+                ],
+                "end_time": 478.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:07:58",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 129,
+        "video_path": "/data/streamingbench/videos/sample_242_real.mp4",
+        "conversations": [
+            {
+                "question": "Why is the teddy bear seen flying in the toy plane in the sky?",
+                "answer": "Because Mr. Bean uses a remote control to operate the toy plane.",
+                "choices": [
+                    "Because someone threw the teddy bear.",
+                    "Because the wind carried the teddy bear.",
+                    "Because Mr. Bean uses a remote control to operate the toy plane.",
+                    "Because the teddy bear has wings."
+                ],
+                "end_time": 24.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr.Bean climb the tree?",
+                "answer": "Because Mr.Bean wants to retrieve the toy stuck in the tree.",
+                "choices": [
+                    "Because Mr.Bean wants to retrieve the toy stuck in the tree.",
+                    "Because Mr.Bean wants to collect leaves from the tree.",
+                    "Because Mr.Bean wants a better view from the top of the tree.",
+                    "Because Mr.Bean is practicing climbing skills."
+                ],
+                "end_time": 144.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why are the books stacked on the floor?",
+                "answer": "As a step for the bird to walk down from the table.",
+                "choices": [
+                    "Because there was no more space on the shelves.",
+                    "As a step for the bird to walk down from the table.",
+                    "Because the books were being sorted for donation.",
+                    "Because they were recently used and not yet put away."
+                ],
+                "end_time": 253.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:13",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the bird fly out of the window with an item?",
+                "answer": "Because this item is very precious, the bird wants to steal it away.",
+                "choices": [
+                    "Because the bird is building a nest and needs materials.",
+                    "Because the bird is curious and wants to explore outside.",
+                    "Because the bird is attracted to shiny objects.",
+                    "Because this item is very precious, the bird wants to steal it away."
+                ],
+                "end_time": 413.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:53",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Where did Mr. Bean get all this gold from?",
+                "answer": "The bird kept by Mr. Bean stole from the old lady's house.",
+                "choices": [
+                    "Mr. Bean won it in a lottery.",
+                    "Mr. Bean found it buried in his backyard.",
+                    "The bird kept by Mr. Bean stole from the old lady's house.",
+                    "Mr. Bean inherited it from a distant relative."
+                ],
+                "end_time": 487.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:08:07",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 139,
+        "video_path": "/data/streamingbench/videos/sample_227_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The addition of decimals.",
+                "choices": [
+                    "The addition of decimals.",
+                    "Converting fractions to decimals.",
+                    "The subtraction of decimals.",
+                    "The rules for multiplying decimals."
+                ],
+                "end_time": 66.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:01:06",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the teacher likely to explain next?",
+                "answer": "How to correctly align the decimal points when adding.",
+                "choices": [
+                    "How to correctly align the decimal points when adding.",
+                    "How to subtract decimal numbers.",
+                    "How to multiply decimal numbers.",
+                    "How to divide decimal numbers."
+                ],
+                "end_time": 180.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:00",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The process of correctly placing the decimal in the product.",
+                "choices": [
+                    "How to multiply whole numbers.",
+                    "The importance of carrying over digits.",
+                    "The process of correctly placing the decimal in the product.",
+                    "How to add the products from multiplication."
+                ],
+                "end_time": 328.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What topic might the speaker explain next?",
+                "answer": "The principles of decimal division.",
+                "choices": [
+                    "The steps for decimal addition.",
+                    "The steps for decimal subtraction.",
+                    "The principles of decimal division.",
+                    "The basics of whole number multiplication."
+                ],
+                "end_time": 482.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:02",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Shifting the decimal point in both numbers.",
+                "choices": [
+                    "Simplifying square roots.",
+                    "Finding least common multiples.",
+                    "Shifting the decimal point in both numbers.",
+                    "Converting decimals to fractions."
+                ],
+                "end_time": 633.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:10:33",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 141,
+        "video_path": "/data/streamingbench/videos/sample_247_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the older woman appear annoyed or angry?",
+                "answer": "Because the character disturbed her.",
+                "choices": [
+                    "Because the character shouted loudly.",
+                    "Because the character knocked on the door.",
+                    "Because the character broke something.",
+                    "Because the character disturbed her."
+                ],
+                "end_time": 26.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:26",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the man in the dirty car wave a money?",
+                "answer": "Because he wanted Mr. Bean to help him wash his car.",
+                "choices": [
+                    "Because he wanted Mr. Bean to help him wash his car.",
+                    "Because he was offering to buy something from Mr. Bean.",
+                    "Because he wanted to pay Mr. Bean for directions.",
+                    "Because he was asking Mr. Bean for change."
+                ],
+                "end_time": 152.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:32",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the person start pedaling the bicycle?",
+                "answer": "Because riding a bicycle can start the car wash machine.",
+                "choices": [
+                    "Because the person wants to generate electricity for a nearby device.",
+                    "Because the person is testing the bicycle for a friend.",
+                    "Because riding a bicycle can start the car wash machine.",
+                    "Because the person needs to warm up before a race."
+                ],
+                "end_time": 295.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:55",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why do the woman and the driver sit down to have tea together?",
+                "answer": "Because the driver's car is being cleaned.",
+                "choices": [
+                    "Because the woman and the driver know each other.",
+                    "Because the man on the bicycle invited them to tea.",
+                    "Because the car broke down and they had nothing else to do.",
+                    "Because the driver's car is being cleaned."
+                ],
+                "end_time": 418.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:58",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean looking for something now?",
+                "answer": "Because he wanted to find something to clean the bird droppings that had fallen on the car.",
+                "choices": [
+                    "Because he wanted to find something to clean the bird droppings that had fallen on the car.",
+                    "Because he lost his keys and needs to find them.",
+                    "Because he wants to find a tool to fix a flat tire.",
+                    "Because he is searching for his misplaced wallet."
+                ],
+                "end_time": 515.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:08:35",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 146,
+        "video_path": "/data/streamingbench/videos/sample_239_real.mp4",
+        "conversations": [
+            {
+                "question": "Why did Mr. Bean turn off the TV?",
+                "answer": "Because he was afraid that the news about the theft of teddy bears on TV would scare his own teddy bear.",
+                "choices": [
+                    "Because he thought the show was too boring.",
+                    "Because he wanted to save electricity.",
+                    "Because he was afraid that the news about the theft of teddy bears on TV would scare his own teddy bear.",
+                    "Because he heard a noise outside and wanted to investigate."
+                ],
+                "end_time": 51.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:51",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean is shocked now.",
+                "answer": "Because he found that his little bear doll was missing.",
+                "choices": [
+                    "Because he found that his little bear doll was missing.",
+                    "Because he just realized his wallet is missing.",
+                    "Because he saw something unexpected on TV.",
+                    "Because someone knocked on his door unexpectedly."
+                ],
+                "end_time": 165.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:45",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean unhappy now?",
+                "answer": "Because he found that his teddy bear doll had changed its appearance.",
+                "choices": [
+                    "Because his favorite TV show was canceled.",
+                    "Because he found that his teddy bear doll had changed its appearance.",
+                    "Because he lost an important document.",
+                    "Because he was unable to fix a broken appliance."
+                ],
+                "end_time": 291.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:51",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr. Bean decide to put up missing posters for his teddy bear?",
+                "answer": "Because he realized the teddy bear he found earlier was not his original teddy bear.",
+                "choices": [
+                    "Because he thought someone might have stolen his teddy bear.",
+                    "Because he wanted to warn others about a possible teddy bear thief.",
+                    "Because he realized the teddy bear he found earlier was not his original teddy bear.",
+                    "Because he believed his teddy bear had run away and needed help finding it."
+                ],
+                "end_time": 407.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:47",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the purple bunny character decide to chase Mr. Bean?",
+                "answer": "Because Mr. Bean took away all of their dolls.",
+                "choices": [
+                    "Because Mr. Bean took away all of their dolls.",
+                    "Because Mr. Bean made fun of the bunny's appearance.",
+                    "Because Mr. Bean accidentally stepped on the bunny's foot.",
+                    "Because Mr. Bean broke the bunny's favorite toy."
+                ],
+                "end_time": 548.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:09:08",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 161,
+        "video_path": "/data/streamingbench/videos/sample_236_real.mp4",
+        "conversations": [
+            {
+                "question": "Why did the old lady fall?",
+                "answer": "Because she stepped on a toy racing car on the ground.",
+                "choices": [
+                    "Because she stepped on a toy racing car on the ground.",
+                    "Because she tripped over a loose rug in the hallway.",
+                    "Because she missed a step while walking down the stairs.",
+                    "Because she lost her balance while reaching for something on a high shelf."
+                ],
+                "end_time": 66.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:01:06",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is the old lady lying in the hospital bed now?",
+                "answer": "Because she stepped on a toy car and fell down before.",
+                "choices": [
+                    "Because she stepped on a toy car and fell down before.",
+                    "Because she had a sudden illness and needed immediate medical attention.",
+                    "Because she was involved in a minor car accident.",
+                    "Because she fainted from low blood pressure while shopping."
+                ],
+                "end_time": 129.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:09",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is the floor of this room completely covered with water now?",
+                "answer": "Because the faucet was left on, the water overflowed.",
+                "choices": [
+                    "Because a pipe burst under the sink.",
+                    "Because the faucet was left on, the water overflowed.",
+                    "Because someone accidentally spilled a large container of water.",
+                    "Because the washing machine malfunctioned and leaked."
+                ],
+                "end_time": 275.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:35",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr. Bean hit the table with a mop?",
+                "answer": "Because he wants to catch that cat.",
+                "choices": [
+                    "Because he wants to catch that cat.",
+                    "Because he is trying to kill a bug crawling on the table.",
+                    "Because he accidentally spilled something and is trying to clean it up.",
+                    "Because he is frustrated and taking out his anger on the table."
+                ],
+                "end_time": 390.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:30",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did the character saw a piece of wood?",
+                "answer": "As materials for a convertible sofa.",
+                "choices": [
+                    "Because the character needed firewood for the fireplace.",
+                    "As materials for a convertible sofa.",
+                    "Because the character was building a new shelf for the kitchen.",
+                    "Because the character wanted to repair a broken chair."
+                ],
+                "end_time": 503.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:08:23",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 170,
+        "video_path": "/data/streamingbench/videos/sample_207_real.mp4",
+        "conversations": [
+            {
+                "question": "What is positioned underneath the archway made of colorful interlocking blocks?",
+                "answer": "A toy car.",
+                "choices": [
+                    "A small tree.",
+                    "A toy truck.",
+                    "A small building.",
+                    "A toy car."
+                ],
+                "end_time": 3.0,
+                "task": "Object Recognition",
+                "time_stamp": "00:00:03",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "How many yellow blocks are connected in a line?",
+                "answer": "Four.",
+                "choices": [
+                    "Two.",
+                    "Three.",
+                    "Four.",
+                    "Five."
+                ],
+                "end_time": 19.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:00:19",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Where is the green brick placed relative to the yellow bricks in the structure?",
+                "answer": "On top of the yellow bricks.",
+                "choices": [
+                    "In the middle.",
+                    "On the right side.",
+                    "On top of the blue bricks.",
+                    "On top of the yellow bricks."
+                ],
+                "end_time": 69.0,
+                "task": "Spatial Understanding",
+                "time_stamp": "0:01:09",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What does the person do after adding more yellow bricks?",
+                "answer": "Adjusts the yellow bricks.",
+                "choices": [
+                    "Removes the yellow bricks.",
+                    "Adds green bricks.",
+                    "Adjusts the yellow bricks.",
+                    "Adds blue bricks."
+                ],
+                "end_time": 196.0,
+                "task": "Action Recognition",
+                "time_stamp": "00:03:16",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What is the person likely to do next after moving their hand towards the new set of connected bricks?",
+                "answer": "Add more bricks to the arrangement.",
+                "choices": [
+                    "Remove the connected bricks.",
+                    "Add more bricks to the arrangement.",
+                    "Paint the bricks.",
+                    "Disassemble the structure."
+                ],
+                "end_time": 199.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:03:19",
+                "required_ability": "working memory"
+            }
+        ]
+    },
+    {
+        "video_id": 171,
+        "video_path": "/data/streamingbench/videos/sample_215_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The definition of basic probability.",
+                "choices": [
+                    "How to calculate the probability of an event.",
+                    "The definition of basic probability.",
+                    "An example involving multiple dice rolls.",
+                    "The combination formula in probability."
+                ],
+                "end_time": 13.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:13",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Explanation of rolling a six-sided die.",
+                "choices": [
+                    "The concept of mutually exclusive events.",
+                    "Introduction to experimental probability.",
+                    "Explanation of rolling a six-sided die.",
+                    "Definition of independent events."
+                ],
+                "end_time": 173.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:53",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What concept might the speaker explain next?",
+                "answer": "The probability of rolling a specific number with a die.",
+                "choices": [
+                    "How to find the sum of rolled dice values.",
+                    "How to design an experiment with coins.",
+                    "The process of drawing bar graphs for data.",
+                    "The probability of rolling a specific number with a die."
+                ],
+                "end_time": 305.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:05",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The probability of this disc rotating to the blue area.",
+                "choices": [
+                    "Addition of probabilities.",
+                    "The probability of this disc rotating to the blue area.",
+                    "Expected value calculation.",
+                    "Subtraction of probabilities."
+                ],
+                "end_time": 481.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:01",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Calculating the probability for yellow colors.",
+                "choices": [
+                    "The concept of probability distributions.",
+                    "Calculating the probability for yellow colors.",
+                    "How to convert decimals to fractions.",
+                    "Applying the formula to find expected value."
+                ],
+                "end_time": 600.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:10:00",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 173,
+        "video_path": "/data/streamingbench/videos/sample_206_real.mp4",
+        "conversations": [
+            {
+                "question": "What colors are the blocks used to form the helicopter rotor blades?",
+                "answer": "Blue and Green.",
+                "choices": [
+                    "Blue and Green.",
+                    "Yellow and Blue.",
+                    "Green and Red.",
+                    "Red and Orange."
+                ],
+                "end_time": 2.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "00:00:02",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What is the sequence of actions performed with the blocks just now?",
+                "answer": "Placing a yellow block, then two green blocks, and finally a blue block.",
+                "choices": [
+                    "Placing a yellow block, then two green blocks, and finally a blue block.",
+                    "Placing a blue block, then two green blocks, and finally a yellow block.",
+                    "Placing a yellow block, then a blue block, and finally two green blocks.",
+                    "Placing a yellow block, then one green block, and finally two blue blocks."
+                ],
+                "end_time": 23.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:00:23",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the hand doing after placing three yellow blocks onto the top of the structure?",
+                "answer": "Adjusts the yellow block.",
+                "choices": [
+                    "Adds another block on top.",
+                    "Removes the yellow block.",
+                    "Leaves the block structure.",
+                    "Adjusts the yellow block."
+                ],
+                "end_time": 71.0,
+                "task": "Action Recognition",
+                "time_stamp": "00:01:11",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What was the sequence of events the hand followed when building the structure just now?",
+                "answer": "Picks up a green block, adjusts it, then picks up a yellow block.",
+                "choices": [
+                    "Picks up a yellow block, adjusts it, then picks up a red block.",
+                    "Picks up a green block, adjusts it, then picks up a yellow block.",
+                    "Picks up a red block, adjusts it, then picks up a yellow block.",
+                    "Picks up a blue block, adjusts it, then picks up a green block."
+                ],
+                "end_time": 135.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:02:15",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What action is the person performing with the blue blocks?",
+                "answer": "Adds blue blocks to the top of the structure.",
+                "choices": [
+                    "Adds blue blocks to the bottom of the structure.",
+                    "Adds blue blocks to the side of the structure.",
+                    "Removes blue blocks from the structure.",
+                    "Adds blue blocks to the top of the structure."
+                ],
+                "end_time": 195.0,
+                "task": "Action Recognition",
+                "time_stamp": "00:03:15",
+                "required_ability": "working memory"
+            }
+        ]
+    },
+    {
+        "video_id": 183,
+        "video_path": "/data/streamingbench/videos/sample_211_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Graphing on the Coordinate Plane.",
+                "choices": [
+                    "Graphing on the Coordinate Plane.",
+                    "Calculus functions.",
+                    "Trigonometric ratios.",
+                    "Differential equations."
+                ],
+                "end_time": 16.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:16",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to connect the plotted points.",
+                "choices": [
+                    "How to label the axes.",
+                    "How to connect the plotted points.",
+                    "How to identify coordinates.",
+                    "How to scale the graph."
+                ],
+                "end_time": 142.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:22",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "What ordered pairs represent.",
+                "choices": [
+                    "How to plot points on the axes.",
+                    "The importance of the x-axis.",
+                    "The significance of the y-axis.",
+                    "What ordered pairs represent."
+                ],
+                "end_time": 260.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:20",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to plot another point.",
+                "choices": [
+                    "How to plot another point.",
+                    "How to label the y-axis.",
+                    "The importance of the y-intercept.",
+                    "How to draw a quadratic curve."
+                ],
+                "end_time": 397.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:37",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to differentiate the quadrants.",
+                "choices": [
+                    "How to plot a line graph.",
+                    "The significance of the axes intersections.",
+                    "How to differentiate the quadrants.",
+                    "The concept of linear equations."
+                ],
+                "end_time": 511.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:31",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 216,
+        "video_path": "/data/streamingbench/videos/sample_249_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the older woman appear annoyed or angry?",
+                "answer": "Because the character disturbed her.",
+                "choices": [
+                    "Because the character shouted loudly.",
+                    "Because the character disturbed her.",
+                    "Because the character knocked on the door.",
+                    "Because the character broke something."
+                ],
+                "end_time": 26.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:26",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean under the bed now?",
+                "answer": "Because he wanted to snatch back the teddy bear doll that was taken by the cat.",
+                "choices": [
+                    "Because he wanted to snatch back the teddy bear doll that was taken by the cat.",
+                    "Because he dropped something valuable and is trying to retrieve it.",
+                    "Because he is hiding from someone who just entered the room.",
+                    "Because he thought he saw something strange under the bed."
+                ],
+                "end_time": 145.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:25",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did the character exit the building and approach a green car?",
+                "answer": "Because he wants to drive to the pet hospital to treat his teddy bear doll.",
+                "choices": [
+                    "Because he forgot something important in the car.",
+                    "Because he needs to pick up a friend from the nearby station.",
+                    "Because he wants to drive to the pet hospital to treat his teddy bear doll.",
+                    "Because he plans to run an errand across town."
+                ],
+                "end_time": 362.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:02",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean would be very panicked now.",
+                "answer": "Because he found that his teddy bear doll was not in the box.",
+                "choices": [
+                    "Because he realized he lost his wallet.",
+                    "Because he accidentally locked himself out of his house.",
+                    "Because he found that his teddy bear doll was not in the box.",
+                    "Because he noticed that his car keys were missing."
+                ],
+                "end_time": 518.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:08:38",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did the character react with noticeable concern after stopping the car?",
+                "answer": "Because he thought the one that was flattened was the old lady's cat.",
+                "choices": [
+                    "Because they remember they left something important behind.",
+                    "Because they have car trouble and need to check the engine.",
+                    "Because he thought the one that was flattened was the old lady's cat.",
+                    "Because they see a strange figure in the distance."
+                ],
+                "end_time": 617.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:10:17",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 220,
+        "video_path": "/data/streamingbench/videos/sample_234_real.mp4",
+        "conversations": [
+            {
+                "question": "Why is Mr. Bean scolded by the older woman?",
+                "answer": "Because he was making too much noise.",
+                "choices": [
+                    "Because he was making too much noise.",
+                    "Because he was late.",
+                    "Because he was shining a flashlight at the teddy bear.",
+                    "Because he was not paying attention."
+                ],
+                "end_time": 27.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:27",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the character place the cheese on a plate?",
+                "answer": "Because his refrigerator is empty except for a piece of vegetable.",
+                "choices": [
+                    "Because he plans to make a sandwich with the cheese.",
+                    "Because his refrigerator is empty except for a piece of vegetable.",
+                    "Because he thinks the cheese will taste better at room temperature.",
+                    "Because the character organizes the fridge."
+                ],
+                "end_time": 155.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:35",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the man successfully retrieve the bottle from the top shelf?",
+                "answer": "Because he uses his shopping cart for support.",
+                "choices": [
+                    "Because he uses his shopping cart for support.",
+                    "Because he asks for assistance from a store employee.",
+                    "Because he finds a step stool to reach the bottle.",
+                    "Because he uses a long tool to knock the bottle down."
+                ],
+                "end_time": 264.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean is very shocked.",
+                "answer": "Because the opponent finished the pie in one go.",
+                "choices": [
+                    "Because his own pie just fell to the floor.",
+                    "Because the opponent did a magic trick with the pie.",
+                    "Because the pie suddenly exploded when the opponent touched it.",
+                    "Because the opponent finished the pie in one go."
+                ],
+                "end_time": 400.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:40",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the Mr. Bean look tired or exhausted?",
+                "answer": "Because he lost the competition in the supermarket.",
+                "choices": [
+                    "Because he had to run around the supermarket to find items.",
+                    "Because he lost the competition in the supermarket.",
+                    "Because he stayed up all night preparing for the competition.",
+                    "Because he had to carry heavy bags out of the supermarket."
+                ],
+                "end_time": 516.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:08:36",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 222,
+        "video_path": "/data/streamingbench/videos/sample_229_real.mp4",
+        "conversations": [
+            {
+                "question": "What mathematical concept will likely be demonstrated next?",
+                "answer": "Division.",
+                "choices": [
+                    "Subtraction.",
+                    "Addition.",
+                    "Multiplication.",
+                    "Division."
+                ],
+                "end_time": 9.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:09",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the presenter likely to do next?",
+                "answer": "Subtract 48 from 52.",
+                "choices": [
+                    "Add 48 to 52.",
+                    "Multiply 48 by 52.",
+                    "Divide 48 by 52.",
+                    "Subtract 48 from 52."
+                ],
+                "end_time": 192.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:12",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The steps to perform the division.",
+                "choices": [
+                    "The steps to perform the division.",
+                    "The final quotient of the division.",
+                    "The relevance of the remainder.",
+                    "How to multiply the dividend."
+                ],
+                "end_time": 338.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:38",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker do next?",
+                "answer": "Subtract 440 from 528.",
+                "choices": [
+                    "Subtract 440 from 528.",
+                    "Divide 528 by 55.",
+                    "Subtract 88 from 528.",
+                    "Add 5 to 88."
+                ],
+                "end_time": 524.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:44",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to address the situation where the remainder is less than the divisor.",
+                "choices": [
+                    "How to address the situation where the remainder is less than the divisor.",
+                    "How to check the division result.",
+                    "How to proceed with the next division step.",
+                    "How to interpret the decimal expansion."
+                ],
+                "end_time": 690.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:11:30",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 231,
+        "video_path": "/data/streamingbench/videos/sample_201_real.mp4",
+        "conversations": [
+            {
+                "question": "What action is the hand performing on the train?",
+                "answer": "Push the train to the right.",
+                "choices": [
+                    "Lifting the train.",
+                    "Assembling the train.",
+                    "Painting the train.",
+                    "Push the train to the right."
+                ],
+                "end_time": 12.0,
+                "task": "Action Recognition",
+                "time_stamp": "0:00:12",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What color Lego brick is placed first on the surface?",
+                "answer": "Yellow.",
+                "choices": [
+                    "Blue.",
+                    "Green.",
+                    "Red.",
+                    "Yellow."
+                ],
+                "end_time": 63.0,
+                "task": "Event Understanding",
+                "time_stamp": "0:01:03",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "How many colors of bricks have been used so far?",
+                "answer": "Four.",
+                "choices": [
+                    "Two.",
+                    "Three.",
+                    "Four.",
+                    "Five."
+                ],
+                "end_time": 139.0,
+                "task": "Counting",
+                "time_stamp": "00:02:19",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What was the sequence of actions performed by the hand just now?",
+                "answer": "Adding green bricks for the roof, extending the yellow base, expanding the structure to the right.",
+                "choices": [
+                    "Placing orange and green bricks, adding blue bricks, extending the yellow base.",
+                    "Adding green bricks for the roof, extending the yellow base, expanding the structure to the right.",
+                    "Starting with blue bricks, adding a rooftop, then dismantling it.",
+                    "Completing the structure and then painting it."
+                ],
+                "end_time": 149.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:02:29",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What type of pieces did the hand attach to the top surface of the structure just now?",
+                "answer": "Circular pieces resembling wheels.",
+                "choices": [
+                    "Square pieces.",
+                    "Triangular pieces.",
+                    "Rectangular pieces.",
+                    "Circular pieces resembling wheels."
+                ],
+                "end_time": 205.0,
+                "task": "Object Recognition",
+                "time_stamp": "00:03:25",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 248,
+        "video_path": "/data/streamingbench/videos/sample_241_real.mp4",
+        "conversations": [
+            {
+                "question": "Why Mr. Bean was previously flipping through boxes?",
+                "answer": "Because he is looking for his green little hat.",
+                "choices": [
+                    "Because he was looking for his lost keys.",
+                    "Because he is looking for his green little hat.",
+                    "Because he was organizing old photographs.",
+                    "Because he wanted to find his shopping list."
+                ],
+                "end_time": 126.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:06",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did the character create a large number of sandwiches?",
+                "answer": "Because the character intends to go camping.",
+                "choices": [
+                    "Because the character is preparing for a big party.",
+                    "Because the character plans to donate them to a local shelter.",
+                    "Because the character intends to go camping.",
+                    "Because the character wants to start a small sandwich business."
+                ],
+                "end_time": 222.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:03:42",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the other character pick up the green cap left on the chair?",
+                "answer": "Because Mr. Bean accidentally left this green hat on the chair just now.",
+                "choices": [
+                    "Because the green cap looked like it was expensive.",
+                    "Because Mr. Bean accidentally left this green hat on the chair just now.",
+                    "Because the other character needed a cap to shield from the sun.",
+                    "Because the green cap matches the other character's outfit."
+                ],
+                "end_time": 290.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:50",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why would Mr. Bean buy the things being towed behind his car?",
+                "answer": "Because he only had five yuan on him at that time.",
+                "choices": [
+                    "Because the items were on sale at a huge discount.",
+                    "Because he only had five yuan on him at that time.",
+                    "Because he thought they would be fun to use later.",
+                    "Because he needed them for a project he was working on."
+                ],
+                "end_time": 409.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:49",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did Mr. Bean just feed this dog with a sandwich?",
+                "answer": "Because Mr. Bean wants to trick this dog into the house.",
+                "choices": [
+                    "Because Mr. Bean felt sorry for the hungry dog.",
+                    "Because Mr. Bean had extra sandwiches to spare.",
+                    "Because Mr. Bean wanted to make friends with the dog.",
+                    "Because Mr. Bean wants to trick this dog into the house."
+                ],
+                "end_time": 593.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:09:53",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 256,
+        "video_path": "/data/streamingbench/videos/sample_228_real.mp4",
+        "conversations": [
+            {
+                "question": "What is the speaker likely to explain next?",
+                "answer": "The concept of division with partial quotients.",
+                "choices": [
+                    "How to solve the division problem using a different method.",
+                    "How to add partial quotients.",
+                    "The concept of division with partial quotients.",
+                    "The importance of understanding division."
+                ],
+                "end_time": 11.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "2 is too small.",
+                "choices": [
+                    "Multiplying 6 by the divisor.",
+                    "Subtracting 6 from the dividend.",
+                    "2 is too small.",
+                    "Adding 6 to the quotient."
+                ],
+                "end_time": 204.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to choose a number to subtract from 2928.",
+                "choices": [
+                    "How to subtract the next two numbers.",
+                    "How to add the remainder to the divisor.",
+                    "How to multiply 100 by 35 again.",
+                    "How to choose a number to subtract from 2928."
+                ],
+                "end_time": 380.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:20",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The advantage of using small steps in division.",
+                "choices": [
+                    "How to simplify the calculation further.",
+                    "The application of division in real-life problems.",
+                    "Another example using a more complex number.",
+                    "The advantage of using small steps in division."
+                ],
+                "end_time": 544.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:09:04",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the teacher explain next?",
+                "answer": "Why use samll steps in division is easier.",
+                "choices": [
+                    "How to perform long division.",
+                    "A different multiplication method for large numbers.",
+                    "Why use samll steps in division is easier.",
+                    "Explaining the significance of the answer 49r2."
+                ],
+                "end_time": 642.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:10:42",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 266,
+        "video_path": "/data/streamingbench/videos/sample_230_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker describe next?",
+                "answer": "Step-by-step process of long division.",
+                "choices": [
+                    "Step-by-step process of long division.",
+                    "History of long division.",
+                    "Applications of long division in real life.",
+                    "Comparison between long division and short division."
+                ],
+                "end_time": 30.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:30",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to bring down the next digit in a long division.",
+                "choices": [
+                    "How to find the remainder in a division problem.",
+                    "How to multiply the divisor by the quotient.",
+                    "How to perform subtraction in long division.",
+                    "How to bring down the next digit in a long division."
+                ],
+                "end_time": 233.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:53",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to solve a similar problem with different numbers.",
+                "choices": [
+                    "How to verify the result using multiplication.",
+                    "How to interpret the quotient and remainder.",
+                    "How to solve a similar problem with different numbers.",
+                    "How to check the division result by subtracting."
+                ],
+                "end_time": 314.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:14",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the next step after dividing 24 by 3?",
+                "answer": "Subtract 12 from 24.",
+                "choices": [
+                    "Write down 8 on the left side.",
+                    "Write down 3 on the right side.",
+                    "Subtract 12 from 24.",
+                    "Add the digits."
+                ],
+                "end_time": 438.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:07:18",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Subtract 20 from 20.",
+                "choices": [
+                    "How to bring down the next digit.",
+                    "How to check the remainder.",
+                    "Subtract 20 from 20.",
+                    "How to estimate the quotient."
+                ],
+                "end_time": 595.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:09:55",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 273,
+        "video_path": "/data/streamingbench/videos/sample_235_real.mp4",
+        "conversations": [
+            {
+                "question": "Why can thieves enter the room without being detected?",
+                "answer": "Because the masters have all fallen asleep.",
+                "choices": [
+                    "Because the security system is broken.",
+                    "Because the masters have all fallen asleep.",
+                    "Because the door was accidentally left unlocked.",
+                    "Because the thieves are using a special device to stay silent."
+                ],
+                "end_time": 124.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:04",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does this cat glare viciously at the person in black?",
+                "answer": "Because the man in black just stepped on this cat.",
+                "choices": [
+                    "Because the person in black took away the cat's favorite toy.",
+                    "Because the person in black is blocking the cat's path.",
+                    "Because the man in black just stepped on this cat.",
+                    "Because the person in black made a loud noise that startled the cat."
+                ],
+                "end_time": 143.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:23",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the person start searching through his wardrobe?",
+                "answer": "Because he is checking if he has lost anything.",
+                "choices": [
+                    "Because he wants to clean his room.",
+                    "Because he is checking if he has lost anything.",
+                    "Because he is preparing to leave the house.",
+                    "Because he cannot find his wallet."
+                ],
+                "end_time": 247.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:07",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the man offer his underwear to the woman as a replacement bag?",
+                "answer": "Because the lady's shopping bag is torn.",
+                "choices": [
+                    "Because the woman forgot to bring her shopping bag.",
+                    "Because the man is trying to make the woman laugh with a joke.",
+                    "Because the lady's shopping bag is torn.",
+                    "Because the woman mentioned she needed something to carry her things in."
+                ],
+                "end_time": 360.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:00",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the character hide behind structures on the roof?",
+                "answer": "Because the thief in black clothes spotted him and chased after him.",
+                "choices": [
+                    "Because he heard a loud noise and got scared.",
+                    "Because he noticed a helicopter approaching and wanted to stay hidden.",
+                    "Because the thief in black clothes spotted him and chased after him.",
+                    "Because he saw the roof starting to collapse and needed to find safety."
+                ],
+                "end_time": 490.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:08:10",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 286,
+        "video_path": "/data/streamingbench/videos/sample_232_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the frog appear from the toilet?",
+                "answer": "Because the chicken that was just thrown into the toilet is wearing a frog's disguise.",
+                "choices": [
+                    "Because the frog was hiding there to avoid being caught by the rabbit.",
+                    "Because the frog was attracted by the water and jumped in.",
+                    "Because the toilet leads to a secret underground pond where the frog lives.",
+                    "Because the chicken that was just thrown into the toilet is wearing a frog's disguise."
+                ],
+                "end_time": 17.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:00:17",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the rabbit dressed in red and white start to become restless?",
+                "answer": "Because the fly just disturbed him, he is swatting the fly.",
+                "choices": [
+                    "Because the fly just disturbed him, he is swatting the fly.",
+                    "Because he suddenly remembered he left something important outside.",
+                    "Because he heard a strange noise coming from the next room.",
+                    "Because he can't find the key to the door and is getting frustrated."
+                ],
+                "end_time": 86.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:01:26",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is this cartoon chicken very shocked now?",
+                "answer": "Because just now another small cartoon chicken was eaten by a frog.",
+                "choices": [
+                    "Because just now another small cartoon chicken was eaten by a frog.",
+                    "Because it just saw a mirror and didn't recognize its own reflection.",
+                    "Because a loud noise suddenly scared it from behind.",
+                    "Because it saw a large shadow pass overhead, thinking it was a predator."
+                ],
+                "end_time": 174.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:54",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the character encounter a heavy legacy robot in the room?",
+                "answer": "Because the character reads a comic book.",
+                "choices": [
+                    "Because the character turns on a machine.",
+                    "Because the character follows someone into the room.",
+                    "Because the character activates a hidden switch.",
+                    "Because the character reads a comic book."
+                ],
+                "end_time": 251.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is this red rabbit standing in front of the iron gate now?",
+                "answer": "Because the cartoon character on the iron gate has been whistling just now.",
+                "choices": [
+                    "Because the red rabbit is trying to figure out how to open the gate.",
+                    "Because the iron gate suddenly started glowing, and the rabbit is curious.",
+                    "Because the cartoon character is seeking amusement.",
+                    "Because the cartoon character on the iron gate has been whistling just now."
+                ],
+                "end_time": 253.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:13",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 289,
+        "video_path": "/data/streamingbench/videos/sample_210_real.mp4",
+        "conversations": [
+            {
+                "question": "What was written in the top right corner at the start of the video?",
+                "answer": "Auto Rickshaw.",
+                "choices": [
+                    "Toy Car.",
+                    "Auto Rickshaw.",
+                    "Building Blocks.",
+                    "Colorful Toy."
+                ],
+                "end_time": 8.0,
+                "task": "Text-Rich Understanding",
+                "time_stamp": "00:00:08",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What sequence of actions happened after the blue rectangular block is placed on the surface?",
+                "answer": "The hand adds a yellow block, then an orange block, and adjusts the orange block.",
+                "choices": [
+                    "The hand adds a yellow block, then an orange block, and adjusts the orange block.",
+                    "The hand adjusts the blue block, then adds a red block, and adjusts it again.",
+                    "The hand places a green block, then a yellow block, and adjusts the yellow block.",
+                    "The hand removes the blue block, places it again, and then adds a yellow block."
+                ],
+                "end_time": 19.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:00:19",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the predominant color of the blocks being placed by the hand right now?",
+                "answer": "Yellow.",
+                "choices": [
+                    "Blue.",
+                    "Orange.",
+                    "Green.",
+                    "Yellow."
+                ],
+                "end_time": 66.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "00:01:06",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What color is the block being placed on the left side of the structure right now?",
+                "answer": "Blue.",
+                "choices": [
+                    "Red.",
+                    "Blue.",
+                    "Green.",
+                    "Yellow."
+                ],
+                "end_time": 122.0,
+                "task": "Object Recognition",
+                "time_stamp": "00:02:02",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What is the block structure identified as?",
+                "answer": "A vehicle.",
+                "choices": [
+                    "A house.",
+                    "A vehicle.",
+                    "A spaceship.",
+                    "A robot."
+                ],
+                "end_time": 197.0,
+                "task": "Object Recognition",
+                "time_stamp": "00:03:17",
+                "required_ability": "working memory"
+            }
+        ]
+    },
+    {
+        "video_id": 292,
+        "video_path": "/data/streamingbench/videos/sample_244_real.mp4",
+        "conversations": [
+            {
+                "question": "Why is the character startled?",
+                "answer": "Because a person enters the scene unexpectedly.",
+                "choices": [
+                    "Because the character is afraid of the dark.",
+                    "Because the character finds the teddy bear.",
+                    "Because a person enters the scene unexpectedly.",
+                    "Because the flashlight stops working."
+                ],
+                "end_time": 11.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is Mr. Bean holding two iron pots in his hands?",
+                "answer": "Because Mr. Bean wanted to wake up the old lady who was sleepwalking onto his bed.",
+                "choices": [
+                    "Because Mr. Bean is preparing to cook a meal.",
+                    "Because Mr. Bean was trying to catch a mouse.",
+                    "Because Mr. Bean wanted to wake up the old lady who was sleepwalking onto his bed.",
+                    "Because Mr. Bean thought they would make a funny noise."
+                ],
+                "end_time": 151.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:31",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the person enter the building to inquire about rooms for rent?",
+                "answer": "Because he was evicted by his previous landlord.",
+                "choices": [
+                    "Because he is looking for a place closer to his workplace.",
+                    "Because he needs a temporary place to stay while his house is being renovated.",
+                    "Because the person have no money.",
+                    "Because he was evicted by his previous landlord."
+                ],
+                "end_time": 273.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:04:33",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why do landlords now take the money and run away?",
+                "answer": "Because she is a fraud, the house is fake.",
+                "choices": [
+                    "Because they are in a hurry and promise to return later.",
+                    "Because she is a fraud, the house is fake.",
+                    "Because they misunderstood and thought the tenant didn't need a receipt.",
+                    "Because they were threatened by someone and had to leave quickly."
+                ],
+                "end_time": 406.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:46",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Who is the person in the video now?",
+                "answer": "It's Mr. Bean in disguise.",
+                "choices": [
+                    "It's Mr. Bean's twin brother.",
+                    "It's a character from a different show.",
+                    "It's a lookalike impersonating Mr. Bean.",
+                    "It's Mr. Bean in disguise."
+                ],
+                "end_time": 529.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:08:49",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 302,
+        "video_path": "/data/streamingbench/videos/sample_220_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The order of operations rules.",
+                "choices": [
+                    "Basic addition and subtraction.",
+                    "Algebraic expressions.",
+                    "Properties of equality.",
+                    "The order of operations rules."
+                ],
+                "end_time": 23.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:23",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might be the next topic the speaker will address?",
+                "answer": "The highest priority operator symbols.",
+                "choices": [
+                    "The order of operations for addition and subtraction.",
+                    "The highest priority operator symbols.",
+                    "The importance of following the PEMDAS rule.",
+                    "Practice problems involving exponents."
+                ],
+                "end_time": 148.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Add the simplified terms.",
+                "choices": [
+                    "Simplify the expression.",
+                    "Subtract the results.",
+                    "Add the simplified terms.",
+                    "Multiply the results."
+                ],
+                "end_time": 268.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The operator symbols for 'Then' and 'last' precedence.",
+                "choices": [
+                    "How to integrate functions.",
+                    "The operator symbols for 'Then' and 'last' precedence.",
+                    "Application of quadratic equations.",
+                    "Solving basic arithmetic."
+                ],
+                "end_time": 386.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:26",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The order of operations between the multiplication sign and the division sign.",
+                "choices": [
+                    "The importance of parentheses in operations.",
+                    "The commutative property of multiplication.",
+                    "How to handle exponents in an equation.",
+                    "The order of operations between the multiplication sign and the division sign."
+                ],
+                "end_time": 487.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:07",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 306,
+        "video_path": "/data/streamingbench/videos/sample_248_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the older woman appear annoyed or angry?",
+                "answer": "Because the character disturbed her.",
+                "choices": [
+                    "Because the character shouted loudly.",
+                    "Because the character disturbed her.",
+                    "Because the character knocked on the door.",
+                    "Because the character broke something."
+                ],
+                "end_time": 26.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:26",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the taxi drive off?",
+                "answer": "Because the person gets inside the taxi.",
+                "choices": [
+                    "Because the passenger instructs the driver to leave.",
+                    "Because the person just got out of another vehicle.",
+                    "Because the person gets inside the taxi.",
+                    "Because the taxi has completed its repairs."
+                ],
+                "end_time": 151.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:02:31",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean can receive money now?",
+                "answer": "Because he impersonated a taxi driver and took the lady to her destination.",
+                "choices": [
+                    "Because he impersonated a taxi driver and took the lady to her destination.",
+                    "Because he found a wallet on the street and returned it for a reward.",
+                    "Because he won a small lottery prize earlier in the day.",
+                    "Because he sold some of his belongings at a yard sale."
+                ],
+                "end_time": 377.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:17",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean can receive money now?",
+                "answer": "Because he impersonated a taxi driver and took the man to his destination.",
+                "choices": [
+                    "Because he impersonated a taxi driver and took the man to his destination.",
+                    "Because he found a wallet on the street and returned it for a reward.",
+                    "Because he won a small lottery prize earlier in the day.",
+                    "Because he sold some of his belongings at a yard sale."
+                ],
+                "end_time": 541.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:09:01",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean now only pays 0.85 pounds?",
+                "answer": "Because Mr. Bean cleared his mileage before.",
+                "choices": [
+                    "Because Mr. Bean cleared his mileage before.",
+                    "Because he used a discount coupon for the purchase.",
+                    "Because he convinced the cashier to give him a special deal.",
+                    "Because he found some extra change in his pocket to cover the cost."
+                ],
+                "end_time": 559.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:09:19",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 326,
+        "video_path": "/data/streamingbench/videos/sample_243_real.mp4",
+        "conversations": [
+            {
+                "question": "Why are the two fries in the plate in front of the teddy bear gone?",
+                "answer": "Because Mr. Bean ate it.",
+                "choices": [
+                    "Because Mr. Bean ate it.",
+                    "Because the teddy bear knocked them off the plate.",
+                    "Because the fries were moved to another plate.",
+                    "Because the fries were given to a passing bird."
+                ],
+                "end_time": 106.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:01:46",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean was just flipping the sofa.",
+                "answer": "Because the remote control fell into the gap of the sofa.",
+                "choices": [
+                    "Because Mr. Bean was looking for loose change.",
+                    "Because Mr. Bean wanted to clean underneath the sofa.",
+                    "Because the remote control fell into the gap of the sofa.",
+                    "Because Mr. Bean thought something valuable was hidden inside."
+                ],
+                "end_time": 132.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:12",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why Mr. Bean is watching a sofa advertisement.",
+                "answer": "Because Mr. Bean's sofa is broken, he wants to buy a new one.",
+                "choices": [
+                    "Because Mr. Bean is curious about the latest furniture trends.",
+                    "Because Mr. Bean is helping a friend choose a new sofa.",
+                    "Because Mr. Bean's sofa is broken, he wants to buy a new one.",
+                    "Because Mr. Bean enjoys watching TV commercials."
+                ],
+                "end_time": 203.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:03:23",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the character take the teddy bear from the girl and give her money in exchange?",
+                "answer": "Because Mr. Bean is selling things to pay off the money to buy a sofa.",
+                "choices": [
+                    "Because the teddy bear is a rare collectible that Mr. Bean wants to keep.",
+                    "Because Mr. Bean needs the teddy bear for a special project.",
+                    "Because Mr. Bean is selling things to pay off the money to buy a sofa.",
+                    "Because the girl insisted on having the money instead of the teddy bear."
+                ],
+                "end_time": 394.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:06:34",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did Mr. Bean drive back to the sofa shop again?",
+                "answer": "Because his TV remote control fell into the old sofa.",
+                "choices": [
+                    "Because his TV remote control fell into the old sofa.",
+                    "Because he realized he forgot to measure the space for the new sofa.",
+                    "Because he wanted to exchange the sofa for a different color.",
+                    "Because he left his wallet at the shop earlier."
+                ],
+                "end_time": 543.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:09:03",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 330,
+        "video_path": "/data/streamingbench/videos/sample_226_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The concept of subtraction.",
+                "choices": [
+                    "The concept of the division.",
+                    "The process of multiplying numbers.",
+                    "The concept of subtraction.",
+                    "How to solve an equation."
+                ],
+                "end_time": 13.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:13",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The meaning of the dividend.",
+                "choices": [
+                    "The meaning of the dividend.",
+                    "The process of multiplying numbers.",
+                    "The concept of subtraction.",
+                    "How to solve an equation."
+                ],
+                "end_time": 136.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:16",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to determine the remainder.",
+                "choices": [
+                    "How to determine the remainder.",
+                    "How to find the remainder.",
+                    "The concept of partial quotients.",
+                    "The relationship between divisor and dividend."
+                ],
+                "end_time": 256.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:16",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to distribute the cookie to people.",
+                "choices": [
+                    "Why dividing cookies by people is useful.",
+                    "The importance of remainders in division.",
+                    "Use real-life example to explain the concept of remainders.",
+                    "How to distribute the cookie to people."
+                ],
+                "end_time": 394.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:34",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Based on the current explanation, what might the speaker do next?",
+                "answer": "Explain the next division step using the tabular.",
+                "choices": [
+                    "Explain the next division step using the tabular.",
+                    "Talk about prime numbers.",
+                    "Introduce a new mathematical operation.",
+                    "Discuss the properties of multiplication."
+                ],
+                "end_time": 521.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:41",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 334,
+        "video_path": "/data/streamingbench/videos/sample_231_real.mp4",
+        "conversations": [
+            {
+                "question": "Why is this rabbit dressed in red and white knocking on the door now?",
+                "answer": "Because it smells the fish and feels it doesn't taste good.",
+                "choices": [
+                    "Because it smells the fish and feels it doesn't taste good.",
+                    "Because it wants to join the party inside the house.",
+                    "Because it saw something interesting through the window.",
+                    "Because it is lost and looking for its way back home."
+                ],
+                "end_time": 36.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:00:36",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is this iron gate cartoon character angry now?",
+                "answer": "Because he was just forcibly stuffed a fish by the red rabbit in red and white clothes.",
+                "choices": [
+                    "Because someone tried to paint him a different color.",
+                    "Because he was just splashed with water by a mischievous cat.",
+                    "Because the wind blew his hinges, making him squeak loudly.",
+                    "Because he was just forcibly stuffed a fish by the red rabbit in red and white clothes."
+                ],
+                "end_time": 58.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:00:58",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is this rabbit, dressed in green and white, surprised now?",
+                "answer": "Because he can't distinguish the gender of the chicken he is holding now.",
+                "choices": [
+                    "Because he found an unexpected egg in the chicken's nest.",
+                    "Because the chicken suddenly started talking.",
+                    "Because he can't distinguish the gender of the chicken he is holding now.",
+                    "Because the chicken he is holding suddenly grew larger."
+                ],
+                "end_time": 144.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does this rabbit dressed in green and white want to hide in the toilet?",
+                "answer": "Because after he opened the door, he found a noose and a skull.",
+                "choices": [
+                    "Because he accidentally broke a valuable vase and wants to avoid getting caught.",
+                    "Because he saw a scary shadow moving in the hallway.",
+                    "Because he is trying to escape from a loud and annoying party.",
+                    "Because after he opened the door, he found a noose and a skull."
+                ],
+                "end_time": 199.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:03:19",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why did the rabbit dressed in red and white just have to use a pool cue to strike the iron gate lying on the ground?",
+                "answer": "Because he wants to get all the balls into the mouth of the iron gate at once.",
+                "choices": [
+                    "Because he wants to get all the balls into the mouth of the iron gate at once.",
+                    "Because the iron gate blocked his path, and he needed to move it out of the way.",
+                    "Because he thought the flattened gate would make a perfect ramp for his skateboard.",
+                    "Because he was trying to impress his friends with a strong trick shot."
+                ],
+                "end_time": 402.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:06:42",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 335,
+        "video_path": "/data/streamingbench/videos/sample_204_real.mp4",
+        "conversations": [
+            {
+                "question": "What color is the plastic block added on top of the green blocks?",
+                "answer": "Yellow.",
+                "choices": [
+                    "Red.",
+                    "Blue.",
+                    "Yellow.",
+                    "Purple."
+                ],
+                "end_time": 16.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "0:00:16",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What are the primary colors of the plastic building blocks shown right now?",
+                "answer": "Red, green, and yellow.",
+                "choices": [
+                    "Blue, green, and yellow.",
+                    "Red, green, and yellow.",
+                    "Red, blue, and yellow.",
+                    "Green, blue, and orange."
+                ],
+                "end_time": 62.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "0:01:02",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "Which block was picked up and attached to the top of red block first just now?",
+                "answer": "An yellow block.",
+                "choices": [
+                    "A white block.",
+                    "A green block.",
+                    "An yellow block.",
+                    "A blue block."
+                ],
+                "end_time": 85.0,
+                "task": "Event Understanding",
+                "time_stamp": "0:01:25",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What was the white text on the purple animated overlay read just now?",
+                "answer": "\"Alphabet B transform to Box\".",
+                "choices": [
+                    "\"Alphabet A transform to Box\".",
+                    "\"Alphabet B transform to Box\".",
+                    "\"Alphabet C transform to Box\".",
+                    "\"Alphabet D transform to Box\"."
+                ],
+                "end_time": 141.0,
+                "task": "Text-Rich Understanding",
+                "time_stamp": "0:02:21",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What happens to the blocks after they are disassembled and mixed?",
+                "answer": "The blocks are scattered and then gathered into a pile.",
+                "choices": [
+                    "The blocks are arranged in a new pattern.",
+                    "The blocks are scattered and then gathered into a pile.",
+                    "The blocks are thrown away.",
+                    "The blocks are sorted by color."
+                ],
+                "end_time": 198.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:03:18",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 355,
+        "video_path": "/data/streamingbench/videos/sample_203_real.mp4",
+        "conversations": [
+            {
+                "question": "How many studs does each yellow interlocking block placed by the hand have?",
+                "answer": "Eight.",
+                "choices": [
+                    "Eight.",
+                    "Sixteen.",
+                    "Four.",
+                    "Twelve."
+                ],
+                "end_time": 15.0,
+                "task": "Counting",
+                "time_stamp": "00:00:15",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "How many interlocking blocks are positioned in a straight line by the hand?",
+                "answer": "Four.",
+                "choices": [
+                    "Three.",
+                    "Five.",
+                    "Seven.",
+                    "Four."
+                ],
+                "end_time": 19.0,
+                "task": "Counting",
+                "time_stamp": "00:00:19",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What is the color of the block that the hand is reaching for right now?",
+                "answer": "Green.",
+                "choices": [
+                    "Yellow.",
+                    "Orange.",
+                    "Green.",
+                    "Blue."
+                ],
+                "end_time": 76.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "00:01:16",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What color is the brick first added after the initial blue bricks form a two-layered structure?",
+                "answer": "Green.",
+                "choices": [
+                    "Green.",
+                    "Yellow.",
+                    "Orange.",
+                    "Red."
+                ],
+                "end_time": 134.0,
+                "task": "Event Understanding",
+                "time_stamp": "0:02:14",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the sequence of bricks added to the structure after the blue bricks?",
+                "answer": "Green, yellow, orange.",
+                "choices": [
+                    "Green, yellow, orange.",
+                    "Yellow, green, orange.",
+                    "Orange, yellow, green.",
+                    "Green, orange, yellow."
+                ],
+                "end_time": 141.0,
+                "task": "Event Understanding",
+                "time_stamp": "0:02:21",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 360,
+        "video_path": "/data/streamingbench/videos/sample_246_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the character cuddle the teddy bear and smile in bed?",
+                "answer": "Because the character feels comforted by the teddy bear.",
+                "choices": [
+                    "Because the character is preparing for bedtime.",
+                    "Because the character is trying to send a message.",
+                    "Because the character feels comforted by the teddy bear.",
+                    "Because the character is participating in a game."
+                ],
+                "end_time": 30.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:30",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does Mr. Bean become disturbed?",
+                "answer": "Because the worker is using a jackhammer.",
+                "choices": [
+                    "Because the worker is whistling loudly.",
+                    "Because the worker is using a jackhammer.",
+                    "Because the worker is throwing tools around.",
+                    "Because the worker is shouting instructions."
+                ],
+                "end_time": 145.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:25",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the person adjust a lever and press a red button on the machine?",
+                "answer": "Because the person wants to power up the machine.",
+                "choices": [
+                    "Because the person wants to power up the machine.",
+                    "Because the person needs to deflate the tent.",
+                    "Because the person wants to shut down the machine.",
+                    "Because the person is testing the lever's mechanism."
+                ],
+                "end_time": 275.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:35",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is there an abundance of egg cartons and eggs causing clutter in the house?",
+                "answer": "Because the man in the red hat operates heavy machinery.",
+                "choices": [
+                    "Because the man in the red hat operates heavy machinery.",
+                    "Because someone is baking a large number of cakes.",
+                    "Because a delivery of eggs made a mistake.",
+                    "Because the family is preparing for a party."
+                ],
+                "end_time": 423.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:07:03",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why do the workers outside notice an issue with the pipeline?",
+                "answer": "Because overheating cooking supplies produced smoke.",
+                "choices": [
+                    "Because there was a scheduled maintenance check.",
+                    "Because the pipeline was leaking due to wear and tear.",
+                    "Because overheating cooking supplies produced smoke.",
+                    "Because the workers were alerted by a loud noise."
+                ],
+                "end_time": 550.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:09:10",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 367,
+        "video_path": "/data/streamingbench/videos/sample_224_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The concept of triangle.",
+                "choices": [
+                    "The properties of polygon.",
+                    "The concept of triangle.",
+                    "How to measure the sides of a rectangle.",
+                    "The definition of a polygon."
+                ],
+                "end_time": 11.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The difference between acute angle and obtuse angle.",
+                "choices": [
+                    "The properties of acute angles.",
+                    "The difference between acute angle and obtuse angle.",
+                    "How to identify right triangles from angles.",
+                    "The relationship between different types of triangles."
+                ],
+                "end_time": 114.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:01:54",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The equal sides' number of Isosceles triangles.",
+                "choices": [
+                    "The angle sum of triangles.",
+                    "The concept of right triangles.",
+                    "Important theorems about scalene triangles.",
+                    "The equal sides' number of Isosceles triangles."
+                ],
+                "end_time": 219.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:39",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Types of angles of equilateral triangles.",
+                "choices": [
+                    "Examples of right triangles.",
+                    "Types of angles of equilateral triangles.",
+                    "The concept of similar triangles.",
+                    "Differences between quadrilaterals and triangles."
+                ],
+                "end_time": 293.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:53",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker do next?",
+                "answer": "Solve for the unknown angle.",
+                "choices": [
+                    "Discuss the properties of isosceles triangles.",
+                    "Introduce the concept of congruent triangles.",
+                    "Explain the Pythagorean theorem.",
+                    "Solve for the unknown angle."
+                ],
+                "end_time": 395.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:35",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 376,
+        "video_path": "/data/streamingbench/videos/sample_225_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "The definition of the distributive property.",
+                "choices": [
+                    "How the distributive property helps in simplifying equations.",
+                    "The practical applications of the probability theory.",
+                    "The definition of the distributive property.",
+                    "The definition of stochastic process."
+                ],
+                "end_time": 11.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to use distributive property to the example.",
+                "choices": [
+                    "Combining like terms.",
+                    "Factoring out a common factor.",
+                    "Simplifying the expression further.",
+                    "How to use distributive property to the example."
+                ],
+                "end_time": 120.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:00",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Why the two way get the same answer.",
+                "choices": [
+                    "The formula for compound interest.",
+                    "Why the two way get the same answer.",
+                    "Solving quadratic equations.",
+                    "Graphing linear equations."
+                ],
+                "end_time": 270.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:30",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker calculate next?",
+                "answer": "5 times 7.",
+                "choices": [
+                    "5 times 7.",
+                    "47 times 47.",
+                    "5 times 5.",
+                    "5 plus 40."
+                ],
+                "end_time": 403.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:06:43",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The example can not use distributive property.",
+                "choices": [
+                    "The example can not use distributive property.",
+                    "The commutative property of addition.",
+                    "The identity property of multiplication.",
+                    "The distributive property of subtraction."
+                ],
+                "end_time": 527.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:47",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 402,
+        "video_path": "/data/streamingbench/videos/sample_223_real.mp4",
+        "conversations": [
+            {
+                "question": "What concept might the speaker explain next?",
+                "answer": "The formula a² + b² = c².",
+                "choices": [
+                    "Definition of a right triangle.",
+                    "What is Pythagorean Theorem.",
+                    "The history of Pythagoras.",
+                    "The formula a² + b² = c²."
+                ],
+                "end_time": 20.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:20",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to solve for the hypotenuse.",
+                "choices": [
+                    "Applications of the Pythagorean Theorem.",
+                    "How to solve for the hypotenuse.",
+                    "Examples of different right triangles.",
+                    "The history of the Pythagorean Theorem."
+                ],
+                "end_time": 154.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:34",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The concept of area and its proof in the Pythagorean theorem.",
+                "choices": [
+                    "How to apply the Pythagorean theorem to other shapes.",
+                    "The derivation of the Pythagorean theorem using trigonometry.",
+                    "The concept of area and its proof in the Pythagorean theorem.",
+                    "The historical background of the Pythagorean theorem."
+                ],
+                "end_time": 333.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:33",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Explain how to use the Pythagorean theorem to find the right-angle side length.",
+                "choices": [
+                    "Explain how to use the Pythagorean theorem to find the right-angle side length.",
+                    "Discuss the properties of right-angle triangles in detail.",
+                    "Convert all given measurements from meters to centimeters.",
+                    "Illustrate how to plot these points on a Cartesian plane."
+                ],
+                "end_time": 509.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:29",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "The method to verify if it is a right triangle.",
+                "choices": [
+                    "How to calculate the hypotenuse.",
+                    "Why the triangle is right-angled.",
+                    "The properties of equilateral triangles.",
+                    "The method to verify if it is a right triangle."
+                ],
+                "end_time": 669.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:11:09",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 427,
+        "video_path": "/data/streamingbench/videos/sample_217_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to find the Mean of a data set.",
+                "choices": [
+                    "How to find the Mean of a data set.",
+                    "An overview of different types of graphs.",
+                    "The definition of a median.",
+                    "Steps to calculate the mode."
+                ],
+                "end_time": 88.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:01:28",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What concept is likely to be explained next?",
+                "answer": "Median.",
+                "choices": [
+                    "Median.",
+                    "Variance.",
+                    "Mode.",
+                    "Range."
+                ],
+                "end_time": 258.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:18",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What is the next logical step after the operation to the numbers?",
+                "answer": "Find the median of the numbers.",
+                "choices": [
+                    "Find the mean of the numbers.",
+                    "Find the median of the numbers.",
+                    "Find the mode of the numbers.",
+                    "Find the range of the numbers."
+                ],
+                "end_time": 307.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:07",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the instructor explain next?",
+                "answer": "How to interpret the result of the median calculation.",
+                "choices": [
+                    "How to calculate the mean of a set of numbers.",
+                    "How to interpret the result of the median calculation.",
+                    "The difference between mean and median.",
+                    "How to find the mode of a data set."
+                ],
+                "end_time": 440.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:07:20",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Divide the sum by the count of numbers.",
+                "choices": [
+                    "Divide the sum by the first number in the list.",
+                    "Subtract the smallest number from the sum.",
+                    "Divide the sum by the count of numbers.",
+                    "Add all the numbers again."
+                ],
+                "end_time": 554.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:09:14",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 447,
+        "video_path": "/data/streamingbench/videos/sample_213_real.mp4",
+        "conversations": [
+            {
+                "question": "What topics might the speaker explain next?",
+                "answer": "Adding fractions.",
+                "choices": [
+                    "Simplifying fractions.",
+                    "Adding fractions.",
+                    "Dividing fractions.",
+                    "Subtracting fractions."
+                ],
+                "end_time": 16.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:16",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to add 1/2 + 1/2.",
+                "choices": [
+                    "How to multiply fractions.",
+                    "How to add 1/2 + 1/2.",
+                    "How to divide fractions.",
+                    "How to subtract fractions."
+                ],
+                "end_time": 120.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:00",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker suggest next?",
+                "answer": "How to subtract fractions.",
+                "choices": [
+                    "How to multiply fractions.",
+                    "How to find a common denominator for addition.",
+                    "How to simplify fractions.",
+                    "How to subtract fractions."
+                ],
+                "end_time": 159.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:39",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Why the denominators stay the same.",
+                "choices": [
+                    "How to add two fractions with different denominators.",
+                    "How to convert fractions to decimals.",
+                    "Why the denominators stay the same.",
+                    "How to simplify the resulting fraction."
+                ],
+                "end_time": 184.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:04",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to find a common denominator.",
+                "choices": [
+                    "How to convert fractions to decimals.",
+                    "Steps to compare fractions.",
+                    "Methods to simplify fractions.",
+                    "How to find a common denominator."
+                ],
+                "end_time": 241.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:04:01",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 448,
+        "video_path": "/data/streamingbench/videos/sample_208_real.mp4",
+        "conversations": [
+            {
+                "question": "What are the colors of the crane arm?",
+                "answer": "Yellow, green.",
+                "choices": [
+                    "Yellow, green.",
+                    "Yellow, blue.",
+                    "Red, green, blue.",
+                    "Yellow, blue, green."
+                ],
+                "end_time": 7.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "0:00:07",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What happens to the orange block as the video progresses?",
+                "answer": "It lifts and swings gently.",
+                "choices": [
+                    "It falls to the ground.",
+                    "It remains stationary.",
+                    "It lifts and swings gently.",
+                    "It changes color."
+                ],
+                "end_time": 19.0,
+                "task": "Event Understanding",
+                "time_stamp": "0:00:19",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What was the sequence of actions performed with the blocks just now?",
+                "answer": "The hand places a yellow block, moves it, then places a green block next to it.",
+                "choices": [
+                    "The hand first places a green block, then a yellow block, followed by a blue block.",
+                    "The hand builds a structure with red, green, and blue blocks.",
+                    "The hand stacks blocks randomly.",
+                    "The hand places a yellow block, moves it, then places a green block next to it."
+                ],
+                "end_time": 96.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:01:36",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What happens to the smaller structure after it is first moved out of view?",
+                "answer": "It is placed back beside the larger structure.",
+                "choices": [
+                    "It is disassembled.",
+                    "It is placed on top of the larger structure.",
+                    "It is left in the foreground.",
+                    "It is placed back beside the larger structure."
+                ],
+                "end_time": 171.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:02:51",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "How many green blocks are stacked now?",
+                "answer": "Nine.",
+                "choices": [
+                    "Ten.",
+                    "Three.",
+                    "Nine.",
+                    "Eight."
+                ],
+                "end_time": 265.0,
+                "task": "Counting",
+                "time_stamp": "00:04:25",
+                "required_ability": "working memory"
+            }
+        ]
+    },
+    {
+        "video_id": 456,
+        "video_path": "/data/streamingbench/videos/sample_219_real.mp4",
+        "conversations": [
+            {
+                "question": "What mathematical topic might the speaker focus on next?",
+                "answer": "Multiplying Fractions.",
+                "choices": [
+                    "Adding Fractions.",
+                    "Dividing Fractions.",
+                    "Simplifying Fractions.",
+                    "Multiplying Fractions."
+                ],
+                "end_time": 10.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:10",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker do next?",
+                "answer": "Show the steps to multiply the fractions.",
+                "choices": [
+                    "Explain how to convert the fractions.",
+                    "Show the steps to add the fractions.",
+                    "Show the steps to multiply the fractions.",
+                    "Discuss the importance of common denominators."
+                ],
+                "end_time": 55.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:55",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker do next?",
+                "answer": "Show the steps to multiply the fractions.",
+                "choices": [
+                    "Add the fractions together.",
+                    "Subtract the fractions.",
+                    "Show the steps to multiply the fractions.",
+                    "Divide the fractions."
+                ],
+                "end_time": 149.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:29",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What mathematical concept might the speaker move on to explain next?",
+                "answer": "Another explanation to fractions.",
+                "choices": [
+                    "Addition of fractions.",
+                    "Subtraction of fractions.",
+                    "Simplifying fractions.",
+                    "Another explanation to fractions."
+                ],
+                "end_time": 231.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:51",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "How to multiply the denominators.",
+                "choices": [
+                    "How to add fractions.",
+                    "How to divide fractions.",
+                    "How to multiply the denominators.",
+                    "How to subtract fractions."
+                ],
+                "end_time": 310.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:10",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 459,
+        "video_path": "/data/streamingbench/videos/sample_202_real.mp4",
+        "conversations": [
+            {
+                "question": "What colors are the wheels of the race car?",
+                "answer": "Yellow and Red.",
+                "choices": [
+                    "Green and blue.",
+                    "Red and blue.",
+                    "Yellow and Red.",
+                    "Brown."
+                ],
+                "end_time": 12.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "00:00:12",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What feature is present on the front of the toy?",
+                "answer": "A happy face.",
+                "choices": [
+                    "A sad face.",
+                    "A happy face.",
+                    "A star.",
+                    "A heart."
+                ],
+                "end_time": 72.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "00:01:12",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "How are the yellow building blocks arranged before the blue block is placed on top?",
+                "answer": "In a straight line.",
+                "choices": [
+                    "In a circle.",
+                    "In a straight line.",
+                    "In a random pattern.",
+                    "In a triangular shape."
+                ],
+                "end_time": 128.0,
+                "task": "Spatial Understanding",
+                "time_stamp": "0:02:08",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What is the new item introduced in the video?",
+                "answer": "A small structure made of yellow and red blocks with wheels.",
+                "choices": [
+                    "A small structure made of blue and green blocks.",
+                    "A small structure made of yellow and red blocks with wheels.",
+                    "A toy vehicle with blue and yellow wheels.",
+                    "An orange and green interlocking block structure."
+                ],
+                "end_time": 202.0,
+                "task": "Object Recognition",
+                "time_stamp": "00:03:22",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What happened to the toy vehicle just now?",
+                "answer": "The toy vehicle start circling around the table.",
+                "choices": [
+                    "The toy vehicle is disassembled.",
+                    "The toy vehicle moves to the right.",
+                    "The toy vehicle start circling around the table.",
+                    "The toy vehicle is lifted off the surface."
+                ],
+                "end_time": 227.0,
+                "task": "Event Understanding",
+                "time_stamp": "00:03:47",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 465,
+        "video_path": "/data/streamingbench/videos/sample_205_real.mp4",
+        "conversations": [
+            {
+                "question": "What colors are the wheels of the toy car?",
+                "answer": "Red and Yellow.",
+                "choices": [
+                    "Blue and Yellow.",
+                    "Green and Red.",
+                    "Red and Yellow.",
+                    "Yellow and Green."
+                ],
+                "end_time": 4.0,
+                "task": "Attribute Recognition",
+                "time_stamp": "00:00:04",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What action did the hand perform after placing the green block next to the blue block?",
+                "answer": "Picked up an orange block.",
+                "choices": [
+                    "Placed a yellow block over the blue block.",
+                    "Adjusted the green block.",
+                    "Picked up an orange block.",
+                    "Removed the blue block."
+                ],
+                "end_time": 70.0,
+                "task": "Action Recognition",
+                "time_stamp": "0:01:10",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "How many hands are involved in arranging the blocks right now?",
+                "answer": "Two hands.",
+                "choices": [
+                    "One hand.",
+                    "Two hands.",
+                    "Three hands.",
+                    "Four hands."
+                ],
+                "end_time": 79.0,
+                "task": "Counting",
+                "time_stamp": "0:01:19",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What does the hand do after picking up the yellow building block?",
+                "answer": "Places it on the left side.",
+                "choices": [
+                    "Places it on the right side.",
+                    "Places it on the left side.",
+                    "Discards it.",
+                    "Hands it to someone else."
+                ],
+                "end_time": 126.0,
+                "task": "Action Recognition",
+                "time_stamp": "0:02:06",
+                "required_ability": "working memory"
+            },
+            {
+                "question": "What does the hand do after positioning the three green blocks securely?",
+                "answer": "Picks up an orange block.",
+                "choices": [
+                    "Picks up a red block.",
+                    "Picks up an orange block.",
+                    "Picks up another green block.",
+                    "Adjusts the yellow block."
+                ],
+                "end_time": 191.0,
+                "task": "Action Recognition",
+                "time_stamp": "00:03:11",
+                "required_ability": "working memory"
+            }
+        ]
+    },
+    {
+        "video_id": 492,
+        "video_path": "/data/streamingbench/videos/sample_218_real.mp4",
+        "conversations": [
+            {
+                "question": "What topic might the teacher explain next?",
+                "answer": "mixed numbers and improper fractions.",
+                "choices": [
+                    "mixed numbers and improper fractions.",
+                    "Add mixed numbers.",
+                    "Subtract improper fractions.",
+                    "Multiply fractions."
+                ],
+                "end_time": 11.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:11",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the teacher explain next?",
+                "answer": "Explain how improper fractions is connected to proper fractions and whole fractions.",
+                "choices": [
+                    "Compare the fractions using decimal values.",
+                    "Explain how improper fractions is connected to proper fractions and whole fractions.",
+                    "Demonstrate how to multiply two fractions.",
+                    "Discuss the concept of mixed numbers."
+                ],
+                "end_time": 190.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:03:10",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to convert mixed numbers to improper fractions.",
+                "choices": [
+                    "How to convert mixed numbers to improper fractions.",
+                    "The method for adding mixed numbers and improper fractions.",
+                    "Simplifying improper fractions.",
+                    "Dividing fractions by whole numbers."
+                ],
+                "end_time": 331.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "0:05:31",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What concept will the speaker likely explain next?",
+                "answer": "Converting improper fractions to mixed numbers.",
+                "choices": [
+                    "Multiplying mixed fractions by a whole number.",
+                    "Converting improper fractions to mixed numbers.",
+                    "Adding improper fractions together.",
+                    "Simplifying mixed fractions."
+                ],
+                "end_time": 500.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:08:20",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to use dividing to convert improper fractions to a mixed number form.",
+                "choices": [
+                    "Add the remainder to the quotient.",
+                    "Subtract 6 from 1.",
+                    "Divide 7 by 3.",
+                    "How to use dividing to convert improper fractions to a mixed number form."
+                ],
+                "end_time": 646.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:10:46",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 494,
+        "video_path": "/data/streamingbench/videos/sample_222_real.mp4",
+        "conversations": [
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to simplify fractions.",
+                "choices": [
+                    "How to plot 25/50 on a graph.",
+                    "How to further simplify 1/2.",
+                    "How to simplify fractions.",
+                    "How to multiply fractions."
+                ],
+                "end_time": 13.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:00:13",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "Equivalent fractions of 3/6.",
+                "choices": [
+                    "Converting 1/2 to a decimal.",
+                    "Adding fractions with different denominators.",
+                    "Equivalent fractions of 3/6.",
+                    "Subtracting fractions with common denominators."
+                ],
+                "end_time": 84.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:01:24",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Simplifying fractions by finding common factors.",
+                "choices": [
+                    "Converting improper fractions to mixed numbers.",
+                    "Adding fractions with different denominators.",
+                    "Simplifying fractions by finding common factors.",
+                    "Multiplying fractions by whole numbers."
+                ],
+                "end_time": 153.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:02:33",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker explain next?",
+                "answer": "How to factorize each number to prime factors.",
+                "choices": [
+                    "How to find the greatest common divisor.",
+                    "How to convert the fraction to a decimal.",
+                    "How to factorize each number to prime factors.",
+                    "How to add fractions with different denominators."
+                ],
+                "end_time": 345.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:05:45",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "What might the speaker discuss next?",
+                "answer": "Simplifying fractions using greatest common factor.",
+                "choices": [
+                    "How to find common denominators.",
+                    "The process of cross-multiplication.",
+                    "Simplifying fractions using greatest common factor.",
+                    "The difference between factors and multiples."
+                ],
+                "end_time": 437.0,
+                "task": "Prospective Reasoning",
+                "time_stamp": "00:07:17",
+                "required_ability": "episodic memory"
+            }
+        ]
+    },
+    {
+        "video_id": 495,
+        "video_path": "/data/streamingbench/videos/sample_250_real.mp4",
+        "conversations": [
+            {
+                "question": "Why does the older woman appear annoyed or angry?",
+                "answer": "Because the character disturbed her.",
+                "choices": [
+                    "Because the character shouted loudly.",
+                    "Because the character disturbed her.",
+                    "Because the character knocked on the door.",
+                    "Because the character broke something."
+                ],
+                "end_time": 26.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:00:26",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why is the teddy bear covered in flour?",
+                "answer": "Because Mr. Bean just blew on the flour.",
+                "choices": [
+                    "Because the teddy bear fell into a bag of flour.",
+                    "Because Mr. Bean just blew on the flour.",
+                    "Because Mr. Bean was baking and accidentally spilled flour on it.",
+                    "Because the teddy bear was used to dust off a surface covered in flour."
+                ],
+                "end_time": 142.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:02:22",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why does the character have a complete list of ingredients for the grocery list?",
+                "answer": "Because the character is talking on the phone and writing down ingredients for a grocery list.",
+                "choices": [
+                    "Because the character finds a recipe book.",
+                    "Because the character asks someone else for the list.",
+                    "Because the character is talking on the phone and writing down ingredients for a grocery list.",
+                    "Because the character visits each grocery store to check items."
+                ],
+                "end_time": 282.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:04:42",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "How did Mr. Bean earn all the money on his desk?",
+                "answer": "Earnings from selling pizza.",
+                "choices": [
+                    "Earnings from selling pizza.",
+                    "Earnings from doing odd jobs around the neighborhood.",
+                    "Earnings from a garage sale he held over the weekend.",
+                    "Earnings from winning a small bet with a friend."
+                ],
+                "end_time": 443.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "0:07:23",
+                "required_ability": "episodic memory"
+            },
+            {
+                "question": "Why do the two guards fight each other?",
+                "answer": "Because Mr. Bean dodged their attack downward, it caused them to attack each other.",
+                "choices": [
+                    "Because Mr. Bean dodged their attack downward, it caused them to attack each other.",
+                    "Because they misunderstood each other's orders.",
+                    "Because they were competing to capture Mr. Bean first.",
+                    "Because they were tricked by Mr. Bean into thinking the other was an enemy."
+                ],
+                "end_time": 545.0,
+                "task": "Causal Reasoning",
+                "time_stamp": "00:09:05",
+                "required_ability": "episodic memory"
+            }
+        ]
+    }
+]

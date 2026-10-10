@@ -1,0 +1,207 @@
+{
+  "trace_schema_version": 1,
+  "predictor_source": "hermes",
+  "target_source": "true_question",
+  "target_includes_same_observation": false,
+  "note": "Existing pilot traces contain the standard HERMES pseudo score, not separate local/global pseudo streams. This evaluates the single-pseudo profile-gated variant.",
+  "folds": [
+    {
+      "fold": 0,
+      "train_videos": [
+        "12",
+        "159",
+        "165",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "173"
+      ]
+    },
+    {
+      "fold": 1,
+      "train_videos": [
+        "12",
+        "159",
+        "173",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "165"
+      ]
+    },
+    {
+      "fold": 2,
+      "train_videos": [
+        "159",
+        "165",
+        "173",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "12"
+      ]
+    },
+    {
+      "fold": 3,
+      "train_videos": [
+        "12",
+        "159",
+        "165",
+        "173",
+        "28"
+      ],
+      "test_videos": [
+        "284"
+      ]
+    },
+    {
+      "fold": 4,
+      "train_videos": [
+        "12",
+        "159",
+        "165",
+        "173",
+        "284"
+      ],
+      "test_videos": [
+        "28"
+      ]
+    },
+    {
+      "fold": 5,
+      "train_videos": [
+        "12",
+        "165",
+        "173",
+        "28",
+        "284"
+      ],
+      "test_videos": [
+        "159"
+      ]
+    }
+  ],
+  "params": {
+    "lifecycle_weight": 0.0,
+    "gate_weight": 1.0
+  },
+  "metrics": {
+    "hermes": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7462058618269235,
+        0.7672204701624348
+      ]
+    },
+    "pseudo": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7462058618269235,
+        0.7672204701624348
+      ]
+    },
+    "pseudo_global_lifecycle": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7462058618269235,
+        0.7672204701624348
+      ]
+    },
+    "pseudo_head_lifecycle": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7462058618269235,
+        0.7672204701624348
+      ]
+    },
+    "pseudo_head_shuffled": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7462058618269235,
+        0.7672204701624348
+      ]
+    },
+    "pseudo_head_reversed": {
+      "groups": 4480,
+      "frame_auc": 0.6749910069072588,
+      "ndcg": 0.7576065980900882,
+      "future_topk_recall": 0.21946446950279774,
+      "ndcg_ci95": [
+        0.7462058618269235,
+        0.7672204701624348
+      ]
+    },
+    "pseudo_future_gate": {
+      "groups": 4480,
+      "frame_auc": 0.6832108778598888,
+      "ndcg": 0.7640126031858218,
+      "future_topk_recall": 0.22608162888953978,
+      "ndcg_ci95": [
+        0.7527243678114687,
+        0.7733905098245158
+      ]
+    }
+  },
+  "paired_ndcg_deltas": {
+    "hermes_minus_pseudo": {
+      "ndcg_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pseudo_global_lifecycle_minus_pseudo": {
+      "ndcg_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pseudo_head_lifecycle_minus_pseudo": {
+      "ndcg_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pseudo_head_shuffled_minus_pseudo": {
+      "ndcg_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pseudo_head_reversed_minus_pseudo": {
+      "ndcg_delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pseudo_future_gate_minus_pseudo": {
+      "ndcg_delta": 0.006406005095733525,
+      "ci95": [
+        0.005616160985080429,
+        0.007361406810854845
+      ]
+    }
+  }
+}

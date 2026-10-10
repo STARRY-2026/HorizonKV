@@ -1,0 +1,104 @@
+{
+  "id": "uniform_ragged_k1000_first150",
+  "label": "Uniform ragged HERMES",
+  "method": "uniform_ragged",
+  "budget": 1000,
+  "split": "first150",
+  "canvas": 0,
+  "comparison_group": "native_k1000_first150",
+  "notes": [
+    "exact parameter match to frozen uniform K1000 protocol"
+  ],
+  "questions": 754,
+  "videos": 150,
+  "correct": 506,
+  "accuracy_percent": 67.10875331564988,
+  "model": "Qwen2.5-VL-7B-Instruct",
+  "sample_fps": 0.5,
+  "prediction_file": "runs/uniform_ragged_k1000_first150/results.csv",
+  "evaluation_file": "runs/uniform_ragged_k1000_first150/eval_results.txt",
+  "derived_from_shards": true,
+  "source_parts": [
+    {
+      "prediction": "source_runs/38591e5a3a17/results.csv",
+      "evaluation": "source_runs/38591e5a3a17/eval_results.txt"
+    },
+    {
+      "prediction": "source_runs/4bed7662bf95/results.csv",
+      "evaluation": "source_runs/4bed7662bf95/eval_results.txt"
+    }
+  ],
+  "annotation_reference": "data/streamingbench/streamingbench_realtime_half.json",
+  "annotation_sha256": "343087d65c9b3f9532f122f31df9a942c59bec2e4d9021a9502e011e00b6f617",
+  "ordered_qa_identity_sha256": "8b0c03faf2a2a8ad75103b2b3924c7e14e9221889b75d861a13d940e38f7e26e",
+  "questions_choices_answers_and_order_match_annotation": true,
+  "predictions_sha256": "d6957cfb1792c44e5221f376e66d9e7f2696aa97b151baf8dae99fc7de996a6e",
+  "original_repeated_qa_occurrences_preserved": true,
+  "configuration_audit": {
+    "id": "uniform_ragged_k1000_first150",
+    "model": "qwen2.5_vl_7b",
+    "sample_fps": 0.5,
+    "annotation_reference": "data/streamingbench/streamingbench_realtime_half.json",
+    "prediction_shards": [
+      {
+        "prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-first50/results.csv",
+        "absolute_prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-first50/results.csv",
+        "evaluation_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-first50/eval_results.txt",
+        "rows": 251,
+        "videos": 50,
+        "correct": 178,
+        "accuracy_percent": 70.91633466135458,
+        "report_sample_count": 251,
+        "report_accuracy_percent": 70.92,
+        "report_matches_csv": true,
+        "sha256": "33e0a9bcedebe47fb1d447dde75a6a8959662e1e887557a528a6df62eec9c7e7",
+        "all_task_specific_report_counts_and_accuracies_match": true
+      },
+      {
+        "prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-51-150/results.csv",
+        "absolute_prediction_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-51-150/results.csv",
+        "evaluation_path": "results/qwen2.5_vl_7b/streamingbench/fps0.5-kv1000-hermes-kvheadbudget-uniform-sparsemm-union1-r0.2-w32-raggedprefill-hermes-uniform-native-k1000-51-150/eval_results.txt",
+        "rows": 503,
+        "videos": 100,
+        "correct": 328,
+        "accuracy_percent": 65.20874751491054,
+        "report_sample_count": 503,
+        "report_accuracy_percent": 65.21,
+        "report_matches_csv": true,
+        "sha256": "3d92ac42426408f2c3e321424fd74029874d782a5329d8c4175a122a4ed7ccb5",
+        "all_task_specific_report_counts_and_accuracies_match": true
+      }
+    ],
+    "rows": 754,
+    "videos": 150,
+    "unique_qa_by_video_and_source_question_index": 754,
+    "unique_video_question_text": 613,
+    "source_questions_choices_answers_order_match": true,
+    "all_videos_have_complete_question_sequence": true,
+    "qa_identity_sha256": "cb5af524e62952d3ecd71d025a0a8f2aad7f3d0290d372c2a71cf8a2fc5b5a71",
+    "correct": 506,
+    "accuracy_percent": 67.10875331564986,
+    "method": "uniform_ragged",
+    "budget": 1000,
+    "canvas": 0,
+    "split": "first150",
+    "portable_protocol": "uniform",
+    "portable_match": "exact parameter match to frozen uniform K1000 protocol",
+    "comparison_group": "native_k1000_first150",
+    "config_evidence": [
+      "scripts/run_native_k1000_budget.sh",
+      "scripts/run_51_150_serial.sh",
+      "logs/native_k1000_budget/hermes_uniform_native_k1000_first50.log",
+      "logs/native_k1000_budget/hermes_uniform_native_k1000_51_150.log"
+    ],
+    "runtime_options": {
+      "kv_head_ragged_prefill": true,
+      "kv_head_budget_scores": "results/observations/memory_core_budget_scores/uniform.csv",
+      "kv_head_budget_scheme": "sparsemm",
+      "kv_head_budget_sparsemm_ratio": 0.2,
+      "kv_head_budget_sparsemm_window_size": 32,
+      "kv_head_budget_union_cap_ratio": 1.0
+    },
+    "visual_slots": 112000
+  }
+}

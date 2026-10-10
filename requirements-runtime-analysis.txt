@@ -1,0 +1,11 @@
+# Optional CPU tests, evaluation/plotting and profile-generation dependencies.
+-r requirements-runtime-qwen.txt
+pytest==9.1.1
+matplotlib==3.10.6
+seaborn==0.13.2
+scipy>=1.16,<1.17
+scikit-learn>=1.7,<1.8
+python-pptx>=1.0,<2
+PyYAML==6.0.2
+# Optional open-ended judge SDK. StreamingBench multiple-choice scoring is local.
+openai==1.57.1

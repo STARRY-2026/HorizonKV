@@ -1,0 +1,23 @@
+============================================================
+EVALUATION RESULTS (StreamingBench)
+============================================================
+#Samples: 754
+Average qa_acc: 64.85
+save_dir: results/qwen2.5_vl_7b/streamingbench/fps0.5-kv500-hermes-kvheadbudget-dp_k500_exact_budget_scores-sparsemm-union1-r0.2-w32-raggedprefill-headalpha-recent_ratio_profile-d0.1-t1-a0-1-kd2-dp-cachecomp-alpha-k500-native-first150-20260925
+
+============================================================
+TASK-SPECIFIC ACCURACY (StreamingBench)
+============================================================
+Action Recognition: 73.81% (n=126)
+Attribute Recognition: 67.35% (n=49)
+Object Recognition: 65.52% (n=87)
+Spatial Understanding: 64.13% (n=92)
+Event Understanding: 72.22% (n=36)
+Text-Rich Understanding: 62.12% (n=66)
+Counting: 44.96% (n=129)
+Causal Reasoning: 64.63% (n=82)
+Clips Summarize: 96.55% (n=29)
+Prospective Reasoning: 70.69% (n=58)
+============================================================
+
+%Errors: 0.00

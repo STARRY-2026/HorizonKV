@@ -1,0 +1,22 @@
+[
+  {
+    "video_id": 9,
+    "video_path": "/home/yujun/program/streaming_data/streamingbench/videos/sample_443_real.mp4",
+    "conversations": [
+      {
+        "question": "What is the gloved hand reaching towards at the beginning of the video?",
+        "answer": "Yogurt containers.",
+        "choices": [
+          "Yogurt containers.",
+          "Milk cartons.",
+          "Juice bottles.",
+          "Cheese blocks."
+        ],
+        "end_time": 1.0,
+        "task": "Object Recognition",
+        "time_stamp": "0:00:01",
+        "required_ability": "working memory"
+      }
+    ]
+  }
+]

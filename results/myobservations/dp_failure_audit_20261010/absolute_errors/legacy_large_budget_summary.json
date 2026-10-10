@@ -1,0 +1,531 @@
+{
+  "protocol": {
+    "scope": "Read-only outcome analysis of existing legacy compressed-cache runs; no new inference. The comparison CSV and this JSON are newly generated audit artifacts.",
+    "matching": "(video_id, within-video question occurrence index), then exact question, ordered choices, and ground-truth answer. Occurrence matching is necessary because identical questions recur within videos.",
+    "matched_videos": 250,
+    "matched_questions": 1255,
+    "control_status": "Legacy larger-budget observational comparisons, NOT controlled full-KV baselines."
+  },
+  "sources": {
+    "legacy_hermes4000": "/home/yujun/program/hermes/results/qwen2.5_vl_7b/streamingbench/fps0.5-kv4000-hermes/results.csv",
+    "legacy_hermes6000": "/home/yujun/program/hermes/results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes/results.csv",
+    "legacy_streamingvlm6000": "/home/yujun/program/hermes/results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-streamingvlm/results.csv"
+  },
+  "ledger": "/home/yujun/program/hermes/results/myobservations/dp_failure_audit_20261010/case_ledger.csv",
+  "selection": "/home/yujun/program/hermes/results/myobservations/dp_failure_audit_20261010/absolute_errors/selected_cases.csv",
+  "source_sha256": {
+    "/home/yujun/program/hermes/results/myobservations/dp_failure_audit_20261010/case_ledger.csv": "554aaf14d93579354b1976b5ede2c5221c3a0982df28fcd163f05745cb636e0a",
+    "/home/yujun/program/hermes/results/myobservations/dp_failure_audit_20261010/absolute_errors/selected_cases.csv": "c7051ed06e66abc41e7c195495203bbdce39b604d0a343d5803942676cb1c7b6",
+    "/home/yujun/program/hermes/results/qwen2.5_vl_7b/streamingbench/fps0.5-kv4000-hermes/results.csv": "8a3b600588b6ca8becdf9ac0574d779bb8f1977329459a515238ea43d148708e",
+    "/home/yujun/program/hermes/results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-hermes/results.csv": "aa9d859256e5dd536245cf882a9cf3de5a8b370c058f4010420570ab2453bf2c",
+    "/home/yujun/program/hermes/results/qwen2.5_vl_7b/streamingbench/fps0.5-kv6000-streamingvlm/results.csv": "be1ff6820f185e42d7e23725e294953d928bff552e4a1fecdf5ff8283b15e6dc"
+  },
+  "validation": {
+    "legacy_hermes4000": {
+      "source_rows": 1255,
+      "source_videos": 250,
+      "matched_rows": 1255,
+      "identity_mismatches": 0,
+      "missing_rows": 0,
+      "source_correct": 928
+    },
+    "legacy_hermes6000": {
+      "source_rows": 2495,
+      "source_videos": 498,
+      "matched_rows": 1255,
+      "identity_mismatches": 0,
+      "missing_rows": 0,
+      "source_correct": 1920
+    },
+    "legacy_streamingvlm6000": {
+      "source_rows": 2495,
+      "source_videos": 498,
+      "matched_rows": 1255,
+      "identity_mismatches": 0,
+      "missing_rows": 0,
+      "source_correct": 1920
+    }
+  },
+  "limitations": [
+    "All three legacy controls still compress KV caches. StreamingVLM uses a sliding window; K4000/K6000 HERMES are attention-guided compressed-cache policies.",
+    "Current DP/HERMES/LU audit runs use explicit physical per-KV-head budgets and ragged prefill; these plain legacy run names use the older dense/default inference path. Question identities match, but implementation parity is not established.",
+    "Native/unspecified legacy resolution inferred from directory metadata is not a logged per-frame equivalence check. Historical code version, generation settings, and model-state equality are not proven.",
+    "Larger budgets fixing a wrong answer supports sensitivity to run configuration; it does not alone establish which visual evidence was dropped. Persistent errors do not prove inherent model failure, because no matched full-KV replay exists.",
+    "Existing fixed448 full-cache pilots cover 1 or 6 videos and cannot supply native first150/250 full-KV controls. Temporal e3_full denotes a full temporal-plus-novelty scoring policy under K1000 compression, not full KV."
+  ],
+  "all250": {
+    "n": 1255,
+    "dp1000_wrong": 369,
+    "all_three_K1000_wrong": 335,
+    "legacy_hermes4000": {
+      "correct": 928,
+      "dp1000_wrong_rescued": 97,
+      "common_K1000_wrong_rescued": 73
+    },
+    "legacy_hermes6000": {
+      "correct": 929,
+      "dp1000_wrong_rescued": 113,
+      "common_K1000_wrong_rescued": 87
+    },
+    "legacy_streamingvlm6000": {
+      "correct": 923,
+      "dp1000_wrong_rescued": 97,
+      "common_K1000_wrong_rescued": 70
+    }
+  },
+  "first150": {
+    "n": 754,
+    "dp1000_wrong": 237,
+    "all_three_K1000_wrong": 218,
+    "legacy_hermes4000": {
+      "correct": 534,
+      "dp1000_wrong_rescued": 57,
+      "common_K1000_wrong_rescued": 44
+    },
+    "legacy_hermes6000": {
+      "correct": 537,
+      "dp1000_wrong_rescued": 67,
+      "common_K1000_wrong_rescued": 52
+    },
+    "legacy_streamingvlm6000": {
+      "correct": 538,
+      "dp1000_wrong_rescued": 58,
+      "common_K1000_wrong_rescued": 44
+    }
+  },
+  "selected33": {
+    "n": 33,
+    "dp1000_wrong": 33,
+    "all_three_K1000_wrong": 33,
+    "legacy_hermes4000": {
+      "correct": 2,
+      "dp1000_wrong_rescued": 2,
+      "common_K1000_wrong_rescued": 2
+    },
+    "legacy_hermes6000": {
+      "correct": 4,
+      "dp1000_wrong_rescued": 4,
+      "common_K1000_wrong_rescued": 4
+    },
+    "legacy_streamingvlm6000": {
+      "correct": 4,
+      "dp1000_wrong_rescued": 4,
+      "common_K1000_wrong_rescued": 4
+    }
+  },
+  "common_K1000_wrong_legacy_H4000_H6000_union": {
+    "n": 335,
+    "rescued_by_either": 93,
+    "wrong_in_both": 242,
+    "wrong_in_both_by_task": {
+      "Prospective Reasoning": 13,
+      "Event Understanding": 14,
+      "Object Recognition": 22,
+      "Counting": 80,
+      "Text-Rich Understanding": 19,
+      "Causal Reasoning": 27,
+      "Attribute Recognition": 9,
+      "Spatial Understanding": 19,
+      "Action Recognition": 38,
+      "Clips Summarize": 1
+    }
+  },
+  "selected_case_results": [
+    {
+      "source_row": "17",
+      "video_id": "11",
+      "question_index": "2",
+      "task": "Counting",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "18",
+      "video_id": "11",
+      "question_index": "3",
+      "task": "Counting",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "19",
+      "video_id": "11",
+      "question_index": "4",
+      "task": "Counting",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "72",
+      "video_id": "29",
+      "question_index": "1",
+      "task": "Text-Rich Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "D"
+    },
+    {
+      "source_row": "75",
+      "video_id": "29",
+      "question_index": "4",
+      "task": "Text-Rich Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "D"
+    },
+    {
+      "source_row": "96",
+      "video_id": "35",
+      "question_index": "0",
+      "task": "Object Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "127",
+      "video_id": "56",
+      "question_index": "1",
+      "task": "Text-Rich Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "128",
+      "video_id": "56",
+      "question_index": "2",
+      "task": "Text-Rich Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "B",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "129",
+      "video_id": "56",
+      "question_index": "3",
+      "task": "Text-Rich Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "137",
+      "video_id": "58",
+      "question_index": "1",
+      "task": "Prospective Reasoning",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "151",
+      "video_id": "68",
+      "question_index": "0",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "152",
+      "video_id": "68",
+      "question_index": "1",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "B",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "154",
+      "video_id": "68",
+      "question_index": "3",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "B",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "155",
+      "video_id": "68",
+      "question_index": "4",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "B",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "168",
+      "video_id": "74",
+      "question_index": "2",
+      "task": "Object Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "261",
+      "video_id": "107",
+      "question_index": "0",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "263",
+      "video_id": "107",
+      "question_index": "2",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "290",
+      "video_id": "117",
+      "question_index": "4",
+      "task": "Spatial Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "D"
+    },
+    {
+      "source_row": "308",
+      "video_id": "124",
+      "question_index": "2",
+      "task": "Text-Rich Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "333",
+      "video_id": "129",
+      "question_index": "2",
+      "task": "Causal Reasoning",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "344",
+      "video_id": "136",
+      "question_index": "3",
+      "task": "Event Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "B",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "356",
+      "video_id": "144",
+      "question_index": "0",
+      "task": "Attribute Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 1,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 1,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "358",
+      "video_id": "144",
+      "question_index": "2",
+      "task": "Spatial Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "360",
+      "video_id": "144",
+      "question_index": "4",
+      "task": "Attribute Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 1,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 1,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "391",
+      "video_id": "158",
+      "question_index": "0",
+      "task": "Object Recognition",
+      "legacy_hermes4000_correct": 1,
+      "legacy_hermes4000_choice": "C",
+      "legacy_hermes6000_correct": 1,
+      "legacy_hermes6000_choice": "C",
+      "legacy_streamingvlm6000_correct": 1,
+      "legacy_streamingvlm6000_choice": "C"
+    },
+    {
+      "source_row": "396",
+      "video_id": "161",
+      "question_index": "0",
+      "task": "Causal Reasoning",
+      "legacy_hermes4000_correct": 1,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 1,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 1,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "397",
+      "video_id": "161",
+      "question_index": "1",
+      "task": "Causal Reasoning",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "D"
+    },
+    {
+      "source_row": "398",
+      "video_id": "161",
+      "question_index": "2",
+      "task": "Causal Reasoning",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "D"
+    },
+    {
+      "source_row": "401",
+      "video_id": "162",
+      "question_index": "0",
+      "task": "Clips Summarize",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "436",
+      "video_id": "173",
+      "question_index": "0",
+      "task": "Attribute Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "B",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "B",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "B"
+    },
+    {
+      "source_row": "438",
+      "video_id": "173",
+      "question_index": "2",
+      "task": "Action Recognition",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "439",
+      "video_id": "173",
+      "question_index": "3",
+      "task": "Event Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "A",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "A",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "A"
+    },
+    {
+      "source_row": "488",
+      "video_id": "195",
+      "question_index": "2",
+      "task": "Event Understanding",
+      "legacy_hermes4000_correct": 0,
+      "legacy_hermes4000_choice": "D",
+      "legacy_hermes6000_correct": 0,
+      "legacy_hermes6000_choice": "D",
+      "legacy_streamingvlm6000_correct": 0,
+      "legacy_streamingvlm6000_choice": "D"
+    }
+  ]
+}
