@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kvbench"
+version = "0.1.0"
+description = "Unified bounded Qwen2.5-VL evaluation for SparseMM KV methods"
+requires-python = ">=3.12"
+readme = "README.md"
+
+[project.scripts]
+kvbench = "kvbench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["kvbench*", "sparsemm_protokv*", "sparsemm_baselines*", "sparsemm_lukv*", "sparsemm_native*", "sparsemm_uniform*", "protokv*"]
+exclude = ["*.runtime_deps*", "*.upstream*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+sparsemm_protokv = ["tasks/**/*.yaml", "tasks/**/*.yml"]
+sparsemm_lukv = ["assets/**/*.json", "assets/**/*.csv", "assets/**/*.sha256"]

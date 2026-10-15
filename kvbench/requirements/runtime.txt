@@ -1,0 +1,18 @@
+# Recorded working Linux/Python 3.12 environment; prefer the existing hermes-qwen env.
+# torch/torchvision use the CUDA 13.0 builds in that environment.
+torch==2.9.1
+torchvision==0.24.1
+transformers==4.57.1
+flash-attn==2.8.3
+decord==0.6.0
+numpy==2.3.3
+pillow==11.3.0
+pandas==2.3.2
+accelerate==1.11.0
+qwen-vl-utils==0.0.8
+einops==0.8.1
+PyYAML==6.0.2
+huggingface-hub==0.36.2
+tokenizers==0.22.2
+safetensors==0.6.2
+tqdm==4.67.1

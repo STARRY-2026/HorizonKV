@@ -1,0 +1,29 @@
+{
+  "status": "completed",
+  "count": 1000,
+  "requested_count": 1000,
+  "official_full_calibration": true,
+  "model_path": "/home/yujun/program/hermes/models/Qwen2.5-VL-7B-Instruct",
+  "protocol_sha256": "9ba783db0468b2bd7696b5279ca620b3101ffecacd1d2bb80b5785fb8802d1a4",
+  "protocol_path": "/home/yujun/program/hermes/results/myobservations/sparsemm_official_calibration_20261010/calibration/protocol.json",
+  "started_at_unix": 1791638949.4805708,
+  "dataset_sha256": "02e1b4e097d6c071fcfe65938130c2c9983d3bd2c25f2d4dd9e23c15fad601be",
+  "official_source_sha256": "b05399110865e54434ef5c6122a86a1a467843593f7a610db71390a32bbad6ef",
+  "implementation_sha256": "399e52e8903a31ea504761cedef07ef8f06efaad8bde41b4a3d346553dc99fa7",
+  "runtime_dtype": "torch.bfloat16",
+  "actual_attention_implementation": "eager",
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "upstream_model_source": {
+    "path": "/home/yujun/.conda/envs/hermes-qwen/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py",
+    "sha256": "f5051523300145f66de080765c06bd8080350c15692c096d2c38e73fe9d03099"
+  },
+  "upstream_processor_source": {
+    "path": "/home/yujun/.conda/envs/hermes-qwen/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/processing_qwen2_5_vl.py",
+    "sha256": "6a88107b85320ca9ee1154731530db584ba048a12aff1ebab2f7bdc77062184d"
+  },
+  "last_completed_image_index": 999,
+  "updated_at_unix": 1791653021.6099029,
+  "head_scores_sha256": "9cc0f47f24a0af4306ce7367806516d119dc4f57df77d064a3eac59c05b69dab",
+  "raw_head_scores_sha256": "1e02713bc3e582e4a8adde7eaa27188c657361cbc6603463cd67eee224a5cd5f",
+  "finished_at_unix": 1791653022.3084135
+}

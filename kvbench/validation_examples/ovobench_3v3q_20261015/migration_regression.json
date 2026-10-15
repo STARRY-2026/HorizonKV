@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "created_utc": "2026-10-15T04:46:15.804691+00:00",
+  "reference": "/home/yujun/program/sparsemm_protokv/results/ovobench_validation/mcqa3v3q_20261015",
+  "candidate": "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015",
+  "runs": [
+    {
+      "method": "adakv",
+      "predictions": [
+        "B",
+        "B",
+        "D"
+      ],
+      "correct": 1,
+      "questions": 3,
+      "identical_to_reference": true,
+      "audit_passed": true,
+      "shared_source_hashes_equal": 46,
+      "compression_events": 9,
+      "peak_gpu_allocated_gib": 15.85279893875122
+    },
+    {
+      "method": "pyramidkv",
+      "predictions": [
+        "A",
+        "B",
+        "D"
+      ],
+      "correct": 2,
+      "questions": 3,
+      "identical_to_reference": true,
+      "audit_passed": true,
+      "shared_source_hashes_equal": 46,
+      "compression_events": 9,
+      "peak_gpu_allocated_gib": 15.85279893875122
+    },
+    {
+      "method": "lukv",
+      "predictions": [
+        "A",
+        "B",
+        "D"
+      ],
+      "correct": 2,
+      "questions": 3,
+      "identical_to_reference": true,
+      "audit_passed": true,
+      "shared_source_hashes_equal": 46,
+      "compression_events": 9,
+      "peak_gpu_allocated_gib": 15.852884769439697
+    },
+    {
+      "method": "sparsemm",
+      "predictions": [
+        "D",
+        "B",
+        "D"
+      ],
+      "correct": 1,
+      "questions": 3,
+      "identical_to_reference": true,
+      "audit_passed": true,
+      "shared_source_hashes_equal": 46,
+      "compression_events": 9,
+      "peak_gpu_allocated_gib": 15.85279893875122
+    },
+    {
+      "method": "uniform",
+      "predictions": [
+        "A",
+        "B",
+        "D"
+      ],
+      "correct": 2,
+      "questions": 3,
+      "identical_to_reference": true,
+      "audit_passed": true,
+      "shared_source_hashes_equal": 46,
+      "compression_events": 9,
+      "peak_gpu_allocated_gib": 15.85279893875122
+    }
+  ],
+  "source_and_asset_copies_verified": 67,
+  "tested_interface_snapshot": "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/interface_source_snapshot",
+  "tested_interface_sha256": {
+    "kvbench/__init__.py": "c4bd571488a38b1c97e076778abdbe4c93be0976a93c68e4bb95fe3b76c868c0",
+    "kvbench/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "kvbench/api.py": "d3e951b72ba73d9b06689f10946689fc349c0587db1ffa95919c94857f2954fb",
+    "kvbench/cli.py": "0a7eb73261b56cb44f870c53cd928a0cfd0125ec6a8f51274e487a6cda91009d",
+    "kvbench/paths.py": "7838714e451af4fa1924989389081e1d66d240eba571253cf4ac9f1417f626ca",
+    "kvbench/registry.py": "eec6cdf2620baf0bcc625d007224fc344e274c14cf397e0f1b61c418d10c2208",
+    "run.py": "d26a35f46fced532becb03f5b3810623a6cae0181d7f850efd5780b0178c458d"
+  },
+  "current_interface_sha256": {
+    "kvbench/__init__.py": "c4bd571488a38b1c97e076778abdbe4c93be0976a93c68e4bb95fe3b76c868c0",
+    "kvbench/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "kvbench/api.py": "e9d441cc56b4d7042036a321940c32f1e5b74ea3e73cff4ad1eef3391e6481bb",
+    "kvbench/cli.py": "0a7eb73261b56cb44f870c53cd928a0cfd0125ec6a8f51274e487a6cda91009d",
+    "kvbench/paths.py": "7838714e451af4fa1924989389081e1d66d240eba571253cf4ac9f1417f626ca",
+    "kvbench/registry.py": "eec6cdf2620baf0bcc625d007224fc344e274c14cf397e0f1b61c418d10c2208",
+    "run.py": "d26a35f46fced532becb03f5b3810623a6cae0181d7f850efd5780b0178c458d"
+  },
+  "scope": "Five non-ProtoKV methods, same three OVO MCQA queries; no full benchmark or ProtoKV inference"
+}

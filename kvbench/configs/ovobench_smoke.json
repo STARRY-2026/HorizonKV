@@ -1,0 +1,74 @@
+[
+  {
+    "video_id": 1117,
+    "video_path": "/home/yujun/program/hermes/data/ovobench/official_20261014/src_videos/Ego4D/video/342f509b-4aa9-47f0-8fb2-1efd1f3bdbfa.mp4",
+    "dataset": "OVO-Bench",
+    "source_video": "Ego4D/video/342f509b-4aa9-47f0-8fb2-1efd1f3bdbfa.mp4",
+    "task": "FPD",
+    "conversations": [
+      {
+        "question": "What is this person about to do from the desk?",
+        "choices": [
+          "The person is going to take the bag from the desk.",
+          "The person is going to organize the documents on the desk.",
+          "The person is going to write a note on the desk.",
+          "The person is going to open the notebook on the desk."
+        ],
+        "answer": "The person is going to take the bag from the desk.",
+        "end_time": 0.03,
+        "task": "FPD",
+        "ovo_source_id": 1117,
+        "ovo_gt_index": 0,
+        "ovo_original_answer": "The person is going to take the bag from the desk."
+      }
+    ]
+  },
+  {
+    "video_id": 34,
+    "video_path": "/home/yujun/program/hermes/data/ovobench/official_20261014/src_videos/Ego4D/clips/4a37144f-63cd-4729-809c-f05ec1839036.mp4",
+    "dataset": "OVO-Bench",
+    "source_video": "Ego4D/clips/4a37144f-63cd-4729-809c-f05ec1839036.mp4",
+    "task": "EPM",
+    "conversations": [
+      {
+        "question": "what color was the bag?",
+        "choices": [
+          "yellow",
+          "blue",
+          "red",
+          "green"
+        ],
+        "answer": "yellow",
+        "end_time": 2.0,
+        "task": "EPM",
+        "ovo_source_id": 34,
+        "ovo_gt_index": 0,
+        "ovo_original_answer": "yellow"
+      }
+    ]
+  },
+  {
+    "video_id": 1325,
+    "video_path": "/home/yujun/program/hermes/data/ovobench/official_20261014/src_videos/AutoEvalMetaData/16.mp4",
+    "dataset": "OVO-Bench",
+    "source_video": "AutoEvalMetaData/16.mp4",
+    "task": "OCR",
+    "conversations": [
+      {
+        "question": "What is the text on the label of the containers?",
+        "choices": [
+          "STARBUCKS",
+          "just salad",
+          "JUST DO IT",
+          "ADWEEK"
+        ],
+        "answer": "ADWEEK",
+        "end_time": 26.0,
+        "task": "OCR",
+        "ovo_source_id": 1325,
+        "ovo_gt_index": 3,
+        "ovo_original_answer": "ADWEEK"
+      }
+    ]
+  }
+]

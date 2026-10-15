@@ -1,0 +1,504 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-15T04:43:18.435533+00:00",
+  "output_dir": "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/sparsemm_k1000_visual",
+  "method": "sparsemm",
+  "budget": 1000,
+  "budget_scope": "visual",
+  "videos": 3,
+  "questions": 3,
+  "overall": {
+    "questions": 3,
+    "correct": 1,
+    "accuracy_percent": 33.33333333333333,
+    "wilson_95_percent": [
+      6.149194472039621,
+      79.23403991979522
+    ]
+  },
+  "task_accuracy": {
+    "EPM": {
+      "questions": 1,
+      "correct": 0,
+      "accuracy_percent": 0.0,
+      "wilson_95_percent": [
+        0.0,
+        79.34506856227625
+      ]
+    },
+    "FPD": {
+      "questions": 1,
+      "correct": 0,
+      "accuracy_percent": 0.0,
+      "wilson_95_percent": [
+        0.0,
+        79.34506856227625
+      ]
+    },
+    "OCR": {
+      "questions": 1,
+      "correct": 1,
+      "accuracy_percent": 100.0,
+      "wilson_95_percent": [
+        20.654931437723747,
+        100.0
+      ]
+    }
+  },
+  "trace": {
+    "events": 15,
+    "prefills": 9,
+    "compression_events": 9,
+    "qa_restore_checks": 3,
+    "finite_hidden_checks": 37,
+    "finite_logits_checks": 25
+  },
+  "architecture": {
+    "num_layers": 28,
+    "num_kv_heads": 4,
+    "num_query_heads": 28,
+    "head_dim": 128,
+    "element_bytes": 2
+  },
+  "per_video": [
+    {
+      "video_id": "1117",
+      "prefix": 14,
+      "prefills": 1,
+      "compressions": 1,
+      "questions": 1,
+      "seen": 1989,
+      "absorbed": 0,
+      "active": 0,
+      "bank_bytes": 0,
+      "visual_budget": 0,
+      "prototype_slots": 0,
+      "near_capacity": 0,
+      "cursor": 65,
+      "native_attention_calls": 56,
+      "sparsemm_asset_sha256": "9cc0f47f24a0af4306ce7367806516d119dc4f57df77d064a3eac59c05b69dab"
+    },
+    {
+      "video_id": "34",
+      "prefix": 14,
+      "prefills": 1,
+      "compressions": 1,
+      "questions": 1,
+      "seen": 1989,
+      "absorbed": 0,
+      "active": 0,
+      "bank_bytes": 0,
+      "visual_budget": 0,
+      "prototype_slots": 0,
+      "near_capacity": 0,
+      "cursor": 65,
+      "native_attention_calls": 56,
+      "sparsemm_asset_sha256": "9cc0f47f24a0af4306ce7367806516d119dc4f57df77d064a3eac59c05b69dab"
+    },
+    {
+      "video_id": "1325",
+      "prefix": 14,
+      "prefills": 7,
+      "compressions": 7,
+      "questions": 1,
+      "seen": 8372,
+      "absorbed": 0,
+      "active": 0,
+      "bank_bytes": 0,
+      "visual_budget": 0,
+      "prototype_slots": 0,
+      "near_capacity": 0,
+      "cursor": 63,
+      "native_attention_calls": 224,
+      "sparsemm_asset_sha256": "9cc0f47f24a0af4306ce7367806516d119dc4f57df77d064a3eac59c05b69dab"
+    }
+  ],
+  "lmms_results_checked": [
+    "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/sparsemm_k1000_visual/lmms/models__Qwen2.5-VL-7B-Instruct/20261015_124221_results.json"
+  ],
+  "source_snapshot_files": [],
+  "source_validation": "current",
+  "sparsemm_allocation": {
+    "method": "sparsemm",
+    "selector": "static_visual_head_scores_then_attention",
+    "shape": [
+      28,
+      4
+    ],
+    "num_query_heads": 28,
+    "gqa_groups": 7,
+    "score_grouping": "sum_after_global_query_head_normalization",
+    "score_dtype": "float64",
+    "ratio": 0.1,
+    "budget": 1000,
+    "window_size": 32,
+    "history_base_capacity": 968,
+    "minimum_history_quota": 96,
+    "remaining_history_slots": 97664,
+    "head_budgets": [
+      [
+        128,
+        128,
+        128,
+        128
+      ],
+      [
+        128,
+        128,
+        128,
+        128
+      ],
+      [
+        883,
+        128,
+        144,
+        421
+      ],
+      [
+        132,
+        993,
+        143,
+        128
+      ],
+      [
+        132,
+        2712,
+        128,
+        130
+      ],
+      [
+        150,
+        156,
+        1807,
+        131
+      ],
+      [
+        128,
+        152,
+        128,
+        128
+      ],
+      [
+        867,
+        129,
+        153,
+        163
+      ],
+      [
+        135,
+        190,
+        128,
+        2852
+      ],
+      [
+        357,
+        771,
+        131,
+        194
+      ],
+      [
+        499,
+        135,
+        131,
+        128
+      ],
+      [
+        148,
+        182,
+        128,
+        956
+      ],
+      [
+        129,
+        142,
+        368,
+        796
+      ],
+      [
+        138,
+        128,
+        135,
+        139
+      ],
+      [
+        6766,
+        1579,
+        164,
+        261
+      ],
+      [
+        138,
+        129,
+        4028,
+        134
+      ],
+      [
+        3116,
+        4116,
+        1199,
+        129
+      ],
+      [
+        130,
+        3206,
+        2890,
+        977
+      ],
+      [
+        128,
+        209,
+        511,
+        128
+      ],
+      [
+        1222,
+        128,
+        4922,
+        1505
+      ],
+      [
+        132,
+        1681,
+        701,
+        807
+      ],
+      [
+        978,
+        1456,
+        767,
+        1606
+      ],
+      [
+        8297,
+        2685,
+        432,
+        4431
+      ],
+      [
+        909,
+        5483,
+        1534,
+        128
+      ],
+      [
+        128,
+        140,
+        680,
+        2054
+      ],
+      [
+        132,
+        1845,
+        129,
+        2240
+      ],
+      [
+        1446,
+        602,
+        3263,
+        870
+      ],
+      [
+        2334,
+        132,
+        3488,
+        2540
+      ]
+    ],
+    "history_budgets": [
+      [
+        96,
+        96,
+        96,
+        96
+      ],
+      [
+        96,
+        96,
+        96,
+        96
+      ],
+      [
+        851,
+        96,
+        112,
+        389
+      ],
+      [
+        100,
+        961,
+        111,
+        96
+      ],
+      [
+        100,
+        2680,
+        96,
+        98
+      ],
+      [
+        118,
+        124,
+        1775,
+        99
+      ],
+      [
+        96,
+        120,
+        96,
+        96
+      ],
+      [
+        835,
+        97,
+        121,
+        131
+      ],
+      [
+        103,
+        158,
+        96,
+        2820
+      ],
+      [
+        325,
+        739,
+        99,
+        162
+      ],
+      [
+        467,
+        103,
+        99,
+        96
+      ],
+      [
+        116,
+        150,
+        96,
+        924
+      ],
+      [
+        97,
+        110,
+        336,
+        764
+      ],
+      [
+        106,
+        96,
+        103,
+        107
+      ],
+      [
+        6734,
+        1547,
+        132,
+        229
+      ],
+      [
+        106,
+        97,
+        3996,
+        102
+      ],
+      [
+        3084,
+        4084,
+        1167,
+        97
+      ],
+      [
+        98,
+        3174,
+        2858,
+        945
+      ],
+      [
+        96,
+        177,
+        479,
+        96
+      ],
+      [
+        1190,
+        96,
+        4890,
+        1473
+      ],
+      [
+        100,
+        1649,
+        669,
+        775
+      ],
+      [
+        946,
+        1424,
+        735,
+        1574
+      ],
+      [
+        8265,
+        2653,
+        400,
+        4399
+      ],
+      [
+        877,
+        5451,
+        1502,
+        96
+      ],
+      [
+        96,
+        108,
+        648,
+        2022
+      ],
+      [
+        100,
+        1813,
+        97,
+        2208
+      ],
+      [
+        1414,
+        570,
+        3231,
+        838
+      ],
+      [
+        2302,
+        100,
+        3456,
+        2508
+      ]
+    ],
+    "target_slots": 112000,
+    "allocated_slots": 111995,
+    "rounding_drift_tokens": -5,
+    "rounding": "upstream_float64_round_to_even",
+    "exact_total_correction": false,
+    "uniform_blend": false,
+    "capacity_clip": false,
+    "upstream_commit": "33f2f0ab96d1d99516bcd2092caccab60516ff2c"
+  },
+  "uniform_allocation": null,
+  "sparsemm_calibration_verified": true,
+  "checks": [
+    "complete ordered CSV with annotation ground truth and predictions",
+    "matching runtime source (current or own run snapshot), model and annotation hashes",
+    "per-video resets and repeated online compression",
+    "method budget transitions and all persistent KV/bank/raw/metadata bytes",
+    "first answer uses every native decoder layer and active ProtoKV memory",
+    "query restoration and finite decoder/logit instrumentation",
+    "question-weighted native lmms-eval accuracy matches CSV"
+  ],
+  "limitations": [
+    "Trace stores counts and runtime check results, not independently replayable tensor contents.",
+    "AdaKV checks establish feasible integer allocations rather than recomputing attention rankings.",
+    "SparseMM index/position checks do not independently replay attention ranks or tensor values.",
+    "Selected stability tests do not establish full benchmark accuracy or official numerical equivalence."
+  ]
+}

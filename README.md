@@ -210,6 +210,10 @@ python -m pip install -r requirements-runtime-analysis.txt
 python -m pytest tests -q -p no:cacheprovider
 ```
 
+## KVBench 统一评测接口
+
+[KVBench](kvbench/README.md) 位于本仓库的 `kvbench/` 子目录，统一管理 AdaKV、PyramidKV、LU-KV、SparseMM、Uniform 和 ProtoKV 的小规模验证。克隆时使用 `git clone --recurse-submodules` 获取固定版本的 SparseMM 上游源码。该子目录附有五种方法在同一组 3 视频/3 题上的精简真实推理与审计结果；这组小样本仅验证运行链路，不能用作完整基准结论。环境、外部模型和视频要求见 KVBench README。
+
 ## 代码与来源
 
 核心目录包括 `inference/`、`video_qa/`、`head_analysis/`、`eval/`、`tools/`、`scripts/`、`experiments/`、`tests/` 和 `docs/`。运行使用冻结 profile，不会在评测数据上重新校准；重新生成部分历史 profile 需要另备未上传的大型原始观察和 trace。`dscache/` 是独立对照；可选 ProtoKV / InfiniPot-V 适配器需要外部项目，统一入口关闭这些适配器。

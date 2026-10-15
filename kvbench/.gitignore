@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+results/
+hermes
+sparsemm_protokv/runtime_deps/
+*/results/
+*.log
+.DS_Store
+.venv/

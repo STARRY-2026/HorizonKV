@@ -1,0 +1,484 @@
+{
+  "created_utc": "2026-10-15T04:33:30.961857+00:00",
+  "source_root": "/home/yujun/program",
+  "project_root": "/home/yujun/program/kvbench",
+  "copied_source_and_assets": [
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/README.md",
+      "copied": "sparsemm_baselines/README.md",
+      "sha256": "ac99d9e6361610bcd1c4209d3fed7bcde58e14d60d30aedb460addda336951d3"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/REPRODUCTION_STATUS.md",
+      "copied": "sparsemm_baselines/REPRODUCTION_STATUS.md",
+      "sha256": "abde704a7c530ca6c823232c318a422436da9490b92f9343781ce6c65089b93f"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/__init__.py",
+      "copied": "sparsemm_baselines/__init__.py",
+      "sha256": "ccd01bfbf4bf872961ee9a94be0fbc52ccbc3f7a5b5401c7db9a2f1710e178b9"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/adapter.py",
+      "copied": "sparsemm_baselines/adapter.py",
+      "sha256": "ae5d0449ea06e7e8368b193ed23232bc9a4bf37ba68e2d13fce083b32566a244"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/audit_extended.py",
+      "copied": "sparsemm_baselines/audit_extended.py",
+      "sha256": "85dd5b9521233ce90f55f2b4ae0a74e37c63770a6d65f9d421e47a8898235cfd"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/cache.py",
+      "copied": "sparsemm_baselines/cache.py",
+      "sha256": "4b57ea34b756e8891f5709196fb915a9221c78fdf155c4c31fb97e7ac4f9924b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/core.py",
+      "copied": "sparsemm_baselines/core.py",
+      "sha256": "e5756b3c2c1274248bdfa3c5867aad2756940eb8c1e7860615a43db510b44581"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/requirements-native.txt",
+      "copied": "sparsemm_baselines/requirements-native.txt",
+      "sha256": "6a9efe0abaed4f06691d1ab284d4dbedb94c3b2e0fde43bb761c4f01d18b3681"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/requirements-streaming.txt",
+      "copied": "sparsemm_baselines/requirements-streaming.txt",
+      "sha256": "d7b63da62703918fbfd229c69eae3dd8f67f572a581b7ca0ced465eae0ab267e"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/run_instrumented.py",
+      "copied": "sparsemm_baselines/run_instrumented.py",
+      "sha256": "4d59b5d56724a1275a4568226d242a643b0d1591a37df17e33bc783147ee686b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/run_lmms_eval.py",
+      "copied": "sparsemm_baselines/run_lmms_eval.py",
+      "sha256": "51f0e07849e552bf789fb4180c3ab85e2e1f59d0b48e68186dd84657fa4406f9"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/run_streamingbench.py",
+      "copied": "sparsemm_baselines/run_streamingbench.py",
+      "sha256": "5d62b6be48cab2a7caa42d0d5385f31e3f08fffae6847d5d79456c7111985c0e"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/summarize_extended.py",
+      "copied": "sparsemm_baselines/summarize_extended.py",
+      "sha256": "b1ed2a89baf986ac7b103ce35779b91bf6adfef0ac73a06f76c9b15b3d894915"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/validate_smoke.py",
+      "copied": "sparsemm_baselines/validate_smoke.py",
+      "sha256": "abf921f68f5d903a1828d4b1afd7aa79cf2dc9c55dd84baf807f9c9f2ead8d0f"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/validation_attention.py",
+      "copied": "sparsemm_baselines/validation_attention.py",
+      "sha256": "3b9308c904f3e7c36906a52aab97385d676d9b527208eda5f04e4f857e094922"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/README.md",
+      "copied": "sparsemm_protokv/README.md",
+      "sha256": "3b2b2ba348e586dd2994a2b8c59078d5a3ce495d63d528847b34a074091ae6db"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/REPRODUCTION_STATUS.md",
+      "copied": "sparsemm_protokv/REPRODUCTION_STATUS.md",
+      "sha256": "3dcba13b17ccb116954197aa2e33c9173877dd56c0ce938806e146cae82be5cb"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/__init__.py",
+      "copied": "sparsemm_protokv/__init__.py",
+      "sha256": "25c3c5cc705e551e4d1bdd812d4fac664fbc838bfe5ffa0c40a3c10b2748335b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/audit.py",
+      "copied": "sparsemm_protokv/audit.py",
+      "sha256": "a2f2affe991e3b3d82c79448ecd7b30de4b7c04c1b8f8bd226428fdce405054a",
+      "current_sha256": "6946cdb80b6bf3acda7e599799313c3f717b41c8f8f3683cb4f2cbbb49774103"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/cache.py",
+      "copied": "sparsemm_protokv/cache.py",
+      "sha256": "80a15b508f037b9af29e6acf34c666eeac6f1f6c330be35309fdee8d431dd046"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/config.py",
+      "copied": "sparsemm_protokv/config.py",
+      "sha256": "60f3671e7866dddeca5c28f2f0cc3497e50b492556edb6ab03e45c3aab37ba75"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/monkeypatch.py",
+      "copied": "sparsemm_protokv/monkeypatch.py",
+      "sha256": "fa6ee5bc3d512d63c438f2ea3744b8e79728abf7b3a21f96385bc447a414daf4"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/qwen2_5.py",
+      "copied": "sparsemm_protokv/qwen2_5.py",
+      "sha256": "016062eb1ed54b6cbc5fcb91b0902f74cb18ef971e6a4ed44712263496d76ccc"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/requirements-eval.txt",
+      "copied": "sparsemm_protokv/requirements-eval.txt",
+      "sha256": "be57d34fd218d820b635af5c8d8bb0007c47f45e225497866101c3354cecec9b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/run_streamingbench.py",
+      "copied": "sparsemm_protokv/run_streamingbench.py",
+      "sha256": "c67b7f1fc912cbbb7864985beac3e97e227e746e0535853ea024096539bdd637"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/streaming.py",
+      "copied": "sparsemm_protokv/streaming.py",
+      "sha256": "3c474b7b6befed8a3ea999de8bb82ee659520be615a45e6d9a87551b998c1aa0"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/summarize.py",
+      "copied": "sparsemm_protokv/summarize.py",
+      "sha256": "ae3beaeeda0332d1432d3fbbb45b179a9fde632b1d65280a804c6161ced0a452"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/README.md",
+      "copied": "sparsemm_lukv/README.md",
+      "sha256": "3ebada5fcbd7cba3da2a29dfffcc1573e08f1641b950baa205dae0664c559a4f"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/__init__.py",
+      "copied": "sparsemm_lukv/__init__.py",
+      "sha256": "c643ee58d4afd131daff10c7fd57ac1c1ee7dbbaddb2b6297fcdf2f8755d6e87"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/audit.py",
+      "copied": "sparsemm_lukv/audit.py",
+      "sha256": "dc870cce85de027b7bade85768a5437e4ff6e0948c140373773653b34647611b",
+      "current_sha256": "d8faed69ee8c2a9e5ad264fafff35f245be3c68582307f92fae5de836cfbd7b0"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/cache.py",
+      "copied": "sparsemm_lukv/cache.py",
+      "sha256": "aee80030af314c6b5277cb70f8a798c06984eb4d443ebd28aca324bb6b0e337c"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/calibration.py",
+      "copied": "sparsemm_lukv/calibration.py",
+      "sha256": "c0575050b69a000fa03575d013870ffbca02b24652c21ed84fb8fbc1d9f82393"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/calibration_data.py",
+      "copied": "sparsemm_lukv/calibration_data.py",
+      "sha256": "e78bac8d730ad51bc74e084e2853a506d3f8574ec4fcd7c34e9ac7830f437d80"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/policy.py",
+      "copied": "sparsemm_lukv/policy.py",
+      "sha256": "28142dd7adbe19fa213d7993f6db6fd432c5dac57c6cda4f428a66070183706b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/profile.py",
+      "copied": "sparsemm_lukv/profile.py",
+      "sha256": "9eaea89fd46b669df44a4b2e71970a4bcf22bc90203d65caeda2da29a235a8b9"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/run_calibration.py",
+      "copied": "sparsemm_lukv/run_calibration.py",
+      "sha256": "916f42bb77e6288b89bfd30f9c5e8075dac0d67ea54636271ab61be2157e8da1"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/run_streamingbench.py",
+      "copied": "sparsemm_lukv/run_streamingbench.py",
+      "sha256": "0be4f928fb1968252d635b42d6963fe89ab33334f829243513e87e941414ea2a"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/streaming.py",
+      "copied": "sparsemm_lukv/streaming.py",
+      "sha256": "4cb867f6692dd7d7cff54b81994f4f4d57253f007c5ef5deb731d6122a76f231"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/README.md",
+      "copied": "sparsemm_native/README.md",
+      "sha256": "a616848dbe27f484a747d2274079e472025b7b2d69b1d4af9dc5a5ff5fefac53"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/__init__.py",
+      "copied": "sparsemm_native/__init__.py",
+      "sha256": "aaef73f613a5af15754e08ee12b43926146b855f0074e450575c3e4cfa781c0b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/assets.py",
+      "copied": "sparsemm_native/assets.py",
+      "sha256": "93015e11e4bd7aa986f608342b69263bcada3f00ab8abd5241512af60be13768"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/audit.py",
+      "copied": "sparsemm_native/audit.py",
+      "sha256": "579d40d51f0266ed1486d50cfbf503894ef29816ca5211bc510d6a886438ef14"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/cache.py",
+      "copied": "sparsemm_native/cache.py",
+      "sha256": "272ab8f6235f9961c29a1d02f82450b2d2881f7df99ee23c1d0b15eb2f23b0ac"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/policy.py",
+      "copied": "sparsemm_native/policy.py",
+      "sha256": "4848952d2b25b5c40485807394a9b525ad3bb55eb6590c1ddfa375495dc9cd59"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/run_streamingbench.py",
+      "copied": "sparsemm_native/run_streamingbench.py",
+      "sha256": "bc4ee6bd3e592f463d73b6b9509d8ce3c8412661b926b333176552b7c4467cf7"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/streaming.py",
+      "copied": "sparsemm_native/streaming.py",
+      "sha256": "d7a692463c4b5cf335242e0f2dd1635fcd33b27187f84d005f8f57d5a21e2aad"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/README.md",
+      "copied": "sparsemm_uniform/README.md",
+      "sha256": "50efad48efa9d6bc2c5c47f6f53788311d9062c37448c1e89d62368fd26b360f"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/__init__.py",
+      "copied": "sparsemm_uniform/__init__.py",
+      "sha256": "243638ce70d29eb039c25621067e19142a0b48d97eb585ffaf4a7579514d096b"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/audit.py",
+      "copied": "sparsemm_uniform/audit.py",
+      "sha256": "41a9b4f5c105daba91ee9b8f5716cffc9ee094e4605c06bdce31c7e216f3f06c"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/run_streamingbench.py",
+      "copied": "sparsemm_uniform/run_streamingbench.py",
+      "sha256": "a1e556e3718c2d5036df0215a281692930545cbc03d1262d7090e3fb7ceaa7fc"
+    },
+    {
+      "original": "/home/yujun/program/protokv/__init__.py",
+      "copied": "protokv/__init__.py",
+      "sha256": "b4942439d6a0e8cf696753cb92fcfff48a9ac4352a6ed8aa9528da1eccae9880"
+    },
+    {
+      "original": "/home/yujun/program/protokv/full_state.py",
+      "copied": "protokv/full_state.py",
+      "sha256": "25eb3373b339633acc7299e3c42682a68753fc68f0c906029f53f54c541bb636"
+    },
+    {
+      "original": "/home/yujun/program/protokv/full_state_reference.py",
+      "copied": "protokv/full_state_reference.py",
+      "sha256": "025d49bada76155272f058bc940c426e7e804d4e48c92b053109db085fc3234c"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/models/__init__.py",
+      "copied": "sparsemm_protokv/models/__init__.py",
+      "sha256": "1befc440c44ace3bc9f167065e8e9f1e30c8fdc5f7d902464331f590b065edfb"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/models/qwen2_5_vl_stream.py",
+      "copied": "sparsemm_protokv/models/qwen2_5_vl_stream.py",
+      "sha256": "2fe3cb1012f42e29e415e96d8e0a2310c6b0e2fc489acc81a088dceb990b2e29"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/tasks/__init__.py",
+      "copied": "sparsemm_protokv/tasks/__init__.py",
+      "sha256": "f085ce701a9426e4ff6651155ceed89ab1167d2383b9f1db463b931e1adb96f4"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/tasks/streamingbench_local.py",
+      "copied": "sparsemm_protokv/tasks/streamingbench_local.py",
+      "sha256": "c37eadd87224f4d0853c360c0d61fb1fab8f30b9595edf9c2cac154c36639c89"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/tasks/streamingbench_local.yaml",
+      "copied": "sparsemm_protokv/tasks/streamingbench_local.yaml",
+      "sha256": "b95a3cc793b0e4fd880b1889dd95def8633a84c4dcb3085161d118912cc3e754"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/assets/attention_native10v_20261014/budget_k1000_at_T16146.csv",
+      "copied": "sparsemm_lukv/assets/attention_native10v_20261014/budget_k1000_at_T16146.csv",
+      "sha256": "941a2c3b643527af935e8df52961ce80a5cad96b8386aecb36815c6a07021af8"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/assets/attention_native10v_20261014/profile.json",
+      "copied": "sparsemm_lukv/assets/attention_native10v_20261014/profile.json",
+      "sha256": "6ca5c6c7c4fe3923114b1594f77a68226f8b423202c5464aaf115de07bb8a049"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/assets/attention_native10v_20261014/profile.sha256",
+      "copied": "sparsemm_lukv/assets/attention_native10v_20261014/profile.sha256",
+      "sha256": "4cebfda9421ff5d4c64e47d5dd28802b96ba01cdb07ccd65a5f1fb0f028fdd8c"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/assets/attention_native10v_20261014/reference_allocation.json",
+      "copied": "sparsemm_lukv/assets/attention_native10v_20261014/reference_allocation.json",
+      "sha256": "1660958951f023b97ceb1cf3af54cc4bdb8d461e6603bd9e342b08ee6499e040"
+    },
+    {
+      "original": "/home/yujun/program/hermes/results/myobservations/sparsemm_official_calibration_20261010/calibration/head_scores.csv",
+      "copied": "assets/sparsemm/head_scores.csv",
+      "sha256": "9cc0f47f24a0af4306ce7367806516d119dc4f57df77d064a3eac59c05b69dab"
+    },
+    {
+      "original": "/home/yujun/program/hermes/results/myobservations/sparsemm_official_calibration_20261010/calibration/manifest.json",
+      "copied": "assets/sparsemm/manifest.json",
+      "sha256": "254af2300f1c6ea742a4d05f24d003ee6d9599849454f9a7581b7307d653d52d"
+    },
+    {
+      "original": "/home/yujun/program/hermes/results/myobservations/sparsemm_official_calibration_20261010/calibration/raw_head_scores.json",
+      "copied": "assets/sparsemm/raw_head_scores.json",
+      "sha256": "1e02713bc3e582e4a8adde7eaa27188c657361cbc6603463cd67eee224a5cd5f"
+    },
+    {
+      "original": "/home/yujun/program/hermes/results/myobservations/sparsemm_official_calibration_20261010/calibration/protocol.json",
+      "copied": "assets/sparsemm/protocol.json",
+      "sha256": "aaf81df602faff31d54852b0379a61226c863d4c0008a6f94fb3f9e4ec5786fa"
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/results/ovobench_validation/mcqa3v3q_20261015/annotations.json",
+      "copied": "configs/ovobench_smoke.json",
+      "sha256": "3c71051cf453c5bb69dd2b4c584b5fef68a4f2daba154dd451bdb272f3f948bc"
+    }
+  ],
+  "upstream_commit": "33f2f0ab96d1d99516bcd2092caccab60516ff2c",
+  "source_packages_are_real_copies": true,
+  "external_resources": {
+    "hermes": "/home/yujun/program/hermes",
+    "lu_frozen_calibration_evidence": "/home/yujun/program/sparsemm_lukv/results/calibration/native_attention10v_20261014",
+    "python": "/home/yujun/.conda/envs/hermes-qwen/bin/python"
+  },
+  "full_experiments_started": false,
+  "protokv_started": false,
+  "omitted_legacy_tests": [
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/test_adapter.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/test_audit_extended.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/test_core.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/test_instrumented.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/test_runner.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_baselines/test_smoke.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/test_audit.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/test_controller.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_protokv/test_native.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_calibration.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_calibration_data.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_native.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_policy.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_profile.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_profile_audit.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_lukv/test_profile_runtime.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/test_assets.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/test_audit.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/test_controller.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/test_native.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_native/test_policy.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/test_audit.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/test_controller.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/test_native.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/sparsemm_uniform/test_policy.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    },
+    {
+      "original": "/home/yujun/program/protokv/test_full.py",
+      "reason": "Historical tests depend on legacy experiment fixtures or bridges; unified interface tests live in tests/."
+    }
+  ],
+  "relocations": [
+    {
+      "created_utc": "2026-10-15T05:11:49.545625+00:00",
+      "from": "/home/yujun/program/sparsemm_suite",
+      "to": "/home/yujun/program/kvbench",
+      "compatibility_symlink": "/home/yujun/program/sparsemm_suite",
+      "historical_result_bytes_preserved": true
+    }
+  ],
+  "post_copy_changes": [
+    {
+      "file": "sparsemm_protokv/audit.py",
+      "original_sha256": "a2f2affe991e3b3d82c79448ecd7b30de4b7c04c1b8f8bd226428fdce405054a",
+      "current_sha256": "6946cdb80b6bf3acda7e599799313c3f717b41c8f8f3683cb4f2cbbb49774103",
+      "created_utc": "2026-10-15T05:12:33.319747+00:00",
+      "reason": "Compare canonical asset paths after project rename; original content SHA bindings remain required."
+    },
+    {
+      "file": "sparsemm_lukv/audit.py",
+      "original_sha256": "dc870cce85de027b7bade85768a5437e4ff6e0948c140373773653b34647611b",
+      "current_sha256": "d8faed69ee8c2a9e5ad264fafff35f245be3c68582307f92fae5de836cfbd7b0",
+      "created_utc": "2026-10-15T05:13:59.593708+00:00",
+      "reason": "Compare canonical asset paths after project rename; original content SHA bindings remain required."
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-15T04:40:40.030592+00:00",
+  "output_dir": "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/pyramidkv_k1000_visual",
+  "method": "pyramidkv",
+  "budget": 1000,
+  "budget_scope": "visual",
+  "videos": 3,
+  "questions": 3,
+  "overall": {
+    "questions": 3,
+    "correct": 2,
+    "accuracy_percent": 66.66666666666666,
+    "wilson_95_percent": [
+      20.76596008020477,
+      93.85080552796038
+    ]
+  },
+  "task_accuracy": {
+    "EPM": {
+      "questions": 1,
+      "correct": 0,
+      "accuracy_percent": 0.0,
+      "wilson_95_percent": [
+        0.0,
+        79.34506856227625
+      ]
+    },
+    "FPD": {
+      "questions": 1,
+      "correct": 1,
+      "accuracy_percent": 100.0,
+      "wilson_95_percent": [
+        20.654931437723747,
+        100.0
+      ]
+    },
+    "OCR": {
+      "questions": 1,
+      "correct": 1,
+      "accuracy_percent": 100.0,
+      "wilson_95_percent": [
+        20.654931437723747,
+        100.0
+      ]
+    }
+  },
+  "trace": {
+    "events": 15,
+    "prefills": 9,
+    "compression_events": 9,
+    "qa_restore_checks": 3,
+    "finite_hidden_checks": 37,
+    "finite_logits_checks": 25
+  },
+  "architecture": {
+    "num_layers": 28,
+    "num_kv_heads": 4,
+    "num_query_heads": 28,
+    "head_dim": 128,
+    "element_bytes": 2
+  },
+  "per_video": [
+    {
+      "video_id": "1117",
+      "prefix": 14,
+      "prefills": 1,
+      "compressions": 1,
+      "questions": 1,
+      "seen": 1989,
+      "absorbed": 0,
+      "active": 0,
+      "bank_bytes": 0,
+      "visual_budget": 0,
+      "prototype_slots": 0,
+      "near_capacity": 0,
+      "cursor": 65,
+      "native_attention_calls": 56
+    },
+    {
+      "video_id": "34",
+      "prefix": 14,
+      "prefills": 1,
+      "compressions": 1,
+      "questions": 1,
+      "seen": 1989,
+      "absorbed": 0,
+      "active": 0,
+      "bank_bytes": 0,
+      "visual_budget": 0,
+      "prototype_slots": 0,
+      "near_capacity": 0,
+      "cursor": 65,
+      "native_attention_calls": 56
+    },
+    {
+      "video_id": "1325",
+      "prefix": 14,
+      "prefills": 7,
+      "compressions": 7,
+      "questions": 1,
+      "seen": 8372,
+      "absorbed": 0,
+      "active": 0,
+      "bank_bytes": 0,
+      "visual_budget": 0,
+      "prototype_slots": 0,
+      "near_capacity": 0,
+      "cursor": 63,
+      "native_attention_calls": 224
+    }
+  ],
+  "lmms_results_checked": [
+    "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/pyramidkv_k1000_visual/lmms/models__Qwen2.5-VL-7B-Instruct/20261015_123946_results.json"
+  ],
+  "source_snapshot_files": [],
+  "source_validation": "current",
+  "sparsemm_allocation": null,
+  "uniform_allocation": null,
+  "sparsemm_calibration_verified": null,
+  "checks": [
+    "complete ordered CSV with annotation ground truth and predictions",
+    "matching runtime source (current or own run snapshot), model and annotation hashes",
+    "per-video resets and repeated online compression",
+    "method budget transitions and all persistent KV/bank/raw/metadata bytes",
+    "first answer uses every native decoder layer and active ProtoKV memory",
+    "query restoration and finite decoder/logit instrumentation",
+    "question-weighted native lmms-eval accuracy matches CSV"
+  ],
+  "limitations": [
+    "Trace stores counts and runtime check results, not independently replayable tensor contents.",
+    "AdaKV checks establish feasible integer allocations rather than recomputing attention rankings.",
+    "SparseMM index/position checks do not independently replay attention ranks or tensor values.",
+    "Selected stability tests do not establish full benchmark accuracy or official numerical equivalence."
+  ]
+}

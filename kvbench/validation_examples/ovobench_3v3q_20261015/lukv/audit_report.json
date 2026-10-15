@@ -1,0 +1,1974 @@
+{
+  "passed": true,
+  "created_at_utc": "2026-10-15T04:42:05.844174+00:00",
+  "output_dir": "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/lukv_k1000_visual",
+  "method": "lukv",
+  "selector": "visual_attention",
+  "budget": 1000,
+  "budget_scope": "visual",
+  "videos": 3,
+  "questions": 3,
+  "overall": {
+    "questions": 3,
+    "correct": 2,
+    "accuracy_percent": 66.66666666666666,
+    "wilson_95_percent": [
+      20.76596008020477,
+      93.85080552796038
+    ]
+  },
+  "task_accuracy": {
+    "EPM": {
+      "questions": 1,
+      "correct": 0,
+      "accuracy_percent": 0.0,
+      "wilson_95_percent": [
+        0.0,
+        79.34506856227625
+      ]
+    },
+    "FPD": {
+      "questions": 1,
+      "correct": 1,
+      "accuracy_percent": 100.0,
+      "wilson_95_percent": [
+        20.654931437723747,
+        100.0
+      ]
+    },
+    "OCR": {
+      "questions": 1,
+      "correct": 1,
+      "accuracy_percent": 100.0,
+      "wilson_95_percent": [
+        20.654931437723747,
+        100.0
+      ]
+    }
+  },
+  "trace": {
+    "events": 15,
+    "prefills": 9,
+    "compression_events": 9,
+    "qa_restore_checks": 3,
+    "probe_restore_checks": 0,
+    "selector_checks": 252,
+    "finite_hidden_checks": 37,
+    "finite_logits_checks": 25
+  },
+  "asset": {
+    "path": "/home/yujun/program/sparsemm_suite/sparsemm_lukv/assets/attention_native10v_20261014/profile.json",
+    "sha256": "6ca5c6c7c4fe3923114b1594f77a68226f8b423202c5464aaf115de07bb8a049",
+    "head_budgets": null,
+    "total_visual_capacity": 112000,
+    "usage": "attention_calibrated_profile",
+    "recalibrated_for_runtime_selector": true,
+    "budget_mode": "compression_ratio_lookup",
+    "calibration_summary": {
+      "num_videos": 10,
+      "num_observations": 11,
+      "selector": "sparsemm_attention",
+      "utility_mode": "projected",
+      "native_resolution": true,
+      "evaluation_overlap": 0,
+      "usage": "attention_calibrated_profile",
+      "recalibrated_for_runtime_selector": true,
+      "prior_accuracy_reused": false,
+      "uniform_blend": 0,
+      "legacy_capacity_clip": false,
+      "budget_mode": "compression_ratio_lookup_history_with_protected_window"
+    },
+    "calibration_transfer": {
+      "enabled": true,
+      "explicit_opt_in": true,
+      "mode": "cross_dataset_profile_transfer",
+      "original_exclusion_covers_evaluation": false,
+      "no_evaluation_recalibration": true,
+      "content_overlap": 0,
+      "calibration_annotation_sources": {
+        "/home/yujun/program/hermes/results/myobservations/lu_kv_balanced100v_20260915/calibration_100v.json": "bdf3031c99acf6c768447e6485fdfa9a19a03b5716bff404c2d38d2ed30bfd2c",
+        "/home/yujun/program/hermes/data/streamingbench/streamingbench_realtime_half_userpaths.json": "c7b202726355c95fe26326a9983f70ff784e99ce92a33d970b272816670a9c7b"
+      },
+      "original_exclusion_annotation": {
+        "path": "/home/yujun/program/hermes/data/streamingbench/streamingbench_realtime_half_userpaths.json",
+        "sha256": "c7b202726355c95fe26326a9983f70ff784e99ce92a33d970b272816670a9c7b"
+      },
+      "evaluation_annotation_source": {
+        "path": "/home/yujun/program/sparsemm_suite/configs/ovobench_smoke.json",
+        "sha256": "3c71051cf453c5bb69dd2b4c584b5fef68a4f2daba154dd451bdb272f3f948bc"
+      },
+      "calibration_model_path": "/home/yujun/program/hermes/models/Qwen2.5-VL-7B-Instruct",
+      "calibration_model_files_sha256": {
+        "config.json": "77d9ec7321cc572e3579e2c84799c9cadaded63c49ce93b101733349fc330c43",
+        "generation_config.json": "0a3aea82869fe29f20dc95ccf3e2bcff380eca1f5ad6447a4a4b37110b08e43e",
+        "preprocessor_config.json": "f2058c716eef96ccaed1cc1e2d0c08306b62586d535b28d9d08e691b2fab7ca0",
+        "tokenizer_config.json": "4abd3520120e266da84c0864fee064d1fb10806f02225911a47253dd38dc5f56",
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "model.safetensors.index.json": "73b333b0b16e5286ddba615d2caebcd495cf7e616f52eb217a81781393d79de9"
+      },
+      "calibration_videos": [
+        {
+          "video_id": "400",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_301/video.mp4",
+          "size_bytes": 177479973,
+          "sha256": "dac49cd4da4e05862ba811e6cb38832b411a264d0a6b22f76d810df9c5f4a28e"
+        },
+        {
+          "video_id": "381",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_253/video.mp4",
+          "size_bytes": 841657382,
+          "sha256": "9a86f6879038e511552a1da8d9985f24ade289d8a0d66398ed5ab99d12e05ccc"
+        },
+        {
+          "video_id": "2",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_348/video.mp4",
+          "size_bytes": 667768200,
+          "sha256": "e4dd7b7019acbed168de85ec02af94a749ac17f121f19f7985d2dc67f99bc7a8"
+        },
+        {
+          "video_id": "213",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_403/video.mp4",
+          "size_bytes": 557155081,
+          "sha256": "de04a6d99f13993dd6c573fc8e57d7832e7c3a281364653a18776bfc527a398d"
+        },
+        {
+          "video_id": "396",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_296/video.mp4",
+          "size_bytes": 501680280,
+          "sha256": "8494c2598c586cade2785f997075ec6348401e577016e01eee6baf22f44db197"
+        },
+        {
+          "video_id": "188",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_293/video.mp4",
+          "size_bytes": 315230481,
+          "sha256": "fb785866696fd34ba3857721e54b8a0fd8d98db44ce0cc48f7cc2f9433acf8d3"
+        },
+        {
+          "video_id": "366",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_335/video.mp4",
+          "size_bytes": 257482732,
+          "sha256": "f757888052bdf29e2a977fcaf7523c961a7d2f0808540f86cbb7c5df468dab42"
+        },
+        {
+          "video_id": "457",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_478/video.mp4",
+          "size_bytes": 209859735,
+          "sha256": "3e7e5d84099eab5e8ce5cf289e8e735ccc5bd16fb24962935688c27feb6fd664"
+        },
+        {
+          "video_id": "458",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_318/video.mp4",
+          "size_bytes": 280688178,
+          "sha256": "12684dddd8be9420aefcb65c8148da6bdbd73610538b1bab9c68f3ff388a09bf"
+        },
+        {
+          "video_id": "409",
+          "path": "/home/yujun/program/streaming_data/StreamingBench/data/real/sample_495/video.mp4",
+          "size_bytes": 363686177,
+          "sha256": "5c9d4347c7ca50422a1cdab039018998dffbf68a769e37f69914bbbd768c3eb0"
+        }
+      ],
+      "evaluation_videos": [
+        {
+          "video_id": "1117",
+          "path": "/home/yujun/program/hermes/data/ovobench/official_20261014/src_videos/Ego4D/video/342f509b-4aa9-47f0-8fb2-1efd1f3bdbfa.mp4",
+          "size_bytes": 24514816,
+          "sha256": "57fd98ac4ea44b6fe7de0787726b62aa5d74eda700e678f3fa8df90fce7abeb1"
+        },
+        {
+          "video_id": "34",
+          "path": "/home/yujun/program/hermes/data/ovobench/official_20261014/src_videos/Ego4D/clips/4a37144f-63cd-4729-809c-f05ec1839036.mp4",
+          "size_bytes": 207590218,
+          "sha256": "58e10a76b9f9db1b17c5c6ef05e6c4cfa3cc4c55527f399fed5ff4981e4c3109"
+        },
+        {
+          "video_id": "1325",
+          "path": "/home/yujun/program/hermes/data/ovobench/official_20261014/src_videos/AutoEvalMetaData/16.mp4",
+          "size_bytes": 57709924,
+          "sha256": "f6fa30fc0437a7cb09500f35381863ee48173c004ce12df0c72bdd2f25b03af2"
+        }
+      ]
+    }
+  },
+  "dynamic_allocation": {
+    "enabled": true,
+    "patches_checked": 9,
+    "uncompressed_length_used": true,
+    "online_utility_used": false,
+    "capacity_snapshots": [
+      {
+        "video_id": "1117",
+        "prefill_index": 1,
+        "source_T": 1989,
+        "rho": 0.49463464486458864,
+        "grid_endpoints": [
+          0.4,
+          0.5
+        ],
+        "interpolation_weight": 0.9463464486458864,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            470,
+            1182,
+            1745,
+            1224
+          ],
+          [
+            670,
+            961,
+            422,
+            834
+          ],
+          [
+            1020,
+            1255,
+            1262,
+            1132
+          ],
+          [
+            1446,
+            1664,
+            1559,
+            660
+          ],
+          [
+            1279,
+            1422,
+            197,
+            325
+          ],
+          [
+            1866,
+            506,
+            567,
+            85
+          ],
+          [
+            37,
+            1541,
+            79,
+            74
+          ],
+          [
+            32,
+            186,
+            566,
+            1323
+          ],
+          [
+            1378,
+            1351,
+            34,
+            1771
+          ],
+          [
+            1693,
+            1004,
+            1228,
+            1660
+          ],
+          [
+            828,
+            217,
+            1196,
+            37
+          ],
+          [
+            1486,
+            1602,
+            35,
+            1824
+          ],
+          [
+            108,
+            1855,
+            1306,
+            1426
+          ],
+          [
+            744,
+            1289,
+            1691,
+            1399
+          ],
+          [
+            1162,
+            1851,
+            1537,
+            1537
+          ],
+          [
+            1769,
+            87,
+            1201,
+            1571
+          ],
+          [
+            1801,
+            509,
+            1641,
+            153
+          ],
+          [
+            943,
+            333,
+            1322,
+            1607
+          ],
+          [
+            81,
+            919,
+            1561,
+            1145
+          ],
+          [
+            1065,
+            36,
+            1810,
+            1833
+          ],
+          [
+            838,
+            572,
+            1461,
+            1659
+          ],
+          [
+            1728,
+            657,
+            657,
+            1169
+          ],
+          [
+            495,
+            1016,
+            1396,
+            503
+          ],
+          [
+            1190,
+            1006,
+            506,
+            43
+          ],
+          [
+            33,
+            483,
+            1328,
+            1638
+          ],
+          [
+            218,
+            1458,
+            194,
+            909
+          ],
+          [
+            1379,
+            632,
+            1200,
+            863
+          ],
+          [
+            1463,
+            39,
+            1473,
+            1567
+          ]
+        ]
+      },
+      {
+        "video_id": "34",
+        "prefill_index": 1,
+        "source_T": 1989,
+        "rho": 0.49463464486458864,
+        "grid_endpoints": [
+          0.4,
+          0.5
+        ],
+        "interpolation_weight": 0.9463464486458864,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            470,
+            1182,
+            1745,
+            1224
+          ],
+          [
+            670,
+            961,
+            422,
+            834
+          ],
+          [
+            1020,
+            1255,
+            1262,
+            1132
+          ],
+          [
+            1446,
+            1664,
+            1559,
+            660
+          ],
+          [
+            1279,
+            1422,
+            197,
+            325
+          ],
+          [
+            1866,
+            506,
+            567,
+            85
+          ],
+          [
+            37,
+            1541,
+            79,
+            74
+          ],
+          [
+            32,
+            186,
+            566,
+            1323
+          ],
+          [
+            1378,
+            1351,
+            34,
+            1771
+          ],
+          [
+            1693,
+            1004,
+            1228,
+            1660
+          ],
+          [
+            828,
+            217,
+            1196,
+            37
+          ],
+          [
+            1486,
+            1602,
+            35,
+            1824
+          ],
+          [
+            108,
+            1855,
+            1306,
+            1426
+          ],
+          [
+            744,
+            1289,
+            1691,
+            1399
+          ],
+          [
+            1162,
+            1851,
+            1537,
+            1537
+          ],
+          [
+            1769,
+            87,
+            1201,
+            1571
+          ],
+          [
+            1801,
+            509,
+            1641,
+            153
+          ],
+          [
+            943,
+            333,
+            1322,
+            1607
+          ],
+          [
+            81,
+            919,
+            1561,
+            1145
+          ],
+          [
+            1065,
+            36,
+            1810,
+            1833
+          ],
+          [
+            838,
+            572,
+            1461,
+            1659
+          ],
+          [
+            1728,
+            657,
+            657,
+            1169
+          ],
+          [
+            495,
+            1016,
+            1396,
+            503
+          ],
+          [
+            1190,
+            1006,
+            506,
+            43
+          ],
+          [
+            33,
+            483,
+            1328,
+            1638
+          ],
+          [
+            218,
+            1458,
+            194,
+            909
+          ],
+          [
+            1379,
+            632,
+            1200,
+            863
+          ],
+          [
+            1463,
+            39,
+            1473,
+            1567
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 1,
+        "source_T": 1196,
+        "rho": 0.8316151202749141,
+        "grid_endpoints": [
+          0.8,
+          0.9
+        ],
+        "interpolation_weight": 0.31615120274914094,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            1000,
+            1147,
+            1185,
+            1187
+          ],
+          [
+            1139,
+            1145,
+            1039,
+            1082
+          ],
+          [
+            1145,
+            1157,
+            1131,
+            1174
+          ],
+          [
+            1184,
+            1187,
+            1182,
+            1113
+          ],
+          [
+            1116,
+            1179,
+            860,
+            997
+          ],
+          [
+            1194,
+            981,
+            1039,
+            628
+          ],
+          [
+            273,
+            1172,
+            253,
+            511
+          ],
+          [
+            122,
+            928,
+            1058,
+            1147
+          ],
+          [
+            1132,
+            1106,
+            115,
+            1159
+          ],
+          [
+            1191,
+            1129,
+            1147,
+            1185
+          ],
+          [
+            1083,
+            796,
+            1119,
+            472
+          ],
+          [
+            1161,
+            1188,
+            321,
+            1189
+          ],
+          [
+            587,
+            1191,
+            1161,
+            1122
+          ],
+          [
+            943,
+            1177,
+            1173,
+            1115
+          ],
+          [
+            1146,
+            1188,
+            1157,
+            1163
+          ],
+          [
+            1183,
+            516,
+            1117,
+            1158
+          ],
+          [
+            1162,
+            1005,
+            1127,
+            534
+          ],
+          [
+            1065,
+            914,
+            1107,
+            1143
+          ],
+          [
+            649,
+            939,
+            1138,
+            1085
+          ],
+          [
+            1030,
+            398,
+            1181,
+            1178
+          ],
+          [
+            1041,
+            942,
+            1130,
+            1162
+          ],
+          [
+            1177,
+            1006,
+            1082,
+            1114
+          ],
+          [
+            908,
+            1097,
+            1148,
+            856
+          ],
+          [
+            1123,
+            1154,
+            975,
+            538
+          ],
+          [
+            515,
+            884,
+            1134,
+            1176
+          ],
+          [
+            826,
+            1146,
+            832,
+            1066
+          ],
+          [
+            1107,
+            967,
+            1090,
+            1050
+          ],
+          [
+            1142,
+            399,
+            1144,
+            1169
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 2,
+        "source_T": 2392,
+        "rho": 0.4101694915254237,
+        "grid_endpoints": [
+          0.4,
+          0.5
+        ],
+        "interpolation_weight": 0.10169491525423682,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            349,
+            1149,
+            1909,
+            1053
+          ],
+          [
+            516,
+            777,
+            341,
+            750
+          ],
+          [
+            993,
+            1253,
+            1256,
+            854
+          ],
+          [
+            958,
+            1707,
+            1562,
+            410
+          ],
+          [
+            1337,
+            1320,
+            182,
+            265
+          ],
+          [
+            2136,
+            437,
+            543,
+            72
+          ],
+          [
+            38,
+            1554,
+            85,
+            50
+          ],
+          [
+            32,
+            150,
+            458,
+            1294
+          ],
+          [
+            1456,
+            1438,
+            34,
+            1919
+          ],
+          [
+            1691,
+            877,
+            1173,
+            1821
+          ],
+          [
+            805,
+            142,
+            1124,
+            35
+          ],
+          [
+            1562,
+            1582,
+            34,
+            2026
+          ],
+          [
+            89,
+            2140,
+            1289,
+            1314
+          ],
+          [
+            736,
+            1144,
+            1854,
+            1478
+          ],
+          [
+            1106,
+            2180,
+            1614,
+            1663
+          ],
+          [
+            2059,
+            55,
+            1286,
+            1650
+          ],
+          [
+            2053,
+            414,
+            1884,
+            156
+          ],
+          [
+            755,
+            235,
+            1390,
+            1834
+          ],
+          [
+            63,
+            944,
+            1742,
+            1133
+          ],
+          [
+            1063,
+            35,
+            2116,
+            2115
+          ],
+          [
+            576,
+            549,
+            1513,
+            1836
+          ],
+          [
+            1890,
+            509,
+            502,
+            1115
+          ],
+          [
+            486,
+            860,
+            1409,
+            479
+          ],
+          [
+            1239,
+            831,
+            463,
+            40
+          ],
+          [
+            33,
+            374,
+            1193,
+            1718
+          ],
+          [
+            98,
+            1516,
+            99,
+            782
+          ],
+          [
+            1483,
+            562,
+            1238,
+            720
+          ],
+          [
+            1529,
+            36,
+            1574,
+            1650
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 3,
+        "source_T": 3588,
+        "rho": 0.2722159730033746,
+        "grid_endpoints": [
+          0.2,
+          0.3
+        ],
+        "interpolation_weight": 0.7221597300337458,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            255,
+            500,
+            2128,
+            741
+          ],
+          [
+            408,
+            578,
+            257,
+            545
+          ],
+          [
+            1027,
+            1009,
+            1245,
+            629
+          ],
+          [
+            627,
+            1550,
+            1161,
+            253
+          ],
+          [
+            1390,
+            1464,
+            123,
+            191
+          ],
+          [
+            2718,
+            382,
+            595,
+            44
+          ],
+          [
+            38,
+            1360,
+            92,
+            42
+          ],
+          [
+            32,
+            95,
+            370,
+            1201
+          ],
+          [
+            1276,
+            1349,
+            32,
+            2112
+          ],
+          [
+            1785,
+            708,
+            861,
+            2187
+          ],
+          [
+            563,
+            59,
+            838,
+            34
+          ],
+          [
+            1611,
+            1180,
+            34,
+            2538
+          ],
+          [
+            61,
+            2799,
+            1073,
+            1178
+          ],
+          [
+            626,
+            803,
+            2055,
+            1537
+          ],
+          [
+            1264,
+            2937,
+            1760,
+            1891
+          ],
+          [
+            2507,
+            48,
+            1407,
+            1817
+          ],
+          [
+            2838,
+            190,
+            2510,
+            137
+          ],
+          [
+            611,
+            114,
+            1637,
+            2155
+          ],
+          [
+            48,
+            799,
+            1942,
+            951
+          ],
+          [
+            1045,
+            34,
+            2860,
+            2844
+          ],
+          [
+            458,
+            521,
+            1504,
+            2148
+          ],
+          [
+            2185,
+            341,
+            351,
+            964
+          ],
+          [
+            391,
+            645,
+            1313,
+            430
+          ],
+          [
+            1112,
+            713,
+            391,
+            39
+          ],
+          [
+            33,
+            316,
+            726,
+            1697
+          ],
+          [
+            48,
+            1563,
+            60,
+            714
+          ],
+          [
+            1613,
+            211,
+            1144,
+            521
+          ],
+          [
+            1630,
+            38,
+            1806,
+            1679
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 4,
+        "source_T": 4784,
+        "rho": 0.2037037037037037,
+        "grid_endpoints": [
+          0.2,
+          0.3
+        ],
+        "interpolation_weight": 0.03703703703703682,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            229,
+            289,
+            2231,
+            526
+          ],
+          [
+            360,
+            505,
+            220,
+            480
+          ],
+          [
+            1050,
+            763,
+            1237,
+            591
+          ],
+          [
+            564,
+            1312,
+            931,
+            205
+          ],
+          [
+            1401,
+            1311,
+            77,
+            128
+          ],
+          [
+            3187,
+            369,
+            557,
+            40
+          ],
+          [
+            33,
+            1212,
+            102,
+            40
+          ],
+          [
+            33,
+            58,
+            351,
+            1062
+          ],
+          [
+            1203,
+            1080,
+            32,
+            2342
+          ],
+          [
+            1678,
+            703,
+            783,
+            2489
+          ],
+          [
+            423,
+            64,
+            736,
+            33
+          ],
+          [
+            1417,
+            1027,
+            35,
+            2938
+          ],
+          [
+            45,
+            3259,
+            888,
+            829
+          ],
+          [
+            606,
+            522,
+            2254,
+            1728
+          ],
+          [
+            1325,
+            3614,
+            1799,
+            1976
+          ],
+          [
+            2807,
+            42,
+            1632,
+            1801
+          ],
+          [
+            3481,
+            153,
+            3065,
+            117
+          ],
+          [
+            496,
+            79,
+            1844,
+            2375
+          ],
+          [
+            39,
+            775,
+            2116,
+            841
+          ],
+          [
+            1010,
+            34,
+            3522,
+            3444
+          ],
+          [
+            342,
+            459,
+            1282,
+            2336
+          ],
+          [
+            2153,
+            249,
+            303,
+            684
+          ],
+          [
+            184,
+            430,
+            1190,
+            440
+          ],
+          [
+            1032,
+            718,
+            405,
+            39
+          ],
+          [
+            33,
+            316,
+            465,
+            1361
+          ],
+          [
+            37,
+            1672,
+            49,
+            611
+          ],
+          [
+            1597,
+            120,
+            1147,
+            249
+          ],
+          [
+            1620,
+            39,
+            1975,
+            1508
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 5,
+        "source_T": 5980,
+        "rho": 0.16274377942165433,
+        "grid_endpoints": [
+          0.15,
+          0.2
+        ],
+        "interpolation_weight": 0.25487558843308655,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            227,
+            244,
+            2327,
+            427
+          ],
+          [
+            370,
+            350,
+            222,
+            474
+          ],
+          [
+            850,
+            671,
+            1233,
+            517
+          ],
+          [
+            476,
+            1311,
+            912,
+            198
+          ],
+          [
+            1419,
+            1364,
+            72,
+            141
+          ],
+          [
+            3128,
+            375,
+            350,
+            38
+          ],
+          [
+            33,
+            1085,
+            109,
+            41
+          ],
+          [
+            33,
+            49,
+            365,
+            1023
+          ],
+          [
+            967,
+            1096,
+            32,
+            2147
+          ],
+          [
+            1821,
+            543,
+            724,
+            2672
+          ],
+          [
+            418,
+            65,
+            509,
+            33
+          ],
+          [
+            1483,
+            615,
+            35,
+            3126
+          ],
+          [
+            38,
+            3600,
+            756,
+            828
+          ],
+          [
+            531,
+            383,
+            2354,
+            1782
+          ],
+          [
+            1308,
+            4138,
+            1832,
+            1868
+          ],
+          [
+            3180,
+            38,
+            1642,
+            1705
+          ],
+          [
+            4168,
+            131,
+            3351,
+            102
+          ],
+          [
+            339,
+            79,
+            1848,
+            2421
+          ],
+          [
+            38,
+            780,
+            2014,
+            763
+          ],
+          [
+            1057,
+            33,
+            4174,
+            3785
+          ],
+          [
+            297,
+            395,
+            1047,
+            2251
+          ],
+          [
+            2163,
+            227,
+            262,
+            646
+          ],
+          [
+            155,
+            359,
+            1097,
+            510
+          ],
+          [
+            963,
+            733,
+            425,
+            40
+          ],
+          [
+            33,
+            287,
+            405,
+            1385
+          ],
+          [
+            37,
+            1716,
+            42,
+            621
+          ],
+          [
+            1289,
+            106,
+            1080,
+            229
+          ],
+          [
+            1696,
+            34,
+            2055,
+            1629
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 6,
+        "source_T": 7176,
+        "rho": 0.135498320268757,
+        "grid_endpoints": [
+          0.1,
+          0.15
+        ],
+        "interpolation_weight": 0.7099664053751399,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            229,
+            230,
+            2366,
+            384
+          ],
+          [
+            376,
+            292,
+            234,
+            486
+          ],
+          [
+            806,
+            632,
+            1257,
+            503
+          ],
+          [
+            435,
+            1288,
+            872,
+            201
+          ],
+          [
+            1435,
+            1359,
+            71,
+            151
+          ],
+          [
+            3121,
+            383,
+            247,
+            38
+          ],
+          [
+            33,
+            1006,
+            113,
+            40
+          ],
+          [
+            33,
+            46,
+            358,
+            1018
+          ],
+          [
+            823,
+            945,
+            33,
+            2177
+          ],
+          [
+            1814,
+            441,
+            712,
+            2636
+          ],
+          [
+            419,
+            61,
+            386,
+            33
+          ],
+          [
+            1503,
+            408,
+            35,
+            3234
+          ],
+          [
+            36,
+            3889,
+            637,
+            854
+          ],
+          [
+            457,
+            287,
+            2384,
+            1762
+          ],
+          [
+            1264,
+            4499,
+            1938,
+            1763
+          ],
+          [
+            3344,
+            36,
+            1543,
+            1640
+          ],
+          [
+            4823,
+            114,
+            3538,
+            97
+          ],
+          [
+            252,
+            79,
+            1740,
+            2484
+          ],
+          [
+            37,
+            777,
+            1946,
+            719
+          ],
+          [
+            1119,
+            33,
+            4643,
+            4062
+          ],
+          [
+            255,
+            395,
+            866,
+            2150
+          ],
+          [
+            2151,
+            224,
+            246,
+            545
+          ],
+          [
+            150,
+            320,
+            1025,
+            556
+          ],
+          [
+            898,
+            643,
+            382,
+            40
+          ],
+          [
+            32,
+            275,
+            382,
+            1360
+          ],
+          [
+            36,
+            1763,
+            40,
+            558
+          ],
+          [
+            1164,
+            102,
+            1075,
+            201
+          ],
+          [
+            1767,
+            32,
+            2166,
+            1702
+          ]
+        ]
+      },
+      {
+        "video_id": "1325",
+        "prefill_index": 7,
+        "source_T": 8372,
+        "rho": 0.11606714628297363,
+        "grid_endpoints": [
+          0.1,
+          0.15
+        ],
+        "interpolation_weight": 0.3213429256594725,
+        "target_slots": 112000,
+        "allocated_slots": 112000,
+        "budget": 1000,
+        "window_size": 32,
+        "protected_tokens_per_head": 32,
+        "profile_domain": "unprotected_history",
+        "budget_scope": "visual",
+        "profile_bypassed": false,
+        "no_online_utility": true,
+        "actual_occupancy_may_be_lower": true,
+        "projection": "bounded_euclidean_shift_largest_remainder",
+        "head_capacities": [
+          [
+            232,
+            230,
+            2364,
+            375
+          ],
+          [
+            377,
+            309,
+            250,
+            508
+          ],
+          [
+            888,
+            624,
+            1300,
+            537
+          ],
+          [
+            428,
+            1234,
+            804,
+            208
+          ],
+          [
+            1451,
+            1299,
+            72,
+            156
+          ],
+          [
+            3184,
+            393,
+            232,
+            37
+          ],
+          [
+            33,
+            962,
+            116,
+            39
+          ],
+          [
+            33,
+            47,
+            334,
+            1030
+          ],
+          [
+            755,
+            656,
+            33,
+            2398
+          ],
+          [
+            1682,
+            390,
+            732,
+            2445
+          ],
+          [
+            415,
+            55,
+            345,
+            33
+          ],
+          [
+            1473,
+            367,
+            34,
+            3298
+          ],
+          [
+            36,
+            4146,
+            527,
+            878
+          ],
+          [
+            386,
+            216,
+            2367,
+            1694
+          ],
+          [
+            1204,
+            4750,
+            2096,
+            1673
+          ],
+          [
+            3353,
+            35,
+            1376,
+            1601
+          ],
+          [
+            5451,
+            101,
+            3668,
+            99
+          ],
+          [
+            217,
+            77,
+            1560,
+            2571
+          ],
+          [
+            36,
+            765,
+            1919,
+            698
+          ],
+          [
+            1186,
+            32,
+            4978,
+            4308
+          ],
+          [
+            211,
+            441,
+            726,
+            2055
+          ],
+          [
+            2118,
+            231,
+            248,
+            383
+          ],
+          [
+            153,
+            297,
+            967,
+            581
+          ],
+          [
+            833,
+            474,
+            293,
+            41
+          ],
+          [
+            32,
+            277,
+            373,
+            1278
+          ],
+          [
+            35,
+            1817,
+            41,
+            435
+          ],
+          [
+            1192,
+            102,
+            1121,
+            152
+          ],
+          [
+            1831,
+            32,
+            2305,
+            1724
+          ]
+        ]
+      }
+    ]
+  },
+  "architecture": {
+    "num_layers": 28,
+    "num_kv_heads": 4,
+    "num_query_heads": 28,
+    "head_dim": 128,
+    "element_bytes": 2
+  },
+  "per_video": [
+    {
+      "video_id": "1117",
+      "prefix": 14,
+      "prefills": 1,
+      "compressions": 1,
+      "questions": 1,
+      "seen": 1989,
+      "cursor": 65
+    },
+    {
+      "video_id": "34",
+      "prefix": 14,
+      "prefills": 1,
+      "compressions": 1,
+      "questions": 1,
+      "seen": 1989,
+      "cursor": 65
+    },
+    {
+      "video_id": "1325",
+      "prefix": 14,
+      "prefills": 7,
+      "compressions": 7,
+      "questions": 1,
+      "seen": 8372,
+      "cursor": 63
+    }
+  ],
+  "lmms_results_checked": [
+    "/home/yujun/program/sparsemm_suite/results/ovobench_regression_20261015/lukv_k1000_visual/lmms/models__Qwen2.5-VL-7B-Instruct/20261015_124057_results.json"
+  ],
+  "limitations": [
+    "Trace checks selected indices and runtime position validation; score rankings are tested separately.",
+    "Offline attention-calibrated profiles supply target capacities; streaming eviction may leave some heads below target occupancy.",
+    "The streaming profile protects the fixed recent window; it omits the paper's one-percent per-head floor for long fixed-budget video streams.",
+    "Small validation does not establish full benchmark accuracy or official LU-KV equivalence."
+  ]
+}

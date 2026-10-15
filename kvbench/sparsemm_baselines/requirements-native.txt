@@ -1,0 +1,62 @@
+# Use a NEW Python 3.10/CUDA environment for the unmodified upstream framework.
+# First install torch/packaging/ninja, then FlashAttention with --no-build-isolation.
+# Install both upstream and upstream/lmms-eval editable with --no-deps after this
+# file. Their metadata conflict: numpy==1.26.0 vs 1.26.4; use lmms-eval's 1.26.4.
+# Build/install upstream/csrc/build.py separately to provide tiny_api_cuda.
+torch==2.5.1
+torchvision==0.20.1
+transformers==4.46.2
+flash-attn==2.4.1
+numpy==1.26.4
+qwen-vl-utils==0.0.8
+packaging
+ninja
+decord==0.6.0
+pillow
+pandas
+accelerate>=0.29.1
+datasets==2.16.1
+evaluate>=0.4.0
+black==24.1.0
+isort==5.13.2
+httpx==0.23.3
+jsonlines
+numexpr
+peft>=0.2.0
+pybind11>=2.6.2
+pytablewriter
+sacrebleu>=1.5.0
+scikit-learn>=0.24.1
+sqlitedict==2.1.0
+timm
+einops
+ftfy
+openai
+opencv-python-headless
+av
+hf_transfer
+nltk
+sentencepiece==0.1.99
+yt-dlp
+pycocoevalcap
+tqdm-multiprocess
+transformers-stream-generator
+zstandard
+pyyaml
+sympy
+mpmath
+Jinja2
+openpyxl
+loguru
+tenacity==8.3.0
+wandb>=0.16.0
+tiktoken
+pre-commit
+pydantic
+protobuf==3.20
+sentence_transformers
+rouge
+rouge_score
+jieba==0.42.1
+tqdm==4.66.1
+icetk==0.0.7

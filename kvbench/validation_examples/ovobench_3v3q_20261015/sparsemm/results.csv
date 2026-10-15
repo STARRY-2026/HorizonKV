@@ -1,0 +1,4 @@
+"video_id","question","choices","answer","correct_choice","pred_answer","pred_choice","qa_acc","task","duration_category"
+1117,"What is this person about to do from the desk?","['The person is going to take the bag from the desk.', 'The person is going to organize the documents on the desk.', 'The person is going to write a note on the desk.', 'The person is going to open the notebook on the desk.']","The person is going to take the bag from the desk.","A","D) The person is going to open the notebook on the desk.","D",0.0,"FPD",""
+34,"what color was the bag?","['yellow', 'blue', 'red', 'green']","yellow","A","B) blue","B",0.0,"EPM",""
+1325,"What is the text on the label of the containers?","['STARBUCKS', 'just salad', 'JUST DO IT', 'ADWEEK']","ADWEEK","D","D) ADWEEK","D",100.0,"OCR",""

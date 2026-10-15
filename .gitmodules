@@ -1,0 +1,3 @@
+[submodule "kvbench-sparsemm-upstream"]
+	path = kvbench/sparsemm_baselines/upstream
+	url = https://github.com/CR400AF-A/SparseMM.git

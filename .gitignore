@@ -13,6 +13,7 @@ __pycache__/
 
 # Download models and videos separately
 models/
+!/kvbench/sparsemm_protokv/models/
 *.safetensors
 *.bin
 *.pt
