@@ -66,7 +66,9 @@ class SparseMMQwen:
         self.processor = processor
         self.config = config or BaselineConfig()
         self.model_config = model.config
-        self.language_model = model.language_model
+        language_model = model.language_model
+        self.language_model = (language_model if hasattr(language_model, "layers")
+                               else language_model.model)
         if any(getattr(layer.self_attn, "sliding_window", None) is not None
                for layer in self.language_model.layers):
             raise ValueError("The SparseMM port currently requires full-attention Qwen2.5-VL layers")
@@ -75,7 +77,8 @@ class SparseMMQwen:
         self.num_kv_heads = int(text_config.num_key_value_heads)
         self.num_query_heads = int(text_config.num_attention_heads)
         self.head_dim = int(self.language_model.layers[0].self_attn.head_dim)
-        self._mrope_section = text_config.rope_scaling["mrope_section"]
+        self._mrope_section = (None if model.config.model_type == "llava_onevision"
+                               else text_config.rope_scaling["mrope_section"])
         self.sample_fps = sample_fps
         self.kv_size = self.config.budget
         self.trace_path = None if trace_path is None else Path(trace_path)

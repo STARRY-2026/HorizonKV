@@ -21,6 +21,7 @@ class StreamingConfig:
     gqa_reduce: str = "mean"
     score_precision: str = "float32"
     sparsemm_score_path: str = ""
+    sparsemm_budget_path: str = ""
     sparsemm_ratio: float = 0.1
     lukv_budget_path: str = ""
     lukv_profile_path: str = ""
@@ -44,6 +45,8 @@ class StreamingConfig:
     covariance_ridge: float = 1e-4
     kmeans_iterations: int = 10
     kmeans_batch_size: int = 32
+    sparsemm_cache_policy: str = "capacity"
+    sparsemm_two_bank_gate: str = "per_head_capacity"
 
     def __post_init__(self):
         if self.lukv_history is None:
@@ -51,6 +54,13 @@ class StreamingConfig:
             object.__setattr__(self, "lukv_history", "none" if self.method == "lukv" else "previous_qa")
         if self.method not in ("protokv", "adakv", "pyramidkv", "lukv", "sparsemm", "uniform"):
             raise ValueError("method must be protokv, adakv, pyramidkv, lukv, sparsemm or uniform")
+        if self.sparsemm_cache_policy not in ("capacity", "two_bank"):
+            raise ValueError("sparsemm_cache_policy must be capacity or two_bank")
+        if self.sparsemm_two_bank_gate not in ("per_head_capacity", "legacy_global"):
+            raise ValueError("Unknown SparseMM two-bank short-cache gate")
+        if self.sparsemm_cache_policy == "two_bank" and (
+                self.method != "sparsemm" or not self.sparsemm_budget_path):
+            raise ValueError("Two-bank policy requires SparseMM and an explicit split budget CSV")
         if self.budget_scope not in ("visual", "prompt"):
             raise ValueError("budget_scope must be visual or prompt")
         for name in ("budget", "modes", "subquantizers", "codewords", "beam",
@@ -88,6 +98,8 @@ class StreamingConfig:
                 raise ValueError("SparseMM requires visual budgets with the initial text prefix preserved")
             if not isinstance(self.sparsemm_score_path, str):
                 raise ValueError("SparseMM score path must be a string")
+            if not isinstance(self.sparsemm_budget_path, str):
+                raise ValueError("SparseMM external budget path must be a string")
             if not math.isfinite(self.sparsemm_ratio) or not 0 <= self.sparsemm_ratio <= 1:
                 raise ValueError("SparseMM ratio must be finite and in [0,1]")
             if self.score_precision != "float32" or self.pooling != "avgpool" or self.gqa_reduce != "mean":

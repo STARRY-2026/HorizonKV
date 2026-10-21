@@ -4,10 +4,11 @@ import hashlib
 from pathlib import Path
 
 import torch
-from transformers import Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor
 
 from sparsemm_native.cache import SparseMMCache
-from sparsemm_native.policy import DEFAULT_SCORE_PATH, allocate_head_budgets, load_head_scores
+from sparsemm_native.policy import (DEFAULT_SCORE_PATH, allocate_head_budgets,
+                                    load_fixed_head_budgets, load_head_scores)
+from sparsemm_native.two_bank import load_two_bank_budgets
 from sparsemm_protokv.streaming import StreamingQwen
 
 
@@ -18,10 +19,20 @@ class SparseMMStreamingQwen(StreamingQwen):
         text = model.language_model.config
         path = Path(config.sparsemm_score_path or DEFAULT_SCORE_PATH).expanduser().resolve()
         scores = load_head_scores(path, text.num_hidden_layers, text.num_attention_heads)
-        self.budgets, self.allocation = allocate_head_budgets(
-            scores, budget=config.budget, window_size=config.window_size,
-            ratio=config.sparsemm_ratio, num_kv_heads=text.num_key_value_heads,
-        )
+        self.recent_budgets = None
+        if config.sparsemm_cache_policy == "two_bank":
+            self.budgets, self.recent_budgets, self.allocation = load_two_bank_budgets(
+                config.sparsemm_budget_path, text.num_hidden_layers,
+                text.num_key_value_heads, config.budget, config.window_size,
+                short_cache_gate=config.sparsemm_two_bank_gate)
+        elif config.sparsemm_budget_path:
+            self.budgets, self.allocation = load_fixed_head_budgets(
+                config.sparsemm_budget_path, text.num_hidden_layers,
+                text.num_key_value_heads, config.budget, config.window_size)
+        else:
+            self.budgets, self.allocation = allocate_head_budgets(
+                scores, budget=config.budget, window_size=config.window_size,
+                ratio=config.sparsemm_ratio, num_kv_heads=text.num_key_value_heads)
         self.asset_metadata = {"path": str(path), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                                "query_head_shape": list(scores.shape), "shape": list(self.budgets.shape)}
         if asset_metadata is not None:
@@ -41,6 +52,7 @@ class SparseMMStreamingQwen(StreamingQwen):
         self.kv_cache = SparseMMCache(
             self.config, self.num_layers, self.num_kv_heads, self.head_dim, self.device, self.dtype,
             budgets=self.budgets, allocation=self.allocation, asset_metadata=self.asset_metadata,
+            recent_budgets=self.recent_budgets,
         )
         self.visual_start_idx = 0
         self._next_position = self._seen_visual_tokens = self.total_processed_frames = 0
@@ -75,11 +87,13 @@ class SparseMMStreamingQwen(StreamingQwen):
 
 
 def load_model(model_path, config=None, sample_fps=0.5, trace_path=None,
-               device="cuda", dtype="bfloat16", validate_state=True):
+               device="cuda", dtype="bfloat16", validate_state=True, video_max_pixels=None):
     if dtype not in ("bfloat16", "float16", "float32"):
         raise ValueError("Unsupported model dtype")
     if config is None or config.method != "sparsemm":
         raise ValueError("SparseMM load_model requires explicit method=sparsemm config")
+    if video_max_pixels is not None and (not isinstance(video_max_pixels, int) or video_max_pixels < 3136):
+        raise ValueError("SparseMM video pixel cap must be an integer >= 3136")
     from sparsemm_native.assets import asset_metadata
     metadata = asset_metadata(config.sparsemm_score_path or None)
     requested_model = Path(model_path).expanduser().resolve()
@@ -87,9 +101,7 @@ def load_model(model_path, config=None, sample_fps=0.5, trace_path=None,
             or hashlib.sha256((requested_model / "config.json").read_bytes()).hexdigest()
             != metadata["model_config_sha256"]):
         raise ValueError("SparseMM visual scores were calibrated with a different model")
-    processor = Qwen2_5_VLProcessor.from_pretrained(model_path, local_files_only=True)
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        model_path, dtype=getattr(torch, dtype), attn_implementation="sdpa", local_files_only=True,
-    ).to(device).eval()
+    from sparsemm_protokv.model_loader import load_pretrained
+    model, processor = load_pretrained(model_path, device=device, dtype=dtype)
     return SparseMMStreamingQwen(model, processor, config, sample_fps, trace_path, validate_state,
-                                asset_metadata=metadata)
+                                asset_metadata=metadata, video_max_pixels=video_max_pixels)

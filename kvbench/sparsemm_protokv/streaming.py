@@ -5,7 +5,9 @@ from contextlib import contextmanager, nullcontext
 import time
 
 import torch
-from transformers import Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor
+from transformers import (AutoProcessor, LlavaOnevisionForConditionalGeneration,
+                          Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor)
+from transformers.models.qwen2.modeling_qwen2 import apply_rotary_pos_emb
 from transformers.models.qwen2_5_vl.modeling_qwen2_5_vl import apply_multimodal_rotary_pos_emb
 
 from sparsemm_baselines.adapter import SparseMMQwen
@@ -15,11 +17,19 @@ from sparsemm_protokv.monkeypatch import replace_qwen2_5
 
 
 class StreamingQwen(SparseMMQwen):
-    """Reuse data/position helpers; the native HF decoder executes every layer."""
+    """Shared streaming bridge for Qwen2.5-VL and LLaVA-OneVision."""
     def __init__(self, model, processor, config=None, sample_fps=0.5, trace_path=None,
-                 validate_state=True):
+                 validate_state=True, video_max_pixels=None):
         config = config or StreamingConfig()
-        replace_qwen2_5(config.method)
+        self.is_llava = model.config.model_type == "llava_onevision"
+        if video_max_pixels is not None and (self.is_llava or config.method not in ("protokv", "sparsemm")):
+            raise ValueError("video_max_pixels is supported only for Qwen2.5-VL ProtoKV or SparseMM")
+        self.video_max_pixels = video_max_pixels
+        if self.is_llava:
+            from sparsemm_protokv.qwen2 import install
+            install()
+        else:
+            replace_qwen2_5(config.method)
         self.validate_state = validate_state
         self.timing_enabled = False
         # Cumulative across videos; clear_cache must not reset these measurements.
@@ -86,9 +96,10 @@ class StreamingQwen(SparseMMQwen):
                           time=self.total_processed_frames if time is None else time)
         logical = cache.get_seq_length()
         # Query forwards belong to the enclosing QA timer.
+        model_positions = positions[0] if self.is_llava else positions
         with self._measure("language_video_seconds") if compress else nullcontext():
             result = self.language_model(
-                inputs_embeds=inputs_embeds, position_ids=positions, past_key_values=cache,
+                inputs_embeds=inputs_embeds, position_ids=model_positions, past_key_values=cache,
                 cache_position=torch.arange(logical, logical + count, device=self.device),
                 attention_mask={"full_attention": None}, use_cache=True, return_dict=True,
             )
@@ -120,13 +131,50 @@ class StreamingQwen(SparseMMQwen):
     def encode_video_chunk(self, video_chunk, is_last_chunk=False):
         if video_chunk is None or video_chunk.shape[0] == 0:
             return
+        if self.is_llava:
+            for frame in video_chunk:
+                if frame.shape[-1] == 3:
+                    frame = frame.permute(2, 0, 1)
+                with self._measure("vision_seconds"):
+                    pixels = self.processor.video_processor(
+                        frame.unsqueeze(0), return_tensors="pt"
+                    ).pixel_values_videos.to(self.device, self.dtype)
+                    features = self.model.get_video_features(
+                        pixels, vision_feature_layer=self.model.config.vision_feature_layer,
+                        vision_feature_select_strategy=self.model.config.vision_feature_select_strategy,
+                    )
+                count = features.shape[1]
+                positions = torch.arange(self._next_position, self._next_position + count,
+                                         device=self.device).view(1, 1, -1).expand(3, 1, -1)
+                side = int(count ** 0.5)
+                if side * side != count:
+                    raise ValueError(f"LLaVA pooled frame requires a square grid, got {count} tokens")
+                grid = torch.stack(torch.meshgrid(
+                    torch.arange(side, device=self.device), torch.arange(side, device=self.device),
+                    indexing="ij"), dim=-1).reshape(-1, 2)
+                xy = grid[:, [1, 0]].float() / max(side - 1, 1)
+                self.forward_chunk(features, positions, compress=True, xy=xy,
+                                   time=self.total_processed_frames + 1)
+                self._seen_visual_tokens += count
+                self._next_position += count
+                self.total_processed_frames += 1
+                self.timings["video_prefills"] += 1
+                self.timings["raw_frames"] += 1
+                self.timings["visual_tokens"] += count
+            self.last_encoded_frames = video_chunk.shape[0]
+            return
         stride = int(self.model_config.vision_config.temporal_patch_size)
         for start in range(0, video_chunk.shape[0], stride):
             frames = video_chunk[start:start + stride]
             if frames.shape[-1] == 3:
                 frames = frames.permute(0, 3, 1, 2)
             with self._measure("vision_seconds"):
-                inputs = self.processor(text=[""], videos=frames, return_tensors="pt").to(self.device, self.dtype)
+                video_kwargs = {} if self.video_max_pixels is None else {"size": {
+                    "shortest_edge": self.processor.video_processor.size["shortest_edge"],
+                    "longest_edge": self.video_max_pixels,
+                }}
+                inputs = self.processor(text=[""], videos=frames, return_tensors="pt",
+                                        **video_kwargs).to(self.device, self.dtype)
                 grid = inputs["video_grid_thw"]
                 features = self.model.get_video_features(inputs["pixel_values_videos"], grid)[0].unsqueeze(0)
             positions = self._video_positions(grid[0].tolist(), features.shape[1])
@@ -143,6 +191,9 @@ class StreamingQwen(SparseMMQwen):
     def _rotate_pseudo(self, keys, positions):
         keys = keys.to(self.dtype)
         dummy = keys.new_empty(keys.shape[0], keys.shape[1], 1)
+        if self.is_llava:
+            cos, sin = self.language_model.rotary_emb(dummy, positions[0])
+            return apply_rotary_pos_emb(keys[:, None], keys[:, None], cos, sin)[1][:, 0]
         cos, sin = self.language_model.rotary_emb(dummy, positions)
         return apply_multimodal_rotary_pos_emb(keys[:, None], keys[:, None], cos, sin,
                                                self._mrope_section)[1][:, 0]
@@ -234,11 +285,10 @@ class StreamingQwen(SparseMMQwen):
 
 
 def load_model(model_path, config=None, sample_fps=0.5, trace_path=None,
-               device="cuda", dtype="bfloat16", validate_state=True):
+               device="cuda", dtype="bfloat16", validate_state=True, video_max_pixels=None):
     if dtype not in ("bfloat16", "float16", "float32"):
         raise ValueError("Unsupported model dtype")
-    processor = Qwen2_5_VLProcessor.from_pretrained(model_path, local_files_only=True)
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        model_path, dtype=getattr(torch, dtype), attn_implementation="sdpa", local_files_only=True,
-    ).to(device).eval()
-    return StreamingQwen(model, processor, config, sample_fps, trace_path, validate_state)
+    from sparsemm_protokv.model_loader import load_pretrained
+    model, processor = load_pretrained(model_path, device=device, dtype=dtype)
+    return StreamingQwen(model, processor, config, sample_fps, trace_path, validate_state,
+                         video_max_pixels=video_max_pixels)

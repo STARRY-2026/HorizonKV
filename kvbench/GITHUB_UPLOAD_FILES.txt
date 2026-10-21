@@ -1,12 +1,11 @@
-# HorizonKV/kvbench 实际上传清单；路径相对 kvbench/。
-# 上游条目是固定提交的 Git 子模块，声明位于 HorizonKV 根目录的 .gitmodules。
-
 .gitignore
 GITHUB_UPLOAD.md
 GITHUB_UPLOAD_FILES.txt
 MIGRATION_MANIFEST.json
 README.md
 VALIDATION.md
+assets/dp_recent4/history_weights_fixed_capacity.csv
+assets/dp_recent4/legacy_capacity_reference.csv
 assets/sparsemm/head_scores.csv
 assets/sparsemm/manifest.json
 assets/sparsemm/protocol.json
@@ -37,7 +36,7 @@ sparsemm_baselines/run_instrumented.py
 sparsemm_baselines/run_lmms_eval.py
 sparsemm_baselines/run_streamingbench.py
 sparsemm_baselines/summarize_extended.py
-sparsemm_baselines/upstream  [submodule 33f2f0ab96d1d99516bcd2092caccab60516ff2c]
+sparsemm_baselines/upstream
 sparsemm_baselines/validate_smoke.py
 sparsemm_baselines/validation_attention.py
 sparsemm_lukv/README.md
@@ -56,19 +55,31 @@ sparsemm_lukv/run_calibration.py
 sparsemm_lukv/run_streamingbench.py
 sparsemm_lukv/streaming.py
 sparsemm_native/README.md
+sparsemm_native/RECENT4_DP.md
 sparsemm_native/__init__.py
 sparsemm_native/assets.py
 sparsemm_native/audit.py
 sparsemm_native/cache.py
+sparsemm_native/compare_ovobench_three_way.py
+sparsemm_native/gpu_slots.py
 sparsemm_native/policy.py
+sparsemm_native/recent4.py
+sparsemm_native/report_ovobench_recent4.py
+sparsemm_native/run_ovobench.py
+sparsemm_native/run_ovobench_recent4.py
 sparsemm_native/run_streamingbench.py
 sparsemm_native/streaming.py
+sparsemm_native/supervise_ovobench_dual.py
+sparsemm_native/supervise_ovobench_recent4.py
+sparsemm_native/supervise_ovobench_recent4_only.py
+sparsemm_native/two_bank.py
 sparsemm_protokv/README.md
 sparsemm_protokv/REPRODUCTION_STATUS.md
 sparsemm_protokv/__init__.py
 sparsemm_protokv/audit.py
 sparsemm_protokv/cache.py
 sparsemm_protokv/config.py
+sparsemm_protokv/model_loader.py
 sparsemm_protokv/models/__init__.py
 sparsemm_protokv/models/qwen2_5_vl_stream.py
 sparsemm_protokv/monkeypatch.py
@@ -85,6 +96,11 @@ sparsemm_uniform/__init__.py
 sparsemm_uniform/audit.py
 sparsemm_uniform/run_streamingbench.py
 tests/test_cli.py
+tests/test_ovobench_recent4_only_supervisor.py
+tests/test_ovobench_recent4_runner.py
+tests/test_ovobench_recent4_supervisor.py
+tests/test_sparsemm_recent4.py
+tests/test_sparsemm_two_bank.py
 tools/compare_regression.py
 validation_examples/README.md
 validation_examples/ovobench_3v3q_20261015/adakv/audit_report.json

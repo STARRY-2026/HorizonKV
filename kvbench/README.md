@@ -2,6 +2,8 @@
 
 统一管理 Qwen2.5-VL 的 AdaKV、PyramidKV、LU-KV、SparseMM、Uniform 和 ProtoKV，提供同一套运行、审计、汇总接口。方法源码、固定版本的 SparseMM 上游框架、LU profile、SparseMM 分数资产与当前评测依赖副本均在本目录。内部保留原 Python 包名，以兼容已验证的实现和源码快照。
 
+OVO-Bench 全量实验使用的近期四帧 DP 双缓存实现、冻结预算表和运行说明见 [sparsemm_native/RECENT4_DP.md](sparsemm_native/RECENT4_DP.md)。
+
 当前默认使用 **Qwen2.5-VL-7B-Instruct / BF16 / 原分辨率 / 0.5 fps / visual K=1000**。默认方法组为五种非 ProtoKV 方法。每次运行限制最多 3 个视频、8 道题、120 秒视频前缀；全量实验继续暂停。
 
 GitHub 版本位于 `HorizonKV/kvbench/`。克隆时使用 `git clone --recurse-submodules`，随后进入 `kvbench/` 运行。顶层 HorizonKV 仓库提供 HERMES 评分脚本，KVBench 会自动建立指向它的本地 `hermes` 资源链接。GPU 环境先按顶层 [README](../README.md) 配置；模型权重、视频和部分冻结校准证据需要另行提供，详见下文资源依赖说明。

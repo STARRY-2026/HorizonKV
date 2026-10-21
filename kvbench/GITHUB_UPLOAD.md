@@ -17,6 +17,8 @@
 | `requirements/`、`tests/`、`tools/` | 依赖记录、CPU 测试、迁移回归核对工具 |
 | `README.md`、`VALIDATION.md`、`MIGRATION_MANIFEST.json` | 使用说明、验证记录、迁移来源 |
 | `validation_examples/` | 五种方法在 3 视频/3 题上的精简真实推理结果与审计摘要 |
+| `sparsemm_native/RECENT4_DP.md`、`sparsemm_native/recent4.py` 及其 OVO-Bench 入口和依赖 | 已完成的近期四帧 DP 双缓存实现与运行说明 |
+| `assets/dp_recent4/` | 当次实验使用的两张冻结预算 CSV 原始副本 |
 | `.gitignore`、本文件和 `GITHUB_UPLOAD_FILES.txt` | 忽略规则和逐文件上传清单 |
 
 `GITHUB_UPLOAD_FILES.txt` 列出相对 `kvbench/` 的上传文件。子模块只记录路径和固定提交，不将整个上游仓库重新存进主仓库。子模块声明放在 HorizonKV 仓库**根目录**的 `.gitmodules`。

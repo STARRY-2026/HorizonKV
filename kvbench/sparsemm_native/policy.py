@@ -177,9 +177,68 @@ def allocate_head_budgets(scores, budget=1000, window_size=32, ratio=DEFAULT_RAT
     return capacities, metadata
 
 
+def load_fixed_head_budgets(path, num_layers, num_kv_heads, budget, window_size=32):
+    """Load an exact external per-KV-head capacity table for an allocation ablation.
+
+    DP recent/history splits are checked when present, but SparseMM's online
+    selector continues to protect its own fixed recent window.
+    """
+    num_layers = _integer(num_layers, "num_layers", 1)
+    num_kv_heads = _integer(num_kv_heads, "num_kv_heads", 1)
+    budget = _integer(budget, "budget", 1)
+    window_size = _integer(window_size, "window_size", 1)
+    path = Path(path).expanduser().resolve()
+    table = [[None] * num_kv_heads for _ in range(num_layers)]
+    splits = [[None] * num_kv_heads for _ in range(num_layers)]
+    with path.open(newline="", encoding="utf-8-sig") as handle:
+        reader = csv.DictReader(handle)
+        fields = reader.fieldnames or []
+        if (len(fields) != len(set(fields)) or not {"layer", "kv_head", "capacity_n"} <= set(fields)
+                or ("recent_r" in fields) != ("history_q" in fields)):
+            raise ValueError("External budget CSV requires layer,kv_head,capacity_n and paired recent_r/history_q")
+        for row in reader:
+            if None in row or any(value is None for value in row.values()):
+                raise ValueError("Malformed external budget CSV row")
+            layer = _index(row["layer"], "layer")
+            head = _index(row["kv_head"], "kv_head")
+            capacity = _index(row["capacity_n"], "capacity_n")
+            if not 0 <= layer < num_layers or not 0 <= head < num_kv_heads:
+                raise ValueError("External budget head index is outside model shape")
+            if table[layer][head] is not None:
+                raise ValueError("Duplicate external budget head")
+            if capacity < window_size:
+                raise ValueError("External budget cannot protect SparseMM's recent window")
+            table[layer][head] = capacity
+            if "recent_r" in fields:
+                recent = _index(row["recent_r"], "recent_r")
+                history = _index(row["history_q"], "history_q")
+                if recent + history != capacity:
+                    raise ValueError("External DP bank split disagrees with capacity_n")
+                splits[layer][head] = [recent, history]
+    if any(value is None for row in table for value in row):
+        raise ValueError("External budget CSV is missing model KV heads")
+    allocated = sum(map(sum, table))
+    target = num_layers * num_kv_heads * budget
+    if allocated != target:
+        raise ValueError(f"External budget total {allocated} differs from {target}")
+    metadata = {"method": "dp_budget_sparsemm_selector", "selector": "sparsemm_attention",
+                "budget_source": "external_capacity_n", "budget_path": str(path),
+                "budget_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                "shape": [num_layers, num_kv_heads], "budget": budget,
+                "window_size": window_size, "head_budgets": table,
+                "history_budgets": [[n - window_size for n in row] for row in table],
+                "target_slots": target, "allocated_slots": allocated,
+                "dp_bank_split_present": "recent_r" in fields,
+                "dp_bank_split_used_online": False,
+                "recent_below_sparsemm_window_heads": sum(
+                    split is not None and split[0] < window_size for row in splits for split in row)}
+    return torch.tensor(table, dtype=torch.long), metadata
+
+
 @torch.inference_mode()
 def select_layer(keys, queries, budgets, prefix_tokens=0, *, budget=1000,
-                 window_size=32, kernel_size=5, pooling="avgpool", gqa_reduce="mean", layer_idx=0):
+                 window_size=32, kernel_size=5, pooling="avgpool", gqa_reduce="mean", layer_idx=0,
+                 external_budget=False):
     """Original SparseMM within-head selection, with explicit visual protection.
 
     The global base-history threshold controls short-cache bypass, independently
@@ -227,7 +286,8 @@ def select_layer(keys, queries, budgets, prefix_tokens=0, *, budget=1000,
     after = [keep.numel() for keep in selected]
     nominal = len(keys) * (budget + prefix_tokens)
     metadata = {
-        "method": "sparsemm", "selector": "static_visual_head_scores_then_attention",
+        "method": "sparsemm", "selector": ("external_capacity_then_attention" if external_budget
+                                            else "static_visual_head_scores_then_attention"),
         "budget_scope": "visual", "configured_budget": budget, "layer_idx": layer_idx,
         "base_history_capacity": base_history, "head_budgets": budgets,
         "prefix_tokens_kept": prefix_tokens, "window_size": window_size,
@@ -241,7 +301,8 @@ def select_layer(keys, queries, budgets, prefix_tokens=0, *, budget=1000,
         "allocation_drift_tokens": sum(after) - nominal,
         "calibrated_drift_tokens": sum(budgets) - len(keys) * budget,
         "bypassed_short_cache": bypass, "compressed": any(a < b for a, b in zip(after, lengths)),
-        "rounding": "upstream_float64_round_to_even", "tie_policy": "upstream_torch_sort",
+        "rounding": "external_exact_capacity" if external_budget else "upstream_float64_round_to_even",
+        "tie_policy": "upstream_torch_sort",
         "upstream_commit": UPSTREAM_COMMIT,
     }
     return selected, metadata

@@ -106,6 +106,42 @@ def asset_metadata(path=None):
     this function never labels such tables as an official completed calibration.
     """
     score_path = Path(path or DEFAULT_SCORE_PATH).expanduser().resolve()
+    test_manifest_path = score_path.with_name("manifest.json")
+    if score_path != DEFAULT_SCORE_PATH.resolve() and test_manifest_path.is_file():
+        test_manifest = _read_json(test_manifest_path)
+        if test_manifest.get("schema") == "kvbench.sparsemm_synthetic_smoke.v1":
+            _require(test_manifest.get("official_calibration") is False,
+                     "Synthetic SparseMM scores must not claim official calibration")
+            model_path = Path(test_manifest.get("model_path", "")).expanduser().resolve()
+            config_path = model_path / "config.json"
+            config_hash = test_manifest.get("model_config_sha256")
+            _require(config_path.is_file() and _sha256(config_path) == config_hash,
+                     "Synthetic score model configuration fingerprint changed")
+            config = _read_json(config_path)
+            _require(config.get("model_type") == "llava_onevision",
+                     "Synthetic smoke scores are restricted to LLaVA-OneVision")
+            text = config["text_config"]
+            layers = int(text["num_hidden_layers"])
+            query_heads = int(text["num_attention_heads"])
+            kv_heads = int(text["num_key_value_heads"])
+            _require(test_manifest.get("query_head_shape") == [layers, query_heads]
+                     and test_manifest.get("shape") == [layers, kv_heads],
+                     "Synthetic score head shape differs from the model")
+            score_hash = _sha256(score_path)
+            _require(score_hash == test_manifest.get("score_sha256"),
+                     "Synthetic score CSV fingerprint changed")
+            from sparsemm_native.policy import load_head_scores
+            load_head_scores(score_path, layers, query_heads)
+            manifest_hash = _sha256(test_manifest_path)
+            return {
+                "path": str(score_path), "sha256": score_hash,
+                "asset_type": "synthetic_test_scores", "official_calibration": False,
+                "shape": [layers, kv_heads], "query_head_shape": [layers, query_heads],
+                "model_path": str(model_path), "model_config_sha256": config_hash,
+                "calibration_manifests": {str(test_manifest_path): manifest_hash},
+                "calibration_sources": {str(config_path): config_hash},
+                "score_column": "score_mean", "smoke_only": True,
+            }
     _require(score_path.is_file() and score_path.suffix.lower() == ".csv", "Fresh Qwen2.5 calibration score CSV is missing")
     manifest_path, raw_path = score_path.with_name("manifest.json"), score_path.with_name("raw_head_scores.json")
     manifest = _read_json(manifest_path)

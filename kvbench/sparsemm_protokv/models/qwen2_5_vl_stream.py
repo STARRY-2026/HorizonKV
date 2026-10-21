@@ -122,6 +122,7 @@ class Qwen25VLStream(lmms):
         budget_scope="visual",
         sample_fps=0.5,
         encode_chunk_size=16,
+        video_max_pixels=None,
         dtype="bfloat16",
         trace_path=None,
         output_dir=None,
@@ -148,6 +149,10 @@ class Qwen25VLStream(lmms):
             raise ValueError("Use one explicit device; automatic model sharding is unsupported")
         self.sample_fps = float(sample_fps)
         self.encode_chunk_size = int(encode_chunk_size)
+        self.video_max_pixels = None if video_max_pixels is None else int(video_max_pixels)
+        if self.video_max_pixels is not None:
+            if selected != "protokv" or self.video_max_pixels < 28 * 28 * 4:
+                raise ValueError("video_max_pixels requires ProtoKV and at least 3136 pixels")
         if not math.isfinite(self.sample_fps) or self.sample_fps <= 0 or self.encode_chunk_size < 1:
             raise ValueError("Sampling FPS and encode chunk size must be positive")
         if dtype not in ("bfloat16", "float16"):
@@ -179,7 +184,7 @@ class Qwen25VLStream(lmms):
         self.dtype_name = dtype
         self.small_validation = _as_bool(small_validation)
         self.five_video_timing = _as_bool(five_video_timing)
-        self.timing_requested = self.five_video_timing or selected in ("lukv", "sparsemm", "uniform")
+        self.timing_requested = selected in ("protokv", "lukv", "sparsemm", "uniform")
         if self.small_validation and self.five_video_timing:
             raise ValueError("Small validation and five-video timing are mutually exclusive")
         if self.five_video_timing and selected != "protokv":
@@ -235,6 +240,7 @@ class Qwen25VLStream(lmms):
             self._bridge = load_model(
                 self.model_path, self.streaming_config, sample_fps=self.sample_fps,
                 trace_path=self.trace_path, device=str(self.device), dtype=self.dtype_name,
+                video_max_pixels=self.video_max_pixels,
             )
             if self.timing_requested:
                 if self.device.type == "cuda":
@@ -347,7 +353,7 @@ class Qwen25VLStream(lmms):
                 try:
                     rows = analyze_video(
                         bridge, video, self.sample_fps, self.encode_chunk_size, torch,
-                        reader_factory=BatchScopedVideoReader if self.five_video_timing or self.streaming_config.method in ("lukv", "sparsemm", "uniform") else None,
+                        reader_factory=BatchScopedVideoReader if self.streaming_config.method in ("protokv", "lukv", "sparsemm", "uniform") else None,
                     )
                 finally:
                     # analyze_video resets on success; also reset after an exception.
