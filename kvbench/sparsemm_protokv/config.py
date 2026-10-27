@@ -47,6 +47,7 @@ class StreamingConfig:
     kmeans_batch_size: int = 32
     sparsemm_cache_policy: str = "capacity"
     sparsemm_two_bank_gate: str = "per_head_capacity"
+    video_chunk_mode: str = "temporal_patch"
 
     def __post_init__(self):
         if self.lukv_history is None:
@@ -54,6 +55,8 @@ class StreamingConfig:
             object.__setattr__(self, "lukv_history", "none" if self.method == "lukv" else "previous_qa")
         if self.method not in ("protokv", "adakv", "pyramidkv", "lukv", "sparsemm", "uniform"):
             raise ValueError("method must be protokv, adakv, pyramidkv, lukv, sparsemm or uniform")
+        if self.video_chunk_mode not in ("temporal_patch", "hermes_chunk"):
+            raise ValueError("video_chunk_mode must be temporal_patch or hermes_chunk")
         if self.sparsemm_cache_policy not in ("capacity", "two_bank"):
             raise ValueError("sparsemm_cache_policy must be capacity or two_bank")
         if self.sparsemm_two_bank_gate not in ("per_head_capacity", "legacy_global"):

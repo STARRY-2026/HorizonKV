@@ -46,9 +46,6 @@ class Recent4OnlyTests(unittest.TestCase):
             self.assertNotIn("--reuse-root", command)
 
     def test_real_preparation_pins_new_only_phase_and_is_restart_stable(self):
-        fixture = controller.ROOT / "results/ovobench_official_full_k500_fps05_p151200_20261019/native/protocol.json"
-        if not fixture.is_file():
-            self.skipTest("Historical baseline predictions are not part of the source repository")
         manifest, selected, _, reused, jobs, plan = controller.prepare(self.root)
         self.assertEqual(len(selected), 3035)
         self.assertFalse(plan["run_baseline_inference"])

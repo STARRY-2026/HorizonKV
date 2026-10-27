@@ -6,6 +6,26 @@
 
 在线逐视觉 temporal patch 更新缓存，使用 FP32 causal Q-to-K 注意力、GQA mean 和 avgpool(kernel=5) 排序历史 token。短缓存 gate 比较当前物理视觉历史与 K-W；文本前缀单独保护，保留绝对 MRoPE 位置。容量不足的头不向其他头转移配额。问答临时缓存恢复、每视频重置和无 ProtoKV bank 均有运行检查。
 
+### 外部 DP 每头预算对照
+
+使用 `--sparsemm-budget-path /absolute/path/per_head_allocation.csv` 可直接加载
+`layer,kv_head,capacity_n` 每头容量，跳过 SparseMM 从 OCR 分数重新分配容量的步骤。
+若 CSV 同时含 `recent_r,history_q`，加载器会验证两者之和等于 `capacity_n`；
+在线选择仍采用 SparseMM 固定最近 32 个 token 的规则，不使用 DP 的双缓存拆分。
+输出协议将此方法标记为 `external DP capacity_n; SparseMM online selector`，
+并记录预算文件 SHA-256、每头容量与总额。标准 SparseMM 运行不提供此参数。
+同模型、同题和同 K 的两个运行应分别使用新输出目录，并分别执行独立审计。
+
+当前已验证的有上下限 K=250 DP 表位于
+`hermes/results/myobservations/two_bank_grid_dp_k250_floor188_20260923/per_head_allocation.csv`；
+112 个头总额 28,000，容量范围 188–375。该表的 44 个头的 `recent_r` 小于 32，
+因此这项对照只检验 DP 容量分配在 SparseMM 在线选择器中的效果，不能代表完整 DP 双缓存策略。
+
+新增的 OVO-Bench `--arm dp_dual` 执行逐头近期滑动窗口与远期注意力驱逐，
+主对照固定旧 K=500 每头总容量，并在近期预算内包含 protect32。
+它与上述默认容量对照是独立模式，配置、预算、验证和三方比较入口见
+[双缓存说明](TWO_BANK.md)。
+
 默认分数来自本地 **Qwen2.5-VL-7B、1000 张 SynthDOG 图片**的完整校准：
 
 `hermes/results/myobservations/sparsemm_official_calibration_20261010/calibration/head_scores.csv`

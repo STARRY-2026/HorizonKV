@@ -1,6 +1,6 @@
 # GitHub 上传范围
 
-目标仓库是 `https://github.com/STARRY-2026/HorizonKV`，本项目作为仓库根目录下的 `kvbench/` 独立文件夹上传。本机源码在 `/home/yujun/program/kvbench`。旁边的旧 `sparsemm_*`、`protokv` 和 `hermes` 工程无需再次复制；HorizonKV 根目录已有 HERMES 源码。
+目标仓库是 `https://github.com/STARRY-2026/HorizonKV`，本项目作为仓库根目录下的 `kvbench/` 独立文件夹上传。本机源码在 `/home/yujun/program/kvbench`。HERMES Qwen2.5-VL 压缩实现已复制到 `kvbench/hermes_backend/`；旁边的旧实验工程和结果无需再次复制。模型、OVO 数据及历史校准证据仍需外置资源。
 
 本机旧项目名 `sparsemm_suite` 是指向 `kvbench` 的历史路径兼容链接，位于仓库根目录之外，不属于上传范围。
 
@@ -9,19 +9,18 @@
 | 路径 | 内容 |
 |---|---|
 | `kvbench/`、`run.py`、`pyproject.toml` | 统一 CLI、Python API、方法注册与项目元数据 |
+| `kvbench/hermes_backend/` | 内置 HERMES Qwen2.5-VL 压缩、缓存位置处理源码 |
 | `sparsemm_baselines/` | AdaKV/PyramidKV；其中 `upstream` 作为 Git 子模块 |
 | `sparsemm_protokv/` | Qwen2.5-VL 原生插件、缓存、任务和控制器，排除 `runtime_deps` 和结果 |
 | `sparsemm_lukv/`、`sparsemm_native/`、`sparsemm_uniform/`、`protokv/` | 方法实现及包内校准 profile |
-| `assets/` | SparseMM 分数、raw scores、冻结 manifest/protocol，审计需要保留 |
+| `assets/` | SparseMM 分数、raw scores、冻结 manifest/protocol，以及 OVO 新方法的分头配额表 |
 | `configs/` | 当前小规模 MCQA 标注；其中的视频路径是本机路径 |
 | `requirements/`、`tests/`、`tools/` | 依赖记录、CPU 测试、迁移回归核对工具 |
 | `README.md`、`VALIDATION.md`、`MIGRATION_MANIFEST.json` | 使用说明、验证记录、迁移来源 |
 | `validation_examples/` | 五种方法在 3 视频/3 题上的精简真实推理结果与审计摘要 |
-| `sparsemm_native/RECENT4_DP.md`、`sparsemm_native/recent4.py` 及其 OVO-Bench 入口和依赖 | 已完成的近期四帧 DP 双缓存实现与运行说明 |
-| `assets/dp_recent4/` | 当次实验使用的两张冻结预算 CSV 原始副本 |
 | `.gitignore`、本文件和 `GITHUB_UPLOAD_FILES.txt` | 忽略规则和逐文件上传清单 |
 
-`GITHUB_UPLOAD_FILES.txt` 列出相对 `kvbench/` 的上传文件。子模块只记录路径和固定提交，不将整个上游仓库重新存进主仓库。子模块声明放在 HorizonKV 仓库**根目录**的 `.gitmodules`。
+`GITHUB_UPLOAD_FILES.txt` 列出相对 `kvbench/` 的上传文件，包括本次更新和上次发布后保留的近期四帧 DP 版本。子模块只记录路径和固定提交，不将整个上游仓库重新存进主仓库。子模块声明放在 HorizonKV 仓库**根目录**的 `.gitmodules`。
 
 ## 已忽略的本机文件
 

@@ -12,6 +12,8 @@
 
 视频以 0.5 FPS、原生分辨率读取。语言模型按 Qwen temporal patch（通常两个采样帧）前向，随后按视觉 token 顺序更新记忆。M-RoPE 使用原始帧时钟和固定空间原点；奇数帧补齐不改变实际消费的帧数。
 
+Qwen ProtoKV 可以在受限验证中显式设置 `--video-max-pixels 200704`。当前 Transformers 视频处理器要通过 `size.longest_edge` 应用像素上限；直接传 `max_pixels` 不会减少实际 token。这个选项改变视频分辨率，协议会记录上限，默认原分辨率路径保持不变。小验证现在也记录 ProtoKV 的阶段计时，并对视频按批关闭读取器以限制解码器内存。
+
 ProtoKV 复用 `protokv/full_state.py` 的全层全头原型库，直接保存 RoPE 前的 key。问题到来时临时合成伪 KV，按每头锚点旋转，并加入 `log(mass)` 与无效槽掩码；问题后缀前向和首答案 token 即使用这些状态。问答成功或异常均恢复视频缓存与游标，原型库保持只读。
 
 ## 小规模运行

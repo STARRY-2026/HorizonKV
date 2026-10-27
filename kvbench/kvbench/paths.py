@@ -38,6 +38,14 @@ def default_sparsemm_score_path():
     return Path(os.environ.get("KV_BENCH_SPARSEMM_SCORE_PATH", str(PROJECT_ROOT / "assets/sparsemm/head_scores.csv"))).expanduser().resolve()
 
 
+def default_dp_budget_path():
+    return Path(os.environ.get("KV_BENCH_DP_BUDGET_PATH", str(PROJECT_ROOT / "assets/dp/per_head_allocation_k500.csv"))).expanduser().resolve()
+
+
+def default_dp_dual_budget_path():
+    return Path(os.environ.get("KV_BENCH_DP_DUAL_BUDGET_PATH", str(PROJECT_ROOT / "assets/dp/per_head_allocation_dual_k500.csv"))).expanduser().resolve()
+
+
 def ensure_resources():
     """Check the compatibility resource link; never silently redirect it.
 

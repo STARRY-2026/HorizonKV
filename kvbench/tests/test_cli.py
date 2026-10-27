@@ -24,12 +24,16 @@ class InterfaceTest(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.annotation = self.root / "annotations.json"
         write_json(self.annotation, [{"video_id": i, "conversations": [{"end_time": 26.0}]} for i in range(3)])
+        self.model = self.root / "model"
+        self.model.mkdir()
+        write_json(self.model / "config.json", {"model_type": "qwen2_5_vl"})
 
     def tearDown(self):
         self.temporary.cleanup()
 
     def config(self, **kwargs):
-        values = {"anno_path": self.annotation, "output_dir": self.root / "outputs"}
+        values = {"anno_path": self.annotation, "model_path": self.model,
+                  "output_dir": self.root / "outputs"}
         values.update(kwargs)
         return RunConfig(**values)
 
@@ -61,6 +65,124 @@ class InterfaceTest(unittest.TestCase):
         self.assertEqual(self.config().selected_methods, DEFAULT_METHODS)
         self.assertEqual(self.config(method="protokv").selected_methods, ("protokv",))
         self.assertFalse(METHODS["protokv"].default)
+        self.assertFalse(METHODS["dp"].default)
+        self.assertFalse(METHODS["dp_dual"].default)
+        self.assertFalse(METHODS["hermes"].default)
+
+    def test_dp_and_hermes_use_explicit_distinct_backends(self):
+        dp = build_command(self.config(method="dp"), "dp", self.root / "dp")
+        self.assertEqual(dp[dp.index("--method") + 1], "sparsemm")
+        self.assertEqual(dp[dp.index("--budget") + 1], "500")
+        self.assertEqual(dp[dp.index("--sparsemm-budget-path") + 1], str(paths.default_dp_budget_path()))
+        dual = build_command(self.config(method="dp_dual"), "dp_dual", self.root / "dp_dual")
+        self.assertEqual(dual[dual.index("--sparsemm-budget-path") + 1], str(paths.default_dp_dual_budget_path()))
+        self.assertEqual(dual[dual.index("--sparsemm-cache-policy") + 1], "two_bank")
+        self.assertEqual(dual[dual.index("--sparsemm-two-bank-gate") + 1], "legacy_global")
+        with self.assertRaisesRegex(ValueError, "float16"):
+            self.config(method="hermes").validate()
+        hermes = build_command(self.config(method="hermes", dtype="float16"), "hermes", self.root / "hermes")
+        self.assertEqual(hermes[3], "kvbench.hermes_runner")
+        self.assertNotIn("--small-validation", hermes)
+
+    def test_hermes_comparison_routes_other_methods_through_chunk_mode(self):
+        config = self.config(methods=("uniform", "hermes"), dtype="float16", budget=500)
+        native = build_command(config, "uniform", self.root / "uniform")
+        self.assertEqual(native[native.index("--video-chunk-mode") + 1], "hermes_chunk")
+        self.assertEqual(native[native.index("--encode-chunk-size") + 1], "16")
+        self.assertEqual(native[native.index("--budget") + 1], "500")
+        old = build_command(self.config(method="uniform"), "uniform", self.root / "old")
+        self.assertEqual(old[old.index("--video-chunk-mode") + 1], "temporal_patch")
+        with self.assertRaisesRegex(ValueError, "requires hermes_chunk"):
+            self.config(methods=("uniform", "hermes"), dtype="float16",
+                        video_chunk_mode="temporal_patch").validate()
+
+    def test_qwen3_hermes_accepts_bfloat16_in_unified_command(self):
+        model = self.root / "qwen3"
+        model.mkdir()
+        write_json(model / "config.json", {"model_type": "qwen3_vl",
+                                          "text_config": {"num_hidden_layers": 36}})
+        config = self.config(method="hermes", model_path=model, dtype="bfloat16", budget=500,
+                             video_max_pixels=1200000)
+        command = build_command(config, "hermes", self.root / "qwen3_hermes")
+        self.assertEqual(command[command.index("--dtype") + 1], "bfloat16")
+        self.assertEqual(command[command.index("--budget") + 1], "500")
+        self.assertEqual(command[command.index("--video-max-pixels") + 1], "1200000")
+
+    def test_chunk_input_audit_rejects_visual_grid_drift(self):
+        native = self.root / "uniform_k500_visual"
+        hermes = self.root / "hermes_k500_native"
+        native.mkdir()
+        hermes.mkdir()
+        visual = {"raw_frames": 3, "source_hw": [720, 1280], "resized_hw": [420, 756],
+                  "grid_thw": [2, 30, 54], "visual_tokens": 810}
+        (native / "cache_trace.jsonl").write_text(json.dumps(
+            {"event": "video_prefill", "video_id": "1", "visual_input": visual}) + "\n")
+        (hermes / "hermes_trace.jsonl").write_text(json.dumps(
+            {"event": "video_input", "video_id": "1", **visual}) + "\n")
+        self.assertTrue(api._compare_visual_inputs(self.root, ("uniform", "hermes"), 500)["passed"])
+        drift = dict(visual, visual_tokens=811)
+        (hermes / "hermes_trace.jsonl").write_text(json.dumps(
+            {"event": "video_input", "video_id": "1", **drift}) + "\n")
+        with self.assertRaisesRegex(RuntimeError, "video grids/tokens differ"):
+            api._compare_visual_inputs(self.root, ("uniform", "hermes"), 500)
+
+    def test_protokv_pixel_cap_is_explicit_and_model_bound(self):
+        model = self.root / "qwen"
+        model.mkdir()
+        write_json(model / "config.json", {"model_type": "qwen2_5_vl"})
+        config = self.config(method="protokv", model_path=model, video_max_pixels=200704)
+        command = build_command(config, "protokv", self.root / "run")
+        self.assertEqual(command[command.index("--video-max-pixels") + 1], "200704")
+        dp = build_command(self.config(method="dp", model_path=model, video_max_pixels=151200), "dp", self.root / "dp")
+        self.assertEqual(dp[dp.index("--video-max-pixels") + 1], "151200")
+        with self.assertRaisesRegex(ValueError, "only protokv"):
+            self.config(methods=("protokv", "adakv"), model_path=model,
+                        video_max_pixels=200704).validate()
+        write_json(model / "config.json", {"model_type": "llava_onevision"})
+        with self.assertRaisesRegex(ValueError, "requires Qwen2.5-VL"):
+            config.validate()
+
+    def test_fixed_canvas_reaches_every_method_without_changing_budgets(self):
+        model = self.root / "fixed_qwen"
+        model.mkdir()
+        write_json(model / "config.json", {"model_type": "qwen2_5_vl"})
+        names = tuple(METHODS)
+        config = self.config(methods=names, model_path=model, dtype="float16", budget=500,
+                             fixed_frame_size=896)
+        self.assertEqual(config.validate(), names)
+        for method in names:
+            with self.subTest(method=method):
+                command = build_command(config, method, self.root / method)
+                self.assertEqual(command[command.index("--fixed-frame-size") + 1], "896")
+                self.assertEqual(command[command.index("--budget") + 1],
+                                 "1000000" if method == "full" else "500")
+                self.assertNotIn("--video-max-pixels", command)
+        with self.assertRaisesRegex(ValueError, "cannot be combined"):
+            self.config(method="sparsemm", model_path=model, fixed_frame_size=896,
+                        video_max_pixels=151200).validate()
+        with self.assertRaisesRegex(ValueError, "divisible by 28"):
+            self.config(method="uniform", model_path=model, fixed_frame_size=900).validate()
+        write_json(model / "config.json", {"model_type": "qwen3_vl"})
+        with self.assertRaisesRegex(ValueError, "Qwen2.5-VL"):
+            config.validate()
+
+    def test_fixed_comparison_rejects_different_pixels_with_identical_grids(self):
+        dirs = {name: self.root / f"{name}_k500_{'native' if name == 'hermes' else 'visual'}"
+                for name in ('uniform', 'hermes')}
+        visual = dict(raw_frames=3, source_hw=[896,896], resized_hw=[896,896],
+                      grid_thw=[2,64,64], visual_tokens=2048, prepared_rgb_sha256='a'*64)
+        for name, directory in dirs.items():
+            directory.mkdir()
+            event = (dict(event='video_input',video_id='1',**visual) if name == 'hermes'
+                     else dict(event='video_prefill',video_id='1',visual_input=visual))
+            file = 'hermes_trace.jsonl' if name == 'hermes' else 'cache_trace.jsonl'
+            (directory/file).write_text(json.dumps(event)+'\n')
+        self.assertTrue(api._compare_visual_inputs(self.root, ('uniform','hermes'), 500,
+                                                   fixed_frame_size=896)['passed'])
+        drift = dict(event='video_input',video_id='1',**dict(visual,prepared_rgb_sha256='b'*64))
+        (dirs['hermes']/'hermes_trace.jsonl').write_text(json.dumps(drift)+'\n')
+        with self.assertRaisesRegex(RuntimeError, 'video grids/tokens differ'):
+            api._compare_visual_inputs(self.root, ('uniform','hermes'), 500,fixed_frame_size=896)
 
     def test_nested_horizonkv_checkout_finds_hermes_resources(self):
         horizon = self.root / "HorizonKV"

@@ -41,6 +41,7 @@ def collection_sources():
              'sparsemm_lukv/profile.py', 'sparsemm_lukv/run_calibration.py',
              'sparsemm_protokv/cache.py', 'sparsemm_protokv/config.py',
              'sparsemm_protokv/streaming.py', 'sparsemm_protokv/qwen2_5.py',
+             'sparsemm_protokv/qwen2.py', 'sparsemm_protokv/model_loader.py',
              'sparsemm_protokv/monkeypatch.py', 'sparsemm_protokv/models/qwen2_5_vl_stream.py',
              'sparsemm_baselines/core.py', 'sparsemm_baselines/cache.py',
              'sparsemm_baselines/adapter.py', 'sparsemm_baselines/run_streamingbench.py']
@@ -66,6 +67,12 @@ def main(argv=None):
     if not selected:
         raise ValueError('No disjoint calibration observations')
     out, assets, model_path = args.output_dir.resolve(), args.assets_dir.resolve(), args.model_path.resolve()
+    from sparsemm_protokv.model_loader import model_type
+    is_llava = model_type(model_path) == 'llava_onevision'
+    if is_llava:
+        selection['token_window_protocol'] = dict(selection['token_window_protocol'],
+            model_family='LLaVA-OneVision', video_resolution='resize_and_pad_384x384',
+            temporal_patch_frames=1)
     out.mkdir(parents=True, exist_ok=True)
     if (out / 'manifest.json').exists():
         raise FileExistsError('Calibration never overwrites existing evidence; choose a new output directory')
@@ -73,7 +80,7 @@ def main(argv=None):
         raise FileExistsError('Calibration never overwrites existing profiles; choose a new assets directory')
     protocol = {**selection['token_window_protocol'], 'window_size': 32, 'kernel_size': 5,
                 'pooling': 'avgpool', 'gqa_reduce': 'mean', 'score_precision': 'float32',
-                'native_resolution': True, 'utility_mode': 'projected',
+                'native_resolution': not is_llava, 'utility_mode': 'projected',
                 'value_norm_normalization': 'layer_sum_over_query_heads_and_persistent_context',
                 'encode_chunk_size': 16, 'max_new_tokens': 16, 'temperature': 0,
                 'repetition_penalty': 1.1, 'initial_text_tokens': 'all_protected',

@@ -244,7 +244,7 @@ def run_query(bridge, query, fps, chunk_size, max_new_tokens,
               debug_explain=False, debug_max_new_tokens=96):
     import torch
     from sparsemm_baselines.run_streamingbench import sampled_indices
-    from sparsemm_protokv.models.qwen2_5_vl_stream import BatchScopedVideoReader
+    from sparsemm_native.video_reader import BatchScopedVideoReader
 
     reader = BatchScopedVideoReader(query["video_path"], num_threads=1)
     # Official chunks end at ceil(realtime); use source frames at identical times.
@@ -300,11 +300,12 @@ def grouped_batches(remaining, minimum_groups):
 
 
 def run_grouped_video(bridge, group, fps, chunk_size, max_new_tokens,
-                      debug_explain=False, debug_max_new_tokens=96):
+                      debug_explain=False, debug_max_new_tokens=96,
+                      resize_policy=None):
     """Reuse even-frame prefixes; branch odd endpoints to preserve Qwen pairs."""
     import torch
     from sparsemm_baselines.run_streamingbench import sampled_indices
-    from sparsemm_protokv.models.qwen2_5_vl_stream import BatchScopedVideoReader
+    from sparsemm_native.video_reader import BatchScopedVideoReader
 
     if not group or len({q["video_path"] for q in group}) != 1:
         raise ValueError("A grouped run requires one source video")
@@ -318,17 +319,41 @@ def run_grouped_video(bridge, group, fps, chunk_size, max_new_tokens,
     bridge.encode_init_prompt()
     base_frames = 0
     answers = {}
+    resize_hw = None
+    if resize_policy not in (None, "simplestream_dynamic", "simplestream_video_constant"):
+        raise ValueError(f"Unknown resize policy: {resize_policy}")
+    if resize_policy in ("simplestream_dynamic", "simplestream_video_constant"):
+        from sparsemm_native.simplestream_resize import resized_hw, resize_hwc_batch
+        first = reader.get_batch(indices[:1]).asnumpy()
+        source_hw = first.shape[1:3]
+        bridge._query_resize_hw = {}
+        bridge._query_encoded_visual_tokens = {}
+        bridge._query_resize_reference_frames = {}
+        shared_reference_frames = max(targets) if resize_policy == "simplestream_video_constant" else None
 
     def encode_range(start, end):
         for offset in range(start, end, chunk_size):
             stop = min(offset + chunk_size, end)
             frames = torch.from_numpy(reader.get_batch(indices[offset:stop]).asnumpy())
+            if resize_hw is not None:
+                frames = resize_hwc_batch(frames, *resize_hw)
             bridge.encode_video_chunk(frames, is_last_chunk=stop == end)
             bridge.predict_and_compress()
 
     for question_index in sorted(range(len(group)), key=lambda i: (targets[i], i)):
         query, target = group[question_index], targets[question_index]
         started = time.monotonic()
+        if resize_policy in ("simplestream_dynamic", "simplestream_video_constant"):
+            reference_frames = shared_reference_frames or target
+            target_hw = resized_hw(*source_hw, reference_frames)
+            if resize_hw != target_hw:
+                if resize_hw is not None:
+                    bridge.encode_init_prompt()
+                    base_frames = 0
+                resize_hw = target_hw
+            bridge._query_resize_hw[query["query_id"]] = list(resize_hw)
+            bridge._query_resize_reference_frames[query["query_id"]] = reference_frames
+            visual_before = bridge.timings["visual_tokens"]
         even_target = target - target % 2
         if even_target < base_frames:
             raise AssertionError("Grouped frame cursor moved backward")
@@ -369,6 +394,9 @@ def run_grouped_video(bridge, group, fps, chunk_size, max_new_tokens,
                                         newly_encoded) if not debug_explain else
                                        (result[0], target, time.monotonic() - started,
                                         newly_encoded, result[1]))
+        if resize_policy in ("simplestream_dynamic", "simplestream_video_constant"):
+            bridge._query_encoded_visual_tokens[query["query_id"]] = (
+                bridge.timings["visual_tokens"] - visual_before)
 
     bridge.clear_cache()
     return answers

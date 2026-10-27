@@ -217,7 +217,8 @@ def validate_profile_calibration(profile, asset_meta, protocol, model_path, mode
     scorer = calibration.get("token_window_protocol", {})
     expected_scorer = {"window_size": protocol["window_size"], "kernel_size": protocol["kernel_size"],
                        "pooling": protocol["pooling"], "gqa_reduce": protocol["gqa_reduce"],
-                       "score_precision": "float32", "native_resolution": True}
+                       "score_precision": "float32",
+                       "native_resolution": protocol["native_resolution"]}
     check(isinstance(scorer, dict) and all(scorer.get(key) == value for key, value in expected_scorer.items()),
           "LU calibration attention/window protocol differs from online scoring")
     if "sample_fps" in scorer:
@@ -398,7 +399,7 @@ def validate_profile_calibration(profile, asset_meta, protocol, model_path, mode
     summary = asset_meta.get("calibration_summary", {})
     expected_summary = {"num_videos": len(selected), "num_observations": len(observations),
         "selector": "sparsemm_attention", "utility_mode": calibration["utility_mode"],
-        "native_resolution": True, "evaluation_overlap": 0,
+        "native_resolution": protocol["native_resolution"], "evaluation_overlap": 0,
         "usage": "attention_calibrated_profile", "recalibrated_for_runtime_selector": True,
         "prior_accuracy_reused": False, "uniform_blend": 0, "legacy_capacity_clip": False,
         "budget_mode": "compression_ratio_lookup_history_with_protected_window"}

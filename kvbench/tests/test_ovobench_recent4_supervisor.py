@@ -90,9 +90,6 @@ class Recent4SupervisorTests(unittest.TestCase):
             controller.publish(self.root, [q], available, status)
 
     def test_real_preflight_pins_all_3035_questions_and_reuses_only_official_controls(self):
-        fixture = controller.ROOT / "results/ovobench_official_full_k500_fps05_p151200_20261019/native/protocol.json"
-        if not fixture.is_file():
-            self.skipTest("Historical baseline predictions are not part of the source repository")
         manifest, selected, _, reused = controller.preflight(self.root)
         self.assertEqual(len(selected), 3035)
         self.assertEqual(manifest["reused_counts"], dict(native=1594, dp=1595, dp_recent4=0))

@@ -19,10 +19,22 @@ METHODS = {
     "lukv": Method("lukv", "Offline long-term utility budgets; online attention eviction", "lukv", "sparsemm_lukv.audit"),
     "sparsemm": Method("sparsemm", "Calibrated visual-head budgets; attention eviction", "sparsemm"),
     "uniform": Method("uniform", "Equal per-head budgets; attention eviction", "uniform"),
+    "dp": Method("dp", "DP capacity_n allocation with SparseMM online attention selector (bank split unused)",
+                 "sparsemm", default=False, fixed_budget=500),
+    "dp_dual": Method("dp_dual", "DP recent/history two-bank cache with attention-ranked history",
+                      "sparsemm", "kvbench.audit_dp_dual", default=False, fixed_budget=500),
+    "hermes": Method("hermes", "Original HERMES predictive compression (separate native backend)",
+                     "hermes", "kvbench.audit_hermes", default=False),
     "protokv": Method("protokv", "Prototype memory adaptation (explicit selection only)", "protokv", default=False),
     "full": Method("full", "Large-budget AdaKV control; audit must show zero evictions", "adakv", default=False, fixed_budget=1_000_000),
 }
 DEFAULT_METHODS = tuple(name for name, method in METHODS.items() if method.default)
+
+# OVO's nine-task annotation/scorer is different from StreamingBench MCQA.
+# Keep its explicit method discoverable without routing it through RunConfig.
+OVO_METHODS = {
+    "recent1or4_history_cap4000": "One/four independent recent frames and capped DP history (OVO nine-task)",
+}
 
 
 def resolve_methods(method=None, methods=None):

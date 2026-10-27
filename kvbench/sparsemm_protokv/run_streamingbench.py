@@ -46,10 +46,19 @@ def build_parser():
     parser.add_argument("--lukv-budget-path", type=Path, help="Explicit historical fixed LU budget CSV")
     parser.add_argument("--lukv-profile-path", type=Path, help="Attention-calibrated LU compression-ratio lookup profile")
     parser.add_argument("--sparsemm-score-path", type=Path, help="Qwen2.5 SparseMM visual-head calibration scores")
+    parser.add_argument("--sparsemm-budget-path", type=Path, help="External per-KV-head capacity_n CSV for SparseMM selection")
+    parser.add_argument("--sparsemm-cache-policy", choices=("capacity", "two_bank"))
+    parser.add_argument("--sparsemm-two-bank-gate", choices=("per_head_capacity", "legacy_global"))
     parser.add_argument("--sparsemm-ratio", type=float, default=None, help="SparseMM uniform history floor ratio (default 0.1)")
     parser.add_argument("--dtype", choices=("bfloat16", "float16"), default="bfloat16")
     parser.add_argument("--sample-fps", type=float, default=0.5)
     parser.add_argument("--encode-chunk-size", type=int, default=16)
+    parser.add_argument("--video-chunk-mode", choices=("temporal_patch", "hermes_chunk"),
+                        default="temporal_patch", help="Qwen visual-forward/cache-update granularity")
+    visual_inputs = parser.add_mutually_exclusive_group()
+    visual_inputs.add_argument("--video-max-pixels", type=int, help="Optional Qwen ProtoKV/SparseMM video-frame pixel cap; changes visual inputs")
+    visual_inputs.add_argument("--fixed-frame-size", type=int, default=None,
+                               help="Shared Qwen2.5-VL fixed square RGB canvas (896 yields 1024 tokens/temporal unit)")
     parser.add_argument("--config-json", type=Path, help="Explicit StreamingConfig settings; method/budget/scope must match CLI")
     profiles = parser.add_mutually_exclusive_group()
     profiles.add_argument("--small-validation", action="store_true", help="Authorize only this bounded native CLI validation")
@@ -61,13 +70,20 @@ def build_parser():
 def build_config(args):
     from sparsemm_protokv.config import StreamingConfig
 
-    fixed = {"method": args.method, "budget": args.budget, "budget_scope": args.budget_scope}
+    fixed = {"method": args.method, "budget": args.budget, "budget_scope": args.budget_scope,
+             "video_chunk_mode": getattr(args, "video_chunk_mode", "temporal_patch")}
     if getattr(args, "lukv_budget_path", None) is not None:
         fixed["lukv_budget_path"] = str(args.lukv_budget_path.expanduser().resolve())
     if getattr(args, "lukv_profile_path", None) is not None:
         fixed["lukv_profile_path"] = str(args.lukv_profile_path.expanduser().resolve())
     if getattr(args, "sparsemm_score_path", None) is not None:
         fixed["sparsemm_score_path"] = str(args.sparsemm_score_path.expanduser().resolve())
+    if getattr(args, "sparsemm_budget_path", None) is not None:
+        fixed["sparsemm_budget_path"] = str(args.sparsemm_budget_path.expanduser().resolve())
+    if getattr(args, "sparsemm_cache_policy", None) is not None:
+        fixed["sparsemm_cache_policy"] = args.sparsemm_cache_policy
+    if getattr(args, "sparsemm_two_bank_gate", None) is not None:
+        fixed["sparsemm_two_bank_gate"] = args.sparsemm_two_bank_gate
     if getattr(args, "sparsemm_ratio", None) is not None:
         fixed["sparsemm_ratio"] = args.sparsemm_ratio
     extra = {} if args.config_json is None else json.loads(args.config_json.read_text())
@@ -88,6 +104,8 @@ def build_config(args):
         from sparsemm_native.policy import DEFAULT_SCORE_PATH
         selected = Path(config.sparsemm_score_path or DEFAULT_SCORE_PATH).expanduser().resolve()
         config = replace(config, sparsemm_score_path=str(selected))
+        if config.sparsemm_budget_path:
+            config = replace(config, sparsemm_budget_path=str(Path(config.sparsemm_budget_path).expanduser().resolve()))
     return config
 
 
@@ -95,15 +113,25 @@ def sparsemm_asset_metadata(config, model_path):
     if config.method != "sparsemm":
         return None
     from sparsemm_native.assets import asset_metadata
-    from sparsemm_native.policy import load_head_scores, allocate_head_budgets
+    from sparsemm_native.policy import load_head_scores, allocate_head_budgets, load_fixed_head_budgets
+    from sparsemm_native.two_bank import load_two_bank_budgets
     metadata = asset_metadata(config.sparsemm_score_path or None)
     model = json.loads((model_path / "config.json").read_text())
     text = model.get("text_config", model)
     if Path(metadata["model_path"]).resolve() != model_path.resolve():
         raise ValueError("SparseMM scores were calibrated for a different model")
     scores = load_head_scores(metadata["path"], int(text["num_hidden_layers"]), int(text["num_attention_heads"]))
-    _, allocation = allocate_head_budgets(scores, budget=config.budget, window_size=config.window_size,
-                                         ratio=config.sparsemm_ratio, num_kv_heads=int(text["num_key_value_heads"]))
+    if config.sparsemm_cache_policy == "two_bank":
+        _, _, allocation = load_two_bank_budgets(config.sparsemm_budget_path,
+            int(text["num_hidden_layers"]), int(text["num_key_value_heads"]),
+            config.budget, config.window_size, short_cache_gate=config.sparsemm_two_bank_gate)
+    elif config.sparsemm_budget_path:
+        _, allocation = load_fixed_head_budgets(config.sparsemm_budget_path,
+            int(text["num_hidden_layers"]), int(text["num_key_value_heads"]),
+            config.budget, config.window_size)
+    else:
+        _, allocation = allocate_head_budgets(scores, budget=config.budget, window_size=config.window_size,
+                                             ratio=config.sparsemm_ratio, num_kv_heads=int(text["num_key_value_heads"]))
     return dict(metadata, allocation=allocation)
 
 
@@ -149,11 +177,12 @@ def check_five_video_timing(args, data):
 
 def source_hashes(lukv_metadata=None, sparsemm_metadata=None):
     files = [ROOT / name for name in (
-        "__init__.py", "cache.py", "config.py", "monkeypatch.py", "qwen2_5.py", "streaming.py", "run_streamingbench.py",
+        "__init__.py", "cache.py", "config.py", "monkeypatch.py", "qwen2_5.py", "qwen2.py",
+        "model_loader.py", "streaming.py", "run_streamingbench.py",
     )]
     for directory in (ROOT / "models", ROOT / "tasks"):
         files += [path for path in directory.rglob("*") if path.suffix in (".py", ".yaml", ".yml") and not path.name.startswith("test_")]
-    files += [WORKSPACE / "protokv/full_state.py"]
+    files += [WORKSPACE / "protokv/full_state.py", WORKSPACE / "kvbench/fixed_inputs.py"]
     lukv = WORKSPACE / "sparsemm_lukv"
     if lukv.is_dir():
         files += [path for path in lukv.glob("*.py") if not path.name.startswith(("test_", "audit"))]
@@ -170,9 +199,10 @@ def source_hashes(lukv_metadata=None, sparsemm_metadata=None):
     if uniform.is_dir():
         files += [path for path in uniform.glob("*.py") if not path.name.startswith(("test_", "audit"))]
     if sparsemm_metadata:
-        assets = [sparsemm_metadata["path"], *sparsemm_metadata.get("calibration_manifests", {}),
+        assets = [sparsemm_metadata["path"], sparsemm_metadata.get("allocation", {}).get("budget_path", ""),
+                  *sparsemm_metadata.get("calibration_manifests", {}),
                   *sparsemm_metadata.get("calibration_sources", {})]
-        files += [Path(path).resolve() for path in assets if Path(path).resolve().is_relative_to(WORKSPACE)]
+        files += [Path(path).resolve() for path in assets if path and Path(path).resolve().is_relative_to(WORKSPACE)]
     files += [WORKSPACE / "sparsemm_baselines" / name for name in (
         "core.py", "cache.py", "adapter.py", "run_streamingbench.py", "upstream/sparsemm/sparsemm_utils.py",
     )]
@@ -183,10 +213,34 @@ def source_hashes(lukv_metadata=None, sparsemm_metadata=None):
 
 
 def build_command(args, config, out, video_count=None):
+    from sparsemm_protokv.model_loader import model_type
+    backend = model_type(args.model_path)
+    video_max_pixels = getattr(args, "video_max_pixels", None)
+    fixed_frame_size = getattr(args, "fixed_frame_size", None)
+    if fixed_frame_size is not None:
+        from kvbench.fixed_inputs import fixed_input_metadata
+        fixed_input_metadata(fixed_frame_size)
+        if backend != "qwen2_5_vl":
+            raise ValueError("--fixed-frame-size currently requires Qwen2.5-VL")
+        if video_max_pixels is not None:
+            raise ValueError("--fixed-frame-size and --video-max-pixels cannot be combined")
+    if video_max_pixels is not None:
+        if config.method not in ("protokv", "sparsemm") or backend != "qwen2_5_vl":
+            raise ValueError("--video-max-pixels is supported only for Qwen2.5-VL ProtoKV/SparseMM")
+        if video_max_pixels < 28 * 28 * 4:
+            raise ValueError("--video-max-pixels must be at least 3136")
+    if backend == "llava_onevision" and config.video_chunk_mode != "temporal_patch":
+        raise ValueError("HERMES chunk mode is Qwen2.5-VL only; LLaVA uses per-frame features")
+    native_model = ("llava_onevision_stream" if backend == "llava_onevision"
+                    else "qwen2_5_vl_stream")
     five = getattr(args, "five_video_timing", False)
     fields = dict(config.asdict(), pretrained=str(args.model_path.resolve()), dtype=args.dtype,
                   sample_fps=args.sample_fps, encode_chunk_size=args.encode_chunk_size, output_dir=str(out),
                   small_validation=not five, five_video_timing=five)
+    if video_max_pixels is not None:
+        fields["video_max_pixels"] = video_max_pixels
+    if fixed_frame_size is not None:
+        fields["fixed_frame_size"] = fixed_frame_size
     if five:
         selected = prepare_annotations(args.anno_path, 5)
         fields.update(timing_source_sha256=TIMING_SOURCE_SHA256,
@@ -201,7 +255,7 @@ def build_command(args, config, out, video_count=None):
         if any(char in rendered for char in (",", "\n", "\r")):
             raise ValueError(f"Native lmms model_args cannot safely represent {key}")
         values.append(f"{key}={rendered}")
-    command = [sys.executable, "-u", "-m", "lmms_eval", "--model", "qwen2_5_vl_stream",
+    command = [sys.executable, "-u", "-m", "lmms_eval", "--model", native_model,
                "--model_args", ",".join(values), "--tasks", "streamingbench_local",
                "--include_path", str(ROOT / "tasks"), "--batch_size", "1",
                "--limit", str(args.max_videos if video_count is None else video_count), "--gen_kwargs", "max_new_tokens=16,temperature=0,num_beams=1",
@@ -221,18 +275,19 @@ def build_command(args, config, out, video_count=None):
     return command, overrides
 
 
-def preflight(environment, expected_videos, expected_questions, model_args=None):
+def preflight(environment, expected_videos, expected_questions, model_args=None,
+              model_name="qwen2_5_vl_stream"):
     """Import the real framework, registry and local task without loading weights."""
     code = '''import importlib.metadata as metadata, json
 from pathlib import Path
 import lmms_eval
 from lmms_eval.models import get_model
 from lmms_eval.tasks import TaskManager
-model_class = get_model("qwen2_5_vl_stream")
+model_class = get_model("MODEL_NAME")
 model_args = MODEL_ARGUMENTS
 model = model_class(device="cpu") if model_args is None else model_class.create_from_arg_string(model_args, {"device": "cpu"})
 assert model._bridge is None
-manager = TaskManager(include_path="TASK_PATH", include_defaults=False, model_name="qwen2_5_vl_stream")
+manager = TaskManager(include_path="TASK_PATH", include_defaults=False, model_name="MODEL_NAME")
 task = manager.load_task_or_group("streamingbench_local")["streamingbench_local"]
 docs = task.dataset["test"]
 versions = {}
@@ -244,7 +299,7 @@ print(json.dumps({"lmms_eval_file": str(Path(lmms_eval.__file__).resolve()),
     "videos": len(docs), "questions": sum(len(json.loads(doc["video_json"])["conversations"]) for doc in docs),
     "dependencies": versions, "lukv_asset_metadata": model.lukv_asset_metadata,
     "sparsemm_asset_metadata": model.sparsemm_asset_metadata}))
-'''.replace('"TASK_PATH"', repr(str(ROOT / "tasks"))).replace("MODEL_ARGUMENTS", repr(model_args))
+'''.replace('"TASK_PATH"', repr(str(ROOT / "tasks"))).replace('"MODEL_NAME"', repr(model_name)).replace("MODEL_ARGUMENTS", repr(model_args))
     output = subprocess.check_output([sys.executable, "-c", code], cwd=WORKSPACE,
                                      env=environment, text=True)
     runtime = json.loads(output.strip().splitlines()[-1])
@@ -289,7 +344,12 @@ def validate_runtime(out, videos, questions, method=None):
         if checks.get("probe_checks") != [] or checks.get("probe_restore_checks") != 0:
             raise RuntimeError("SparseMM must not execute HERMES probes")
         protocol = json.loads((out / "protocol.json").read_text())
-        table = protocol["sparsemm_allocation"]["head_budgets"]
+        allocation = protocol["sparsemm_allocation"]
+        table = allocation["head_budgets"]
+        two_bank = protocol.get("sparsemm_cache_policy") == "two_bank"
+        if two_bank and (allocation.get("dp_bank_split_used_online") is not True
+                         or allocation.get("short_cache_gate") != "legacy_global"):
+            raise RuntimeError("DP two-bank allocation was not activated")
         layers, heads = len(table), len(table[0])
         prefixes, prefills = {}, set()
         for line in (out / "cache_trace.jsonl").read_text().splitlines():
@@ -312,6 +372,15 @@ def validate_runtime(out, videos, questions, method=None):
             before, after = item["before_head_lengths"], item["head_lengths"]
             if len(before) != heads or len(after) != heads:
                 raise RuntimeError("SparseMM selector has a wrong head count")
+            if two_bank:
+                recent = allocation["recent_budgets"][layer]
+                if (item.get("allocation") != allocation
+                        or item.get("recent_bank_preserved") is not True
+                        or item.get("bank_counts_valid") is not True
+                        or item.get("quota_or_reference_warmup") is not True
+                        or item.get("head_budgets") != table[layer]
+                        or any(r < protocol["window_size"] or r > n for r, n in zip(recent, table[layer]))):
+                    raise RuntimeError("DP two-bank selector failed recent/history validation")
             bypass = all(max(0, n - prefix - protocol["window_size"]) < protocol["budget"] - protocol["window_size"] for n in before)
             expected = before if bypass else [min(n, prefix + cap) for n, cap in zip(before, table[layer])]
             if item.get("bypassed_short_cache") != bypass or after != expected:
@@ -417,11 +486,20 @@ def main(argv=None):
     protocol = dict(config.asdict(), dtype=args.dtype, model_path=str(args.model_path.resolve()),
                     sample_fps=args.sample_fps, encode_chunk_size=args.encode_chunk_size,
                     annotation_source=str(args.anno_path.resolve()), source_sha256=sha256(args.anno_path),
-                    subset_sha256=subset_hash, native_resolution=True, upstream_commit=commit,
+                    subset_sha256=subset_hash,
+                    video_max_pixels=getattr(args, "video_max_pixels", None),
+                    native_resolution=(command[command.index("--model") + 1] != "llava_onevision_stream"
+                                       and getattr(args, "video_max_pixels", None) is None),
+                    video_preprocessing=("resize_and_pad_384x384" if command[command.index("--model") + 1] == "llava_onevision_stream"
+                                         else "qwen_dynamic_processor_pixel_cap" if getattr(args, "video_max_pixels", None) is not None
+                                         else "native_frames_qwen_dynamic_processor"),
+                    upstream_commit=commit,
                     reproduction="SparseMM-native-lmms-plugin-streaming-adaptation",
-                    native_model="qwen2_5_vl_stream", native_task="streamingbench_local",
+                    native_model=command[command.index("--model") + 1], native_task="streamingbench_local",
                     sampling="rounded_source_fps_integer_stride; endpoint=ceil(end_time*sample_fps)",
-                    eviction_granularity="vision_temporal_patch",
+                    eviction_granularity=("sampled_frame" if command[command.index("--model") + 1] == "llava_onevision_stream"
+                                          else "runner_video_chunk" if config.video_chunk_mode == "hermes_chunk"
+                                          else "vision_temporal_patch"),
                     question_cache="temporary_then_restore_video_cache",
                     stderr="none; custom question-weighted aggregation has no registered stderr function",
                     initial_text="outside_visual_budget" if args.budget_scope == "visual" else "inside_prompt_budget",
@@ -430,6 +508,13 @@ def main(argv=None):
                     timing_subset_sha256=subset_hash if args.five_video_timing or config.method in ("lukv", "sparsemm", "uniform") else None,
                     reader_lifecycle="batch_scoped_decord" if args.five_video_timing or config.method in ("lukv", "sparsemm", "uniform") else "per_video_decord",
                     full_benchmarks_paused=True, version=6)
+    if getattr(args, "fixed_frame_size", None) is not None:
+        from kvbench.fixed_inputs import fixed_input_metadata
+        protocol.update(fixed_frame_size=args.fixed_frame_size,
+                        fixed_visual_input=fixed_input_metadata(args.fixed_frame_size),
+                        native_resolution=False,
+                        video_preprocessing="shared_fixed_square_rgb_no_processor_resize",
+                        version=7)
     if config.method == "uniform":
         protocol.update(uniform_budget_mode="uniform_per_layer_per_kv_head",
                         uniform_selector="attention_topk", uniform_offline_assets=False,
@@ -457,7 +542,11 @@ def main(argv=None):
                         sparsemm_bypass_gate="all current physical visual histories < budget-window_size",
                         compression_gate_includes_prefix=False,
                         sparsemm_scoring="FP32 causal visual Q-to-K attention, avgpool, GQA mean",
-                        sparsemm_budget_mode="static calibrated visual-head scores; GQA sum; upstream rounding",
+                        sparsemm_budget_mode=("external DP recent_r/history_q two-bank; attention-ranked history"
+                                              if config.sparsemm_cache_policy == "two_bank" else
+                                              "external DP capacity_n; SparseMM online selector; DP bank split unused"
+                                              if config.sparsemm_budget_path else
+                                              "static calibrated visual-head scores; GQA sum; upstream rounding"),
                         sparsemm_online_processor="fast", sparsemm_calibration_processor="slow")
     protocol_file = out / "protocol.json"
     if protocol_file.exists() and json.loads(protocol_file.read_text()) != protocol:
@@ -494,7 +583,8 @@ def main(argv=None):
     environment = dict(os.environ, **overrides)
     try:
         runtime = preflight(environment, len(data), question_count,
-                            model_args=command[command.index("--model_args") + 1])
+                            model_args=command[command.index("--model_args") + 1],
+                            model_name=command[command.index("--model") + 1])
         if sparsemm_metadata:
             if runtime.get("sparsemm_asset_metadata") != {key: value for key, value in sparsemm_metadata.items() if key != "allocation"}:
                 raise RuntimeError("Native SparseMM preflight asset evidence differs from the controller")

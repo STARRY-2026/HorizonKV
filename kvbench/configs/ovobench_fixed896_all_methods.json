@@ -1,0 +1,13 @@
+{
+  "methods": ["adakv", "pyramidkv", "lukv", "sparsemm", "uniform", "dp", "dp_dual", "hermes", "protokv", "full"],
+  "anno_path": "configs/ovobench_smoke.json",
+  "budget": 500,
+  "sample_fps": 0.5,
+  "encode_chunk_size": 16,
+  "video_chunk_mode": "auto",
+  "fixed_frame_size": 896,
+  "dtype": "float16",
+  "max_videos": 3,
+  "max_questions": 1,
+  "allow_calibration_transfer": true
+}

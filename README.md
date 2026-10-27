@@ -212,7 +212,7 @@ python -m pytest tests -q -p no:cacheprovider
 
 ## KVBench 统一评测接口
 
-[KVBench](kvbench/README.md) 位于本仓库的 `kvbench/` 子目录，统一管理 AdaKV、PyramidKV、LU-KV、SparseMM、Uniform 和 ProtoKV 的小规模验证。克隆时使用 `git clone --recurse-submodules` 获取固定版本的 SparseMM 上游源码。该子目录附有五种方法在同一组 3 视频/3 题上的精简真实推理与审计结果；这组小样本仅验证运行链路，不能用作完整基准结论。环境、外部模型和视频要求见 KVBench README。
+[KVBench](kvbench/README.md) 位于本仓库的 `kvbench/` 子目录，统一管理 AdaKV、PyramidKV、LU-KV、SparseMM、Uniform、ProtoKV、DP、DP 双缓存及 HERMES 的小规模验证，并提供 OVO 近期 1/4 帧实验和 Qwen3-VL 适配代码。先使用 `git clone --recurse-submodules` 获取固定版本的 SparseMM 上游源码，再按 KVBench README 配置模型、视频及校准资产。仓库附有五种方法在同一组 3 视频/3 题上的精简推理与审计结果；该小样本只验证运行链路，不代表完整基准结论。
 
 ## 代码与来源
 

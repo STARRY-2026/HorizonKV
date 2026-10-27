@@ -175,8 +175,12 @@ def profile_asset_metadata(path=DEFAULT_PROFILE_PATH, num_layers=28, num_kv_head
     if calibration.get("utility_mode") not in ("projected", "attention"):
         raise ValueError("LU profile must declare its long-horizon utility target")
     protocol = calibration.get("token_window_protocol", {})
+    calibration_model = Path(calibration.get("model_path", "")) / "config.json"
+    model_kind = json.loads(calibration_model.read_text())["model_type"]
+    native_resolution = model_kind != "llava_onevision"
     required = {"window_size": window, "kernel_size": 5, "pooling": "avgpool",
-                "gqa_reduce": "mean", "score_precision": "float32", "native_resolution": True}
+                "gqa_reduce": "mean", "score_precision": "float32",
+                "native_resolution": native_resolution}
     if any(protocol.get(key) != value for key, value in required.items()):
         raise ValueError("LU calibration protocol differs from native online attention scoring")
     sources = calibration.get("source_sha256", {})
@@ -213,7 +217,7 @@ def profile_asset_metadata(path=DEFAULT_PROFILE_PATH, num_layers=28, num_kv_head
             raise ValueError(f"LU calibration observation changed: {observation_path}")
     summary = {"num_videos": len(selected), "num_observations": len(observations),
                "selector": "sparsemm_attention", "utility_mode": calibration["utility_mode"],
-               "native_resolution": True, "evaluation_overlap": 0,
+               "native_resolution": native_resolution, "evaluation_overlap": 0,
                "usage": "attention_calibrated_profile", "recalibrated_for_runtime_selector": True,
                "prior_accuracy_reused": False, "uniform_blend": 0, "legacy_capacity_clip": False,
                "budget_mode": "compression_ratio_lookup_history_with_protected_window"}

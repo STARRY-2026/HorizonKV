@@ -59,6 +59,90 @@ def _close_decord_reader(reader):
         reader._handle = None
 
 
+def _install_fixed_frame_input(bridge, canvas_size):
+    """Change RGB pixels only, and check every existing native video forward.
+
+    Keep temporal-patch/whole-chunk encoding, positions and cache updates in the
+    original bridge. Its per-forward metadata lets us reject grid/token drift
+    before the language model consumes the features.
+    """
+    from kvbench.fixed_inputs import (
+        assert_qwen_grid, fixed_input_metadata, frame_rgb_sha256,
+        prepare_fixed_frames,
+    )
+
+    metadata = fixed_input_metadata(canvas_size)
+    if not metadata["enabled"]:
+        return bridge
+    if bridge.model_config.model_type != "qwen2_5_vl" or bridge.is_llava:
+        raise ValueError("Fixed-frame inputs currently require Qwen2.5-VL")
+    if getattr(bridge, "video_max_pixels", None) is not None:
+        raise ValueError("Fixed-frame inputs cannot be combined with video_max_pixels")
+    vision = bridge.model_config.vision_config
+    if (int(vision.patch_size), int(vision.spatial_merge_size),
+            int(vision.temporal_patch_size)) != (14, 2, 2):
+        raise ValueError("Fixed-frame contract requires Qwen patch=14, spatial merge=2, temporal patch=2")
+    # The supplied canvas is already exact. Disable the processor's optional
+    # spatial resize; its normalization and temporal padding remain unchanged.
+    bridge.processor.video_processor.do_resize = False
+    bridge.fixed_input_metadata = metadata
+    bridge.fixed_input_checks = []
+    original_encode = bridge.encode_video_chunk
+
+    def encode_fixed(video_chunk, is_last_chunk=False):
+        if video_chunk is None or video_chunk.shape[0] == 0:
+            return original_encode(video_chunk, is_last_chunk=is_last_chunk)
+        original_hw = ([int(video_chunk.shape[1]), int(video_chunk.shape[2])]
+                       if video_chunk.shape[-1] == 3 else
+                       [int(video_chunk.shape[-2]), int(video_chunk.shape[-1])])
+        prepared = prepare_fixed_frames(video_chunk, canvas_size=canvas_size)
+        original_forward = bridge.forward_chunk
+        consumed = 0
+
+        def checked_forward(inputs_embeds, positions, *args, **kwargs):
+            nonlocal consumed
+            visual = bridge._pending_visual_input
+            if not isinstance(visual, dict):
+                raise AssertionError("Missing per-forward video input metadata")
+            raw_frames = int(visual["raw_frames"])
+            if raw_frames < 1 or consumed + raw_frames > len(prepared):
+                raise AssertionError("Visual forwards do not match the prepared frame batch")
+            audit = assert_qwen_grid(
+                visual["grid_thw"], int(inputs_embeds.shape[1]), raw_frames,
+                canvas_size=canvas_size,
+            )
+            if (visual["visual_tokens"] != int(inputs_embeds.shape[1])
+                    or visual["resized_hw"] != metadata["resized_hw"]
+                    or visual["source_hw"] != metadata["resized_hw"]):
+                raise AssertionError("Processor changed the fixed canvas or visual token count")
+            visual.update(
+                original_source_hw=original_hw,
+                prepared_rgb_sha256=frame_rgb_sha256(prepared[consumed:consumed + raw_frames]),
+                fixed_frame_size=canvas_size,
+                tokens_per_temporal_unit=metadata["tokens_per_temporal_unit"],
+            )
+            consumed += raw_frames
+            bridge.fixed_input_checks.append(dict(
+                audit, video_id=getattr(bridge, "_active_video_id", None),
+                **{key: visual[key] for key in ("prepared_rgb_sha256", "original_source_hw")},
+            ))
+            return original_forward(inputs_embeds, positions, *args, **kwargs)
+
+        # Restore the original bound method even when preprocessing/inference
+        # fails; question prefill and later calls must retain their own path.
+        bridge.forward_chunk = checked_forward
+        try:
+            result = original_encode(prepared, is_last_chunk=is_last_chunk)
+            if consumed != len(prepared):
+                raise AssertionError("A prepared input frame was omitted by native encoding")
+            return result
+        finally:
+            bridge.forward_chunk = original_forward
+
+    bridge.encode_video_chunk = encode_fixed
+    return bridge
+
+
 class _CopiedVideoBatch:
     def __init__(self, array):
         self.array = array
@@ -123,6 +207,7 @@ class Qwen25VLStream(lmms):
         sample_fps=0.5,
         encode_chunk_size=16,
         video_max_pixels=None,
+        fixed_frame_size=None,
         dtype="bfloat16",
         trace_path=None,
         output_dir=None,
@@ -150,9 +235,15 @@ class Qwen25VLStream(lmms):
         self.sample_fps = float(sample_fps)
         self.encode_chunk_size = int(encode_chunk_size)
         self.video_max_pixels = None if video_max_pixels is None else int(video_max_pixels)
+        self.fixed_frame_size = None if fixed_frame_size is None else int(fixed_frame_size)
+        if self.fixed_frame_size is not None:
+            from kvbench.fixed_inputs import fixed_input_metadata
+            fixed_input_metadata(self.fixed_frame_size)
+            if self.video_max_pixels is not None:
+                raise ValueError("fixed_frame_size and video_max_pixels cannot be combined")
         if self.video_max_pixels is not None:
-            if selected != "protokv" or self.video_max_pixels < 28 * 28 * 4:
-                raise ValueError("video_max_pixels requires ProtoKV and at least 3136 pixels")
+            if selected not in ("protokv", "sparsemm") or self.video_max_pixels < 28 * 28 * 4:
+                raise ValueError("video_max_pixels requires ProtoKV/SparseMM and at least 3136 pixels")
         if not math.isfinite(self.sample_fps) or self.sample_fps <= 0 or self.encode_chunk_size < 1:
             raise ValueError("Sampling FPS and encode chunk size must be positive")
         if dtype not in ("bfloat16", "float16"):
@@ -242,6 +333,8 @@ class Qwen25VLStream(lmms):
                 trace_path=self.trace_path, device=str(self.device), dtype=self.dtype_name,
                 video_max_pixels=self.video_max_pixels,
             )
+            if self.fixed_frame_size is not None:
+                _install_fixed_frame_input(self._bridge, self.fixed_frame_size)
             if self.timing_requested:
                 if self.device.type == "cuda":
                     torch.cuda.synchronize(self.device)
@@ -317,6 +410,10 @@ class Qwen25VLStream(lmms):
         checks = dict(getattr(self._bridge, "validation_checks", {}))
         checks.update(status=status, updated_utc=datetime.now(timezone.utc).isoformat(),
                       config=self.streaming_config.asdict())
+        if self.fixed_frame_size is not None:
+            from kvbench.fixed_inputs import fixed_input_metadata
+            checks.update(fixed_input=fixed_input_metadata(self.fixed_frame_size),
+                          fixed_input_checks=getattr(self._bridge, "fixed_input_checks", []))
         if error is not None:
             checks["runner_error"] = f"{type(error).__name__}: {error}"
         write_json(self.output_dir / "runtime_checks.json", checks)

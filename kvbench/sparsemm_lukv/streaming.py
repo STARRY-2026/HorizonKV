@@ -1,7 +1,6 @@
 """LU static budgets plus direct visual-query attention in native SparseMM."""
 
 import torch
-from transformers import Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor
 
 from sparsemm_lukv.cache import LUKVCache
 from sparsemm_lukv.policy import DEFAULT_PROFILE_PATH, load_budget_profile, load_budget_table
@@ -64,8 +63,6 @@ class LUStreamingQwen(StreamingQwen):
 
 def load_model(model_path, config=None, sample_fps=0.5, trace_path=None,
                device="cuda", dtype="bfloat16", validate_state=True):
-    processor = Qwen2_5_VLProcessor.from_pretrained(model_path, local_files_only=True)
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        model_path, dtype=getattr(torch, dtype), attn_implementation="sdpa", local_files_only=True,
-    ).to(device).eval()
+    from sparsemm_protokv.model_loader import load_pretrained
+    model, processor = load_pretrained(model_path, device=device, dtype=dtype)
     return LUStreamingQwen(model, processor, config, sample_fps, trace_path, validate_state)

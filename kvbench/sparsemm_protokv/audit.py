@@ -122,6 +122,48 @@ def sparsemm_table(path, layers, heads, query_heads, budget, window, ratio):
     return table, allocation
 
 
+def external_sparsemm_table(path, layers, heads, budget, window):
+    """Independently verify an externally supplied DP capacity_n allocation."""
+    table = [[None] * heads for _ in range(layers)]
+    split_present = None
+    below_window = 0
+    with Path(path).open(newline="", encoding="utf-8-sig") as handle:
+        reader = csv.DictReader(handle)
+        fields = reader.fieldnames or []
+        check(len(fields) == len(set(fields)) and {"layer", "kv_head", "capacity_n"} <= set(fields)
+              and ("recent_r" in fields) == ("history_q" in fields), "Invalid external SparseMM budget CSV header")
+        split_present = "recent_r" in fields
+        for row in reader:
+            check(None not in row and all(value is not None for value in row.values()), "Malformed external budget row")
+            def value(name):
+                raw = row[name]
+                check(isinstance(raw, str) and re.fullmatch(r"\d+", raw.strip()) is not None,
+                      f"External budget {name} is not a nonnegative integer")
+                return int(raw)
+            layer, head, capacity = value("layer"), value("kv_head"), value("capacity_n")
+            check(0 <= layer < layers and 0 <= head < heads and table[layer][head] is None,
+                  "External budget head index is duplicate or outside model shape")
+            check(capacity >= window, "External capacity cannot protect SparseMM recent window")
+            table[layer][head] = capacity
+            if split_present:
+                recent, history = value("recent_r"), value("history_q")
+                check(recent + history == capacity, "External DP bank split differs from capacity_n")
+                below_window += recent < window
+    check(all(value is not None for row in table for value in row), "External budget misses model KV heads")
+    target = layers * heads * budget
+    allocated = sum(map(sum, table))
+    check(allocated == target, "External SparseMM budget total differs from L*Hkv*K")
+    allocation = {"method": "dp_budget_sparsemm_selector", "selector": "sparsemm_attention",
+                  "budget_source": "external_capacity_n", "budget_path": str(Path(path).resolve()),
+                  "budget_sha256": sha256(path), "shape": [layers, heads], "budget": budget,
+                  "window_size": window, "head_budgets": table,
+                  "history_budgets": [[n-window for n in row] for row in table],
+                  "target_slots": target, "allocated_slots": allocated,
+                  "dp_bank_split_present": split_present, "dp_bank_split_used_online": False,
+                  "recent_below_sparsemm_window_heads": below_window}
+    return table, allocation
+
+
 def _sparsemm_asset(output, protocol, manifest, layers, heads, query_heads, code):
     metadata = protocol.get("sparsemm_asset_metadata")
     check(isinstance(metadata, dict) and metadata == manifest.get("sparsemm_asset_metadata"),
@@ -212,8 +254,33 @@ def _sparsemm_asset(output, protocol, manifest, layers, heads, query_heads, code
     else:
         check(metadata.get("asset_type") == "synthetic_test_scores" and metadata.get("official_calibration") is False,
               "SparseMM asset lacks official calibration provenance")
-    table, allocation = sparsemm_table(verified, layers, heads, query_heads,
-                                      protocol["budget"], protocol["window_size"], protocol["sparsemm_ratio"])
+        if protocol.get("native_model") == "llava_onevision_stream":
+            check(metadata.get("smoke_only") is True
+                  and Path(metadata.get("model_path", "")).resolve() == Path(protocol["model_path"]).resolve()
+                  and metadata.get("model_config_sha256") == sha256(Path(protocol["model_path"]) / "config.json"),
+                  "Synthetic LLaVA score asset is not bound to this model/configuration")
+    budget_path = protocol.get("sparsemm_budget_path", "")
+    if budget_path:
+        budget_file = Path(budget_path).expanduser().resolve()
+        recorded = protocol.get("sparsemm_allocation", {})
+        budget_hash = recorded.get("budget_sha256")
+        check(isinstance(budget_hash, str) and re.fullmatch(r"[0-9a-f]{64}", budget_hash),
+              "External SparseMM budget SHA-256 is missing")
+        if budget_file.is_relative_to(WORKSPACE):
+            name = str(budget_file.relative_to(WORKSPACE))
+            check(code.get(name) == budget_hash, "External SparseMM budget is missing from source hashes")
+            budget_verified, _ = source_file(output, name, budget_hash)
+        else:
+            check(budget_file.is_file() and sha256(budget_file) == budget_hash,
+                  "External SparseMM budget asset changed")
+            budget_verified = budget_file
+        table, allocation = external_sparsemm_table(budget_verified, layers, heads,
+            protocol["budget"], protocol["window_size"])
+        allocation["budget_path"] = str(budget_file)
+        check(allocation["budget_sha256"] == budget_hash, "External SparseMM budget fingerprint changed")
+    else:
+        table, allocation = sparsemm_table(verified, layers, heads, query_heads,
+                                          protocol["budget"], protocol["window_size"], protocol["sparsemm_ratio"])
     check(protocol.get("sparsemm_allocation") == allocation, "SparseMM static allocation differs from original formula")
     if "allocation" in metadata:
         check(metadata["allocation"] == allocation, "SparseMM asset metadata allocation differs from original formula")
@@ -237,7 +304,9 @@ def _validate_sparsemm(event, state, config, layers, heads, query_heads, table, 
         did_compress = any(a < b for a, b in zip(after, before))
         nominal, target = heads * (config["budget"] + prefix), sum(table[layer]) + heads * prefix
         fields = {
-            "method": "sparsemm", "selector": "static_visual_head_scores_then_attention",
+            "method": "sparsemm", "selector": ("external_capacity_then_attention"
+                                               if config.get("sparsemm_budget_path") else
+                                               "static_visual_head_scores_then_attention"),
             "budget_scope": "visual", "configured_budget": config["budget"], "layer_idx": layer,
             "base_history_capacity": config["budget"] - window, "head_budgets": table[layer],
             "prefix_tokens_kept": prefix, "prefix_tokens": prefix, "window_size": window,
@@ -249,7 +318,8 @@ def _validate_sparsemm(event, state, config, layers, heads, query_heads, table, 
             "target_total_tokens": target, "nominal_total_tokens": nominal, "actual_total_tokens": sum(after),
             "allocation_drift_tokens": sum(after) - nominal, "calibrated_drift_tokens": sum(table[layer]) - heads * config["budget"],
             "bypassed_short_cache": bypass, "compressed": did_compress,
-            "rounding": "upstream_float64_round_to_even", "tie_policy": "upstream_torch_sort",
+            "rounding": ("external_exact_capacity" if config.get("sparsemm_budget_path")
+                         else "upstream_float64_round_to_even"), "tie_policy": "upstream_torch_sort",
             "upstream_commit": UPSTREAM_COMMIT, "allocation": allocation,
         }
         for key, expected in fields.items():
@@ -476,9 +546,19 @@ def audit_run(output_dir, *, min_compression_events_per_video=2, require_lmms=Tr
     # Shared configurations now also record LU options for other methods.
     # Older saved protocols do not have these optional fields.
     for key in ("lukv_budget_path", "lukv_profile_path", "lukv_history", "lukv_selector",
-                "sparsemm_score_path", "sparsemm_ratio"):
+                "sparsemm_score_path", "sparsemm_ratio", "sparsemm_budget_path",
+                "sparsemm_cache_policy", "sparsemm_two_bank_gate",
+                "video_chunk_mode"):
         if key in protocol:
             config[key] = protocol[key]
+    if "video_chunk_mode" in protocol:
+        check(protocol["video_chunk_mode"] in ("temporal_patch", "hermes_chunk"),
+              "Unsupported video chunk mode")
+        expected_granularity = ("sampled_frame" if protocol.get("native_model") == "llava_onevision_stream"
+                                else "runner_video_chunk" if protocol["video_chunk_mode"] == "hermes_chunk"
+                                else "vision_temporal_patch")
+        check(protocol.get("eviction_granularity") == expected_granularity,
+              "Video chunk mode and eviction granularity disagree")
     check(config["method"] in ("protokv", "adakv", "pyramidkv", "sparsemm", "uniform"), "Unsupported method")
     check(config["budget_scope"] in ("visual", "prompt"), "Unsupported budget scope")
     model_path = Path(protocol["model_path"])
@@ -515,7 +595,8 @@ def audit_run(output_dir, *, min_compression_events_per_video=2, require_lmms=Tr
         check(required_sparsemm <= code.keys(), "SparseMM source hash manifest omits native method files")
         sparsemm_budgets, sparsemm_allocation = _sparsemm_asset(out, protocol, manifest, layers, heads, query_heads, code)
         sparsemm_layer_asset = {key: value for key, value in protocol["sparsemm_asset_metadata"].items() if key != "allocation"}
-        if sparsemm_layer_asset.get("asset_type") == "synthetic_test_scores":
+        if (sparsemm_layer_asset.get("asset_type") == "synthetic_test_scores"
+                and protocol.get("native_model") != "llava_onevision_stream"):
             sparsemm_layer_asset = {key: sparsemm_layer_asset[key] for key in ("path", "sha256", "shape", "query_head_shape")}
     element = {"float16": 2, "bfloat16": 2, "float32": 4}.get(protocol["dtype"])
     check(element is not None, "Unsupported dtype")
@@ -580,6 +661,22 @@ def audit_run(output_dir, *, min_compression_events_per_video=2, require_lmms=Tr
         check(state is not None and vid == state["video_id"], f"{label}: missing/mismatched video init")
         if kind == "video_prefill":
             q = integer(event.get("input_tokens"), "video input tokens", 1)
+            visual_input = event.get("visual_input")
+            if protocol.get("native_model") == "qwen2_5_vl_stream" and "video_chunk_mode" in protocol:
+                check(isinstance(visual_input, dict), f"{label}: visual input metadata missing")
+                grid = visual_input.get("grid_thw")
+                source = visual_input.get("source_hw")
+                resized = visual_input.get("resized_hw")
+                check(all(isinstance(values, list) and len(values) == length
+                          for values, length in ((grid, 3), (source, 2), (resized, 2))),
+                      f"{label}: invalid visual dimensions")
+                check(all(type(value) is int and value > 0 for value in grid + source + resized)
+                      and type(visual_input.get("raw_frames")) is int and visual_input["raw_frames"] > 0
+                      and visual_input.get("visual_tokens") == q,
+                      f"{label}: visual input dimensions/tokens disagree")
+                if config["video_chunk_mode"] == "temporal_patch":
+                    check(visual_input["raw_frames"] <= 2,
+                          f"{label}: temporal-patch run encoded more than two frames")
             state["prefills"] += 1
             state["seen"] += q
             check(event.get("prefill") == state["prefills"], f"{label}: prefill counter did not reset/increment")

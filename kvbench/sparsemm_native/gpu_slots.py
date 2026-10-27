@@ -33,6 +33,10 @@ def gpu_lease(output, concurrent_processes=1):
     Locks prevent cooperating jobs from exceeding the selected concurrency;
     free memory is a pre-load check rather than an external memory reservation.
     """
+    # These legacy OVO entry points request one slot explicitly. A supervisor
+    # may opt both workers into the existing shared two-slot admission scheme.
+    if concurrent_processes == 1 and os.environ.get("SPARSEMM_GPU_LEASE_SHARED") == "1":
+        concurrent_processes = 2
     if (not isinstance(concurrent_processes, int)
             or isinstance(concurrent_processes, bool)
             or concurrent_processes not in (1, 2)):

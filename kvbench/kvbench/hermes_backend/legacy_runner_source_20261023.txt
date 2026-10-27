@@ -1,0 +1,137 @@
+"""Bounded adapter for the original HERMES Qwen2.5-VL implementation.
+
+This intentionally keeps HERMES's predictive compression and native kv_size
+semantics: a visual-position target per layer, shared by KV heads, with the
+initial text prefix retained separately. It shares KVBench's selected videos,
+frame indices, questions, GPU lease and result format.
+"""
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+
+from kvbench import paths
+from sparsemm_baselines.run_streamingbench import (
+    analyze_video, gpu_lease, prepare_annotations, sha256, write_json, write_results,
+)
+
+
+def parser():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--anno-path", type=Path, required=True)
+    p.add_argument("--model-path", type=Path, required=True)
+    p.add_argument("--output-dir", type=Path, required=True)
+    p.add_argument("--budget", type=int, required=True)
+    p.add_argument("--max-videos", type=int, required=True)
+    p.add_argument("--max-questions", type=int)
+    p.add_argument("--sample-fps", type=float, required=True)
+    p.add_argument("--encode-chunk-size", type=int, required=True)
+    p.add_argument("--dtype", choices=("float16",), required=True)
+    p.add_argument("--dry-run", action="store_true")
+    return p
+
+
+def _digest_json(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+
+def main(argv=None):
+    args = parser().parse_args(argv)
+    if not 1 <= args.max_videos <= 3 or not 1 <= args.budget or args.encode_chunk_size < 1:
+        raise ValueError("HERMES adapter permits only 1..3 videos and positive budget/chunk size")
+    from sparsemm_protokv.model_loader import model_type
+    if model_type(args.model_path) != "qwen2_5_vl":
+        raise ValueError("Original HERMES adapter currently supports Qwen2.5-VL only")
+    data = prepare_annotations(args.anno_path, args.max_videos, args.max_questions)
+    questions = sum(len(video["conversations"]) for video in data)
+    if questions > 8 or any(float(q["end_time"]) > 120 for v in data for q in v["conversations"]):
+        raise ValueError("HERMES adapter is limited to eight questions and 120-second endpoints")
+    out = args.output_dir.resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    backend = Path(__file__).resolve().parent / "hermes_backend"
+    implementation = backend / "qwenvl_hermes.py"
+    abstract = backend / "abstract_hermes.py"
+    reindex = backend / "reindex_3d.py"
+    adapter = Path(__file__).resolve()
+    model_config = args.model_path.resolve() / "config.json"
+    protocol = {
+        "method": "hermes", "budget": args.budget,
+        "budget_scope": "visual_positions_per_layer_shared_across_kv_heads_text_prefix_extra",
+        "dtype": args.dtype, "sample_fps": args.sample_fps,
+        "encode_chunk_size": args.encode_chunk_size, "model_path": str(args.model_path.resolve()),
+        "model_config_sha256": sha256(model_config), "annotation_path": str(args.anno_path.resolve()),
+        "annotation_sha256": sha256(args.anno_path), "subset_sha256": _digest_json(data),
+        "hermes_source": str(implementation.resolve()), "hermes_source_sha256": sha256(implementation),
+        "hermes_abstract_source": str(abstract.resolve()), "hermes_abstract_sha256": sha256(abstract),
+        "hermes_reindex_source": str(reindex.resolve()), "hermes_reindex_sha256": sha256(reindex),
+        "adapter_source": str(adapter), "adapter_sha256": sha256(adapter),
+        "sampling": "rounded_source_fps_integer_stride; endpoint=ceil(end_time*sample_fps)",
+        "video_preprocessing": "original_HERMES_Qwen_processor_dynamic_video_frames",
+        "compression": "original_HERMES_predict_next_question_then_pseudo_forward",
+        "comparison_status": "same_questions_and_frame_indices; input_tokens_and_budget_semantics_not_equated",
+        "videos": len(data), "questions": questions, "full_benchmarks_paused": True,
+    }
+    write_json(out / "protocol.json", protocol)
+    write_json(out / "annotations.json", data)
+    if args.dry_run:
+        (out / "run.status").write_text("dry-run\n")
+        return 0
+    if (out / "1_0.csv").exists():
+        raise FileExistsError("HERMES result path already contains predictions")
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+    for key in ("PROTOKV_ENABLE", "PROTOKV_FULL_ENABLE", "INFINIPOT_V_PUBLIC"):
+        os.environ[key] = "0"
+    with gpu_lease(out):
+        import torch
+        if not torch.cuda.is_available():
+            raise RuntimeError("HERMES requires CUDA; use --dry-run to inspect the protocol")
+        from kvbench.hermes_backend.qwenvl_hermes import load_model
+        model, _ = load_model(str(args.model_path.resolve()), kv_size=args.budget,
+                              sample_fps=args.sample_fps, compress_mode="hermes")
+        trace = []
+        native_compress = model.predict_and_compress
+        native_answer = model.question_answering
+
+        def traced_compress():
+            before = model._get_cache_seq_len_per_layer()
+            native_compress()
+            after = model._get_cache_seq_len_per_layer()
+            trace.append({"event": "compression", "video_id": str(model._active_video_id),
+                          "before": before, "after": after, "evicted": any(a < b for a, b in zip(after, before))})
+
+        def traced_answer(*a, **kw):
+            before = model._get_cache_seq_len_per_layer()
+            result = native_answer(*a, **kw)
+            after = model._get_cache_seq_len_per_layer()
+            trace.append({"event": "question", "video_id": str(model._active_video_id),
+                          "before": before, "after": after, "restored": before == after})
+            if before != after:
+                raise RuntimeError("HERMES question changed the persistent video cache")
+            return result
+
+        model.predict_and_compress = traced_compress
+        model.question_answering = traced_answer
+        rows = []
+        (out / "run.status").write_text("running\n")
+        for video in data:
+            rows.extend(analyze_video(model, video, args.sample_fps, args.encode_chunk_size, torch))
+            write_results(out / "1_0.csv", rows)
+            (out / "hermes_trace.jsonl").write_text("".join(json.dumps(event) + "\n" for event in trace))
+        correct = sum(float(row["qa_acc"]) == 100.0 for row in rows)
+        write_json(out / "summary.json", {
+            "method": "hermes", "budget": args.budget, "budget_scope": protocol["budget_scope"],
+            "videos": len(data), "questions": len(rows), "correct": correct,
+            "accuracy_percent": 100 * correct / len(rows),
+            "peak_gpu_allocated_gib": torch.cuda.max_memory_allocated() / 2**30,
+            "completed_utc": datetime.now(timezone.utc).isoformat(),
+        })
+        (out / "run.status").write_text("complete\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

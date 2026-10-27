@@ -22,6 +22,8 @@ class StreamingQwen(SparseMMQwen):
                  validate_state=True, video_max_pixels=None):
         config = config or StreamingConfig()
         self.is_llava = model.config.model_type == "llava_onevision"
+        if self.is_llava and config.video_chunk_mode != "temporal_patch":
+            raise ValueError("HERMES chunk mode is Qwen2.5-VL only")
         if video_max_pixels is not None and (self.is_llava or config.method not in ("protokv", "sparsemm")):
             raise ValueError("video_max_pixels is supported only for Qwen2.5-VL ProtoKV or SparseMM")
         self.video_max_pixels = video_max_pixels
@@ -62,6 +64,7 @@ class StreamingQwen(SparseMMQwen):
         self.visual_start_idx = 0
         self._next_position = self._seen_visual_tokens = self.total_processed_frames = 0
         self.last_encoded_frames = self._prefills = self._compressions = 0
+        self._pending_visual_input = None
         self.conv_history, self.last_metadata = [], []
 
     @torch.inference_mode()
@@ -116,6 +119,7 @@ class StreamingQwen(SparseMMQwen):
             absorbed = 0 if cache.bank is None else cache.bank.total_absorbed
             self._compressions += int(metadata.get("compressed", False))
             self._trace({"event": "video_prefill", "prefill": self._prefills, "input_tokens": count,
+                         "visual_input": self._pending_visual_input,
                          "head_lengths": cache.head_lengths(), "kv_bytes": cache.nbytes(),
                          "memory": cache.memory_stats(), "layers": self.last_metadata,
                          "method_metadata": metadata,
@@ -163,7 +167,11 @@ class StreamingQwen(SparseMMQwen):
                 self.timings["visual_tokens"] += count
             self.last_encoded_frames = video_chunk.shape[0]
             return
-        stride = int(self.model_config.vision_config.temporal_patch_size)
+        # The legacy path commits one temporal patch at a time.  The explicit
+        # HERMES comparison protocol commits the complete runner chunk once,
+        # matching HERMES's visual-forward and eviction cadence.
+        stride = (video_chunk.shape[0] if self.config.video_chunk_mode == "hermes_chunk"
+                  else int(self.model_config.vision_config.temporal_patch_size))
         for start in range(0, video_chunk.shape[0], stride):
             frames = video_chunk[start:start + stride]
             if frames.shape[-1] == 3:
@@ -178,6 +186,14 @@ class StreamingQwen(SparseMMQwen):
                 grid = inputs["video_grid_thw"]
                 features = self.model.get_video_features(inputs["pixel_values_videos"], grid)[0].unsqueeze(0)
             positions = self._video_positions(grid[0].tolist(), features.shape[1])
+            self._pending_visual_input = {
+                "raw_frames": int(frames.shape[0]),
+                "source_hw": [int(frames.shape[-2]), int(frames.shape[-1])],
+                "grid_thw": [int(value) for value in grid[0].tolist()],
+                "resized_hw": [int(grid[0, 1]) * int(self.model_config.vision_config.patch_size),
+                               int(grid[0, 2]) * int(self.model_config.vision_config.patch_size)],
+                "visual_tokens": int(features.shape[1]),
+            }
             self.forward_chunk(features, positions, compress=True,
                                time=self.total_processed_frames + frames.shape[0])
             self._seen_visual_tokens += features.shape[1]

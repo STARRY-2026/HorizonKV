@@ -1,4 +1,4 @@
-"""Full-prefix calibration through the existing native Qwen attention patch.
+"""Full-prefix calibration through the native model-specific attention patch.
 
 Video KV is never pruned. Selector scores are recomputed only at observation
 boundaries from the last visual patch's actual post-M-RoPE queries. Oracle
@@ -11,7 +11,6 @@ from __future__ import annotations
 import math
 
 import torch
-from transformers import Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLProcessor
 
 from sparsemm_baselines.core import _head_scores
 from sparsemm_protokv.cache import StreamingCache
@@ -288,9 +287,7 @@ def load_calibration_model(model_path, config=None, sample_fps=0.5, trace_path=N
                            utility_mode="projected"):
     if dtype not in ("bfloat16", "float16", "float32"):
         raise ValueError("Unsupported model dtype")
-    processor = Qwen2_5_VLProcessor.from_pretrained(model_path, local_files_only=True)
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        model_path, dtype=getattr(torch, dtype), attn_implementation="sdpa", local_files_only=True,
-    ).to(device).eval()
+    from sparsemm_protokv.model_loader import load_pretrained
+    model, processor = load_pretrained(model_path, device=device, dtype=dtype)
     return CalibrationQwen(model, processor, config, sample_fps, trace_path,
                            validate_state, utility_mode)

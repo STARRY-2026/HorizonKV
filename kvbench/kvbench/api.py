@@ -51,9 +51,15 @@ class RunConfig:
     max_questions: int | None = 1
     sample_fps: float = 0.5
     encode_chunk_size: int = 16
+    video_chunk_mode: str = "auto"
+    video_max_pixels: int | None = None
+    fixed_frame_size: int | None = None
     dtype: str = "bfloat16"
     lukv_profile_path: Path = field(default_factory=paths.default_lukv_profile_path)
     sparsemm_score_path: Path = field(default_factory=paths.default_sparsemm_score_path)
+    sparsemm_budget_path: Path | None = None
+    dp_budget_path: Path = field(default_factory=paths.default_dp_budget_path)
+    dp_dual_budget_path: Path = field(default_factory=paths.default_dp_dual_budget_path)
     config_json: Path | None = None
     dry_run: bool = False
     allow_calibration_transfer: bool = False
@@ -64,13 +70,46 @@ class RunConfig:
     def selected_methods(self):
         return resolve_methods(self.method, self.methods)
 
+    @property
+    def resolved_video_chunk_mode(self):
+        return ("hermes_chunk" if "hermes" in self.selected_methods else "temporal_patch"
+                ) if self.video_chunk_mode == "auto" else self.video_chunk_mode
+
     def validate(self):
         names = self.selected_methods
+        if self.video_chunk_mode not in ("auto", "temporal_patch", "hermes_chunk"):
+            raise ValueError("video_chunk_mode must be auto, temporal_patch or hermes_chunk")
+        if "hermes" in names and len(names) > 1 and self.resolved_video_chunk_mode != "hermes_chunk":
+            raise ValueError("A comparison containing HERMES requires hermes_chunk for every Qwen method")
+        if "hermes" in names:
+            model_kind = json.loads((_path(self.model_path) / "config.json").read_text()).get("model_type")
+            if model_kind not in ("qwen2_5_vl", "qwen3_vl"):
+                raise ValueError("HERMES requires Qwen2.5-VL or Qwen3-VL")
+            if model_kind == "qwen2_5_vl" and self.dtype != "float16":
+                raise ValueError("Original HERMES loads float16; select --dtype float16")
         _positive_integer(self.budget, "budget")
         _positive_integer(self.max_videos, "max_videos", 3)
         if self.max_questions is not None:
             _positive_integer(self.max_questions, "max_questions", 8)
         _positive_integer(self.encode_chunk_size, "encode_chunk_size")
+        if self.fixed_frame_size is not None:
+            from .fixed_inputs import fixed_input_metadata
+            fixed_input_metadata(self.fixed_frame_size)
+            if self.video_max_pixels is not None:
+                raise ValueError("fixed_frame_size and video_max_pixels cannot be combined")
+            model_kind = _read_json(_path(self.model_path) / "config.json").get("model_type")
+            if model_kind != "qwen2_5_vl":
+                raise ValueError("fixed_frame_size currently requires the shared Qwen2.5-VL input contract")
+        if self.video_max_pixels is not None:
+            _positive_integer(self.video_max_pixels, "video_max_pixels")
+            if self.video_max_pixels < 28 * 28 * 4:
+                raise ValueError("video_max_pixels must be at least 3136")
+            if len(names) != 1 or names[0] not in ("protokv", "sparsemm", "dp", "dp_dual", "hermes"):
+                raise ValueError("video_max_pixels requires selecting only protokv, sparsemm, dp, dp_dual or hermes")
+            model_type = json.loads((_path(self.model_path) / "config.json").read_text()).get("model_type")
+            if not (model_type == "qwen2_5_vl" and names[0] != "hermes"
+                    or model_type == "qwen3_vl" and names[0] == "hermes"):
+                raise ValueError("video_max_pixels requires Qwen2.5-VL baseline or Qwen3-VL HERMES")
         if isinstance(self.sample_fps, bool) or not isinstance(self.sample_fps, (int, float)) or not math.isfinite(self.sample_fps) or self.sample_fps <= 0:
             raise ValueError("sample_fps must be finite and positive")
         if self.dtype not in ("bfloat16", "float16"):
@@ -87,11 +126,19 @@ class RunConfig:
                 raise ValueError("config_json must contain an object")
             for name in names:
                 method = METHODS[name]
-                fixed = {"method": method.runtime_method, "budget": method.fixed_budget or self.budget, "budget_scope": "visual"}
+                fixed = {"method": method.runtime_method, "budget": method.fixed_budget or self.budget,
+                         "budget_scope": "visual", "video_chunk_mode": self.resolved_video_chunk_mode}
                 if name == "lukv":
                     fixed["lukv_profile_path"] = str(_path(self.lukv_profile_path))
-                if name == "sparsemm":
+                if name in ("sparsemm", "dp", "dp_dual"):
                     fixed["sparsemm_score_path"] = str(_path(self.sparsemm_score_path))
+                    selected_budget = (self.dp_budget_path if name == "dp" else
+                                       self.dp_dual_budget_path if name == "dp_dual" else self.sparsemm_budget_path)
+                    if selected_budget is not None:
+                        fixed["sparsemm_budget_path"] = str(_path(selected_budget))
+                    if name == "dp_dual":
+                        fixed["sparsemm_cache_policy"] = "two_bank"
+                        fixed["sparsemm_two_bank_gate"] = "legacy_global"
                 for key, value in fixed.items():
                     if key in extra and extra[key] != value:
                         raise ValueError(f"config_json {key} conflicts with method {name}")
@@ -166,19 +213,48 @@ def build_command(config, method, output_dir):
     if method not in config.selected_methods:
         raise ValueError("Method is not selected in RunConfig")
     entry = METHODS[method]
+    if method == "hermes":
+        command = [config.python_executable, "-u", "-m", "kvbench.hermes_runner",
+                   "--anno-path", str(_path(config.anno_path)),
+                   "--model-path", str(_path(config.model_path)),
+                   "--output-dir", str(_path(output_dir)),
+                   "--budget", str(config.budget), "--max-videos", str(config.max_videos),
+                   "--sample-fps", str(config.sample_fps),
+                   "--encode-chunk-size", str(config.encode_chunk_size), "--dtype", config.dtype]
+        if config.max_questions is not None:
+            command += ["--max-questions", str(config.max_questions)]
+        if config.video_max_pixels is not None:
+            command += ["--video-max-pixels", str(config.video_max_pixels)]
+        if config.fixed_frame_size is not None:
+            command += ["--fixed-frame-size", str(config.fixed_frame_size)]
+        if config.dry_run:
+            command.append("--dry-run")
+        return command
     command = [config.python_executable, "-u", "-m", "sparsemm_protokv.run_streamingbench",
                "--method", entry.runtime_method, "--anno-path", str(_path(config.anno_path)),
                "--model-path", str(_path(config.model_path)), "--output-dir", str(_path(output_dir)),
                "--budget", str(entry.fixed_budget or config.budget), "--budget-scope", "visual",
                "--max-videos", str(config.max_videos), "--sample-fps", str(config.sample_fps),
-               "--encode-chunk-size", str(config.encode_chunk_size), "--dtype", config.dtype,
+               "--encode-chunk-size", str(config.encode_chunk_size),
+               "--video-chunk-mode", config.resolved_video_chunk_mode, "--dtype", config.dtype,
                "--small-validation"]
     if config.max_questions is not None:
         command += ["--max-questions", str(config.max_questions)]
+    if config.video_max_pixels is not None:
+        command += ["--video-max-pixels", str(config.video_max_pixels)]
+    if config.fixed_frame_size is not None:
+        command += ["--fixed-frame-size", str(config.fixed_frame_size)]
     if method == "lukv":
         command += ["--lukv-profile-path", str(_path(config.lukv_profile_path))]
-    if method == "sparsemm":
+    if method in ("sparsemm", "dp", "dp_dual"):
         command += ["--sparsemm-score-path", str(_path(config.sparsemm_score_path))]
+        selected_budget = (config.dp_budget_path if method == "dp" else
+                           config.dp_dual_budget_path if method == "dp_dual" else config.sparsemm_budget_path)
+        if selected_budget is not None:
+            command += ["--sparsemm-budget-path", str(_path(selected_budget))]
+        if method == "dp_dual":
+            command += ["--sparsemm-cache-policy", "two_bank",
+                        "--sparsemm-two-bank-gate", "legacy_global"]
     if config.config_json is not None:
         command += ["--config-json", str(_path(config.config_json))]
     if config.dry_run:
@@ -232,6 +308,49 @@ def _audit_one(out, *, method=None, allow_calibration_transfer=False,
     return report
 
 
+def _compare_visual_inputs(collection, names, budget, *, fixed_frame_size=None):
+    """Check that HERMES-chunk arms saw identical resized Qwen video grids."""
+    fields = ("raw_frames", "source_hw", "resized_hw", "grid_thw", "visual_tokens")
+    if fixed_frame_size is not None:
+        fields += ("prepared_rgb_sha256",)
+    reference = None
+    methods = {}
+    for name in names:
+        entry = METHODS[name]
+        suffix = "native" if name == "hermes" else "visual"
+        directory = collection / f"{name}_k{entry.fixed_budget or budget}_{suffix}"
+        trace = directory / ("hermes_trace.jsonl" if name == "hermes" else "cache_trace.jsonl")
+        expected_event = "video_input" if name == "hermes" else "video_prefill"
+        records = []
+        for line in trace.read_text().splitlines():
+            event = json.loads(line)
+            if event.get("event") != expected_event:
+                continue
+            visual = event if name == "hermes" else event.get("visual_input")
+            if not isinstance(visual, dict) or any(field not in visual for field in fields):
+                raise RuntimeError(f"{name} did not record complete Qwen visual input metadata")
+            records.append((str(event["video_id"]), *(visual[field] for field in fields)))
+        if not records:
+            raise RuntimeError(f"{name} did not encode any comparable Qwen video chunks")
+        methods[name] = len(records)
+        if reference is None:
+            reference = records
+        elif records != reference:
+            _write_json(collection / "visual_input_comparison.json",
+                        {"passed": False, "reference": names[0], "mismatch": name,
+                         "chunks_per_method": methods, "compared_fields": fields})
+            raise RuntimeError(f"{name} video grids/tokens differ from {names[0]}; no strict input comparison")
+    report = {"passed": True, "methods": list(names), "chunks_per_method": methods,
+              "compared_fields": fields,
+              "limit": ("Prepared RGB, grid and token counts match; feature values and decoder positions are not compared"
+                        if fixed_frame_size is not None else
+                        "Grid and token counts match; feature tensor values and decoder positions are not compared")}
+    if fixed_frame_size is not None:
+        report["fixed_frame_size"] = fixed_frame_size
+    _write_json(collection / "visual_input_comparison.json", report)
+    return report
+
+
 def run(config=None, **kwargs):
     """Run selected methods serially, then audit each completed inference.
 
@@ -249,7 +368,25 @@ def run(config=None, **kwargs):
         raise FileExistsError(f"Output directory already exists; choose a new output directory: {out}")
     selection = _check_annotation_bounds(config)
     _check_lu_transfer_opt_in(config)
-    paths.ensure_resources()
+    # HERMES's implementation, bounded MCQA adapter and audit now live in this
+    # package. Its model/annotation paths are explicit; no external source link
+    # is needed for a HERMES-only run.
+    if any(name != "hermes" for name in names):
+        paths.ensure_resources()
+    if "dp" in names and not _path(config.dp_budget_path).is_file():
+        raise FileNotFoundError(f"DP budget CSV is missing: {_path(config.dp_budget_path)}")
+    if "dp_dual" in names and not _path(config.dp_dual_budget_path).is_file():
+        raise FileNotFoundError(f"DP dual-bank budget CSV is missing: {_path(config.dp_dual_budget_path)}")
+    if any(name in names for name in ("sparsemm", "dp", "dp_dual")):
+        from sparsemm_protokv.model_loader import model_type
+        if model_type(_path(config.model_path)) == "llava_onevision":
+            from sparsemm_native.assets import asset_metadata
+            if _path(config.sparsemm_score_path) == paths.default_sparsemm_score_path():
+                raise ValueError("LLaVA-OneVision SparseMM needs model-bound scores; the bundled Qwen2.5-VL scores cannot be transferred. No methods were started.")
+            metadata = asset_metadata(config.sparsemm_score_path)
+            if (metadata.get("asset_type") != "synthetic_test_scores"
+                    or _path(metadata["model_path"]) != _path(config.model_path)):
+                raise ValueError("LLaVA SparseMM currently accepts only model-bound synthetic smoke scores; no methods were started")
     out.mkdir(parents=True, exist_ok=False)
     manifest = {"type": "kvbench_collection", "methods": list(names), "selection": selection,
                 "created_utc": datetime.now(timezone.utc).isoformat(), "status": "running",
@@ -265,7 +402,8 @@ def run(config=None, **kwargs):
             if _interface_hashes() != manifest["interface_sha256"]:
                 raise RuntimeError("Unified interface source changed during this evaluation; use a fresh run")
             entry = METHODS[name]
-            target = out / f"{name}_k{entry.fixed_budget or config.budget}_visual"
+            suffix = "native" if name == "hermes" else "visual"
+            target = out / f"{name}_k{entry.fixed_budget or config.budget}_{suffix}"
             target.mkdir()
             command = build_command(config, name, target)
             _write_json(target / "kvbench_method.json", {"requested_method": name, "runtime_method": entry.runtime_method,
@@ -278,6 +416,9 @@ def run(config=None, **kwargs):
                 _audit_one(target, method=name, allow_calibration_transfer=config.allow_calibration_transfer,
                            min_compression_events_per_video=config.min_compression_events_per_video,
                            python_executable=config.python_executable)
+        if (not config.dry_run and len(names) > 1
+                and (config.resolved_video_chunk_mode == "hermes_chunk" or config.fixed_frame_size is not None)):
+            _compare_visual_inputs(out, names, config.budget, fixed_frame_size=config.fixed_frame_size)
         if _interface_hashes() != manifest["interface_sha256"]:
             raise RuntimeError("Unified interface source changed during this evaluation; use a fresh run")
         manifest["status"] = "dry-run" if config.dry_run else "complete"
@@ -342,9 +483,14 @@ def summarize(output_dir, *, write=True):
                   "peak_gpu_allocated_gib": native.get("peak_gpu_allocated_gib"),
                   "compression_events": report.get("trace", {}).get("compression_events"),
                   "qa_restore_checks": report.get("trace", {}).get("qa_restore_checks")}
+        if protocol.get("fixed_frame_size") is not None:
+            record["fixed_frame_size"] = protocol["fixed_frame_size"]
+            record["fixed_visual_input"] = protocol.get("fixed_visual_input")
+        if protocol.get("sparsemm_asset_metadata", {}).get("asset_type") == "synthetic_test_scores":
+            record["calibration_status"] = "synthetic_smoke_only"
         if report.get("error"):
             record["audit_error"] = report["error"]
-        if record["method"] == "full" and record["compression_events"] != 0:
+        if record["method"] == "full" and status == "complete" and record["compression_events"] != 0:
             record["audit_passed"] = False
             record["audit_error"] = "Full KV control requires an audited compression_events count of zero; the recorded count is missing or nonzero"
         lmms_path = native.get("lmms_results_path")
@@ -370,6 +516,16 @@ def summarize(output_dir, *, write=True):
               "limitations": ["Bounded integration validation; not official full benchmark reproduction.",
                               "Small sample accuracy does not establish a method ranking.",
                               "The full method is a large-budget control and must show zero compression events."]}
+    if any(record.get("calibration_status") == "synthetic_smoke_only" for record in records):
+        result["limitations"].append("SparseMM used synthetic constant scores for interface testing; no OCR calibration or paper-method result is claimed.")
+    if any(record["method"] == "dp" for record in records):
+        result["limitations"].append("DP here injects capacity_n into SparseMM attention selection; the DP recent/history bank split is not used online.")
+    if any(record["method"] == "dp_dual" for record in records):
+        result["limitations"].append("DP dual-bank uses recent_r/history_q online; its bounded auditor checks recorded quotas and cache lengths but cannot replay QK rankings.")
+    if any(record["method"] == "hermes" for record in records):
+        result["limitations"].append("HERMES uses a per-layer shared visual-position target; DP uses per-KV-head visual capacities. Match actual KV occupancy before treating budgets as equal.")
+    if len({(record["budget"], record["budget_scope"]) for record in records}) > 1:
+        result["limitations"].append("This collection mixes budget values or scopes; compare measured visual KV occupancy before interpreting accuracy differences.")
     if manifest.get("error"):
         result["error"] = manifest["error"]
     if write:
