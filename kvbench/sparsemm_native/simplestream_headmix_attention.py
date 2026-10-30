@@ -11,9 +11,8 @@ import hashlib
 from pathlib import Path
 
 
-SOURCE_TABLE = Path(__file__).resolve().parents[2] / (
-    'hermes/results/myobservations/two_bank_grid_dp_k500_floor375_recent32_20261020/'
-    'per_head_allocation_fixed_capacity.csv')
+SOURCE_TABLE = (Path(__file__).resolve().parents[1] /
+                'assets/dp/per_head_allocation_dual_k500.csv')
 SOURCE_SHA256 = hashlib.sha256(SOURCE_TABLE.read_bytes()).hexdigest()
 
 

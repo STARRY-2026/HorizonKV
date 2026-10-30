@@ -22,13 +22,15 @@ import subprocess
 import sys
 import time
 
-ROOT = Path('/home/yujun/program/kvbench')
-UPSTREAM = ROOT.parent / 'SimpleStream'
-ENV_PYTHON = ROOT / 'runtime_envs/simplestream-qwen25/bin/python'
-BASE_PYTHON = Path('/home/yujun/.conda/envs/hermes-qwen/bin/python')
-DATA = ROOT / 'data/ovobench_upstream_chunks_20261021'
-ANNOTATION = ROOT.parent / 'hermes/data/ovobench/official_20261014/annotations/ovo_bench_new.json'
-MODEL = ROOT.parent / 'hermes/models/Qwen2.5-VL-7B-Instruct'
+ROOT = Path(__file__).resolve().parents[1]
+UPSTREAM = Path(os.environ.get('KV_BENCH_SIMPLESTREAM_ROOT', ROOT.parent / 'SimpleStream')).expanduser().resolve()
+ENV_PYTHON = Path(os.environ.get('KV_BENCH_SIMPLESTREAM_PYTHON', ROOT / 'runtime_envs/simplestream-qwen25/bin/python')).expanduser()
+BASE_PYTHON = Path(os.environ.get('KV_BENCH_BASE_PYTHON', sys.executable)).expanduser()
+DATA = Path(os.environ.get('KV_BENCH_OVO_CHUNKS_ROOT', ROOT / 'data/ovobench_upstream_chunks_20261021')).expanduser().resolve()
+HERMES_RESOURCES = Path(os.environ.get('KV_BENCH_HERMES_RESOURCE_ROOT', ROOT.parent / 'hermes')).expanduser().resolve()
+ANNOTATION = Path(os.environ.get('KV_BENCH_OVO_ANNOTATION', HERMES_RESOURCES / 'data/ovobench/official_20261014/annotations/ovo_bench_new.json')).expanduser().resolve()
+SOURCE_VIDEOS = Path(os.environ.get('KV_BENCH_OVO_SOURCE_VIDEOS', HERMES_RESOURCES / 'data/ovobench/official_20261014/src_videos')).expanduser().resolve()
+MODEL = Path(os.environ.get('KV_BENCH_MODEL_PATH', HERMES_RESOURCES / 'models/Qwen2.5-VL-7B-Instruct')).expanduser().resolve()
 DEFAULT_OUTPUT = ROOT / 'results/ovobench_simplestream_upstream_recent4_fps1_20261021'
 COMMIT = 'be227ee8ce90a258b286a34161688c2a59eeeadb'
 UPSTREAM_FILES = ('main_experiments/eval_qwen25vl_ovo.py', 'lib/recent_window_eval.py',

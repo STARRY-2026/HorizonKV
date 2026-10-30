@@ -11,9 +11,8 @@ from pathlib import Path
 from sparsemm_native import simplestream_headmix_attention as base
 
 
-SOURCE_TABLE = Path(__file__).resolve().parents[2] / (
-    'hermes/results/myobservations/lukv_samecalib_two_bank_k1000_20261022/'
-    'per_head_allocations.csv')
+SOURCE_TABLE = (Path(__file__).resolve().parents[1] /
+                'assets/recent1or4/per_head_allocations.csv')
 SOURCE_SHA256 = hashlib.sha256(SOURCE_TABLE.read_bytes()).hexdigest()
 
 

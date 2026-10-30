@@ -13,6 +13,7 @@
 | `sparsemm_baselines/` | AdaKV/PyramidKV；其中 `upstream` 作为 Git 子模块 |
 | `sparsemm_protokv/` | Qwen2.5-VL 原生插件、缓存、任务和控制器，排除 `runtime_deps` 和结果 |
 | `sparsemm_lukv/`、`sparsemm_native/`、`sparsemm_uniform/`、`protokv/` | 方法实现及包内校准 profile |
+| `sparsemm_native/DSCACHE_HISTORY64.md` 及对应源码 | 旧紧凑历史 K500 入口、内置 ragged-cache 辅助模块、位置处理与 CPU 测试 |
 | `assets/` | SparseMM 分数、raw scores、冻结 manifest/protocol，以及 OVO 新方法的分头配额表 |
 | `configs/` | 当前小规模 MCQA 标注；其中的视频路径是本机路径 |
 | `requirements/`、`tests/`、`tools/` | 依赖记录、CPU 测试、迁移回归核对工具 |
@@ -21,6 +22,8 @@
 | `.gitignore`、本文件和 `GITHUB_UPLOAD_FILES.txt` | 忽略规则和逐文件上传清单 |
 
 `GITHUB_UPLOAD_FILES.txt` 列出相对 `kvbench/` 的上传文件，包括本次更新和上次发布后保留的近期四帧 DP 版本。子模块只记录路径和固定提交，不将整个上游仓库重新存进主仓库。子模块声明放在 HorizonKV 仓库**根目录**的 `.gitmodules`。
+
+旧紧凑历史 K500 另依赖外部 SimpleStream 固定提交 `be227ee8ce90a258b286a34161688c2a59eeeadb`，以及显式提供的同题近期基线 `queries.jsonl`；配置方式见 `sparsemm_native/DSCACHE_HISTORY64.md`。它不需要上传完整 `results/`。
 
 ## 已忽略的本机文件
 

@@ -23,8 +23,7 @@ from sparsemm_native.simplestream_recent_share_attention import (
 )
 
 
-HERMES_ROOT = Path(__file__).resolve().parents[2] / 'hermes'
-RAGGED_SOURCE = HERMES_ROOT / 'head_analysis/hermes_kv_head_ragged.py'
+RAGGED_SOURCE = Path(__file__).with_name('hermes_kv_head_ragged.py')
 RAGGED_SHA256 = hashlib.sha256(RAGGED_SOURCE.read_bytes()).hexdigest()
 _question = contextvars.ContextVar('physical_recent_share_question', default=None)
 VISUAL_BUDGET = 500
@@ -95,9 +94,7 @@ def single_frame_position_indices(visual_end, visual_start, last_frame_start):
 
 
 def _ragged_helpers():
-    if str(HERMES_ROOT) not in sys.path:
-        sys.path.insert(0, str(HERMES_ROOT))
-    from head_analysis.hermes_kv_head_ragged import (
+    from sparsemm_native.hermes_kv_head_ragged import (
         HeadRaggedLayerCache, HeadRaggedCache, _ragged_language_decode_step,
     )
     return HeadRaggedLayerCache, HeadRaggedCache, _ragged_language_decode_step

@@ -8,6 +8,8 @@ GitHub 版本位于 `HorizonKV/kvbench/`。克隆时使用 `git clone --recurse-
 
 ## 使用
 
+旧紧凑历史 K500 的 SimpleStream 实验使用独立入口 `run_simplestream_dscache_history64.py --arm pae_history_k500`；运行环境、固定上游提交、外置基线输入和预检命令见 [专项说明](sparsemm_native/DSCACHE_HISTORY64.md)。
+
 在项目目录执行，下列 `PY` 使用已经验证的 Python 环境：
 
 ```bash

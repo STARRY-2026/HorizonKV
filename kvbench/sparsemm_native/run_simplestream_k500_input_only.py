@@ -28,8 +28,8 @@ ROOT = Path(__file__).resolve().parents[1]
 BUDGET = 500
 MAX_NEW = 256
 REQUIRED_VERSIONS = {'transformers': '4.52.4', 'accelerate': '1.8.1', 'qwen-vl-utils': '0.0.14'}
-HEAD_TABLE = ROOT.parent / 'hermes/results/myobservations/lukv_samecalib_two_bank_k1000_20261022/per_head_allocations.csv'
-RAGGED = ROOT.parent / 'hermes/head_analysis/hermes_kv_head_ragged.py'
+HEAD_TABLE = ROOT / 'assets/recent1or4/per_head_allocations.csv'
+RAGGED = ROOT / 'sparsemm_native/hermes_kv_head_ragged.py'
 LOCAL_SOURCES = (
     'sparsemm_native/run_simplestream_k500_input_only.py',
     'sparsemm_native/simplestream_recent_share_pseudo_budget500.py',
@@ -75,7 +75,8 @@ def read_rows(path, *, recover=False):
 
 def validate_manifest(path):
     manifest = json.loads(path.read_text())
-    expected = {q['query_id']: q for q in official.queries()}
+    expected = {q['query_id']: q for q in official.queries(
+        annotation_path=base.ANNOTATION, video_root=base.SOURCE_VIDEOS)}
     if (not isinstance(manifest, list) or not manifest
             or len({q['query_id'] for q in manifest}) != len(manifest)
             or any(q != expected.get(q['query_id']) for q in manifest)

@@ -1,6 +1,6 @@
 # HorizonKV/kvbench 发布文件清单；路径相对 kvbench/。
-# 保留上一版近期四帧 DP 文件，并纳入当前 HERMES、DP、Qwen3 及固定输入实验代码。
-# 上游子模块由 HorizonKV 根目录的 .gitmodules 声明。
+# 包含旧紧凑历史 K500 的源码、仓库内冻结表，以及此前发布的方法。
+# 上游 SparseMM 子模块由根目录 .gitmodules 声明；SimpleStream 固定提交见 sparsemm_native/DSCACHE_HISTORY64.md。
 
 GITHUB_UPLOAD_FILES.txt
 .gitignore
@@ -82,6 +82,7 @@ sparsemm_lukv/qwen3_observer.py
 sparsemm_lukv/run_calibration.py
 sparsemm_lukv/run_streamingbench.py
 sparsemm_lukv/streaming.py
+sparsemm_native/DSCACHE_HISTORY64.md
 sparsemm_native/README.md
 sparsemm_native/RECENT4_DP.md
 sparsemm_native/TWO_BANK.md
@@ -104,6 +105,8 @@ sparsemm_native/diagnose_recent1or4_native_input.py
 sparsemm_native/diagnose_recent_tail_epm.py
 sparsemm_native/download_ovobench_chunks.py
 sparsemm_native/download_ovobench_chunks_resumable.py
+sparsemm_native/dscache_pae_history.py
+sparsemm_native/dscache_position_agnostic.py
 sparsemm_native/epm_position_probe.py
 sparsemm_native/finalize_simplestream_last32_budget500.py
 sparsemm_native/finalize_simplestream_pseudo_budget500.py
@@ -112,6 +115,7 @@ sparsemm_native/finalize_simplestream_pseudo_uneven350_650.py
 sparsemm_native/finalize_simplestream_pseudo_uneven500.py
 sparsemm_native/fixed_visual_tokens.py
 sparsemm_native/gpu_slots.py
+sparsemm_native/hermes_kv_head_ragged.py
 sparsemm_native/mild_pseudo_history_fps05.py
 sparsemm_native/monitor_simplestream_budget500.py
 sparsemm_native/monitor_simplestream_last32_budget500.py
@@ -147,6 +151,7 @@ sparsemm_native/run_ovobench_sparsemm_fps1.py
 sparsemm_native/run_ovobench_window_only.py
 sparsemm_native/run_recent_tail27.py
 sparsemm_native/run_recent_tail_only.py
+sparsemm_native/run_simplestream_dscache_history64.py
 sparsemm_native/run_simplestream_k500_fixed896.py
 sparsemm_native/run_simplestream_k500_input_only.py
 sparsemm_native/run_simplestream_recent_budget500.py
@@ -159,6 +164,7 @@ sparsemm_native/run_simplestream_recent_pseudo_uneven500.py
 sparsemm_native/run_streamingbench.py
 sparsemm_native/schedule_ovobench_full.py
 sparsemm_native/serve_ovobench_download_progress.py
+sparsemm_native/simplestream_dscache_history64.py
 sparsemm_native/simplestream_headmix_attention.py
 sparsemm_native/simplestream_recent_share_attention.py
 sparsemm_native/simplestream_recent_share_budget500.py
@@ -240,6 +246,7 @@ sparsemm_uniform/run_streamingbench.py
 tests/test_aligned_pseudo_pair.py
 tests/test_cli.py
 tests/test_default_video_processor_pair.py
+tests/test_dscache_position_agnostic.py
 tests/test_epm_position_probe.py
 tests/test_fixed_inputs.py
 tests/test_fixed_native_input.py
@@ -261,6 +268,7 @@ tests/test_qwen3_calibration.py
 tests/test_qwen3_hermes.py
 tests/test_qwen3_window4.py
 tests/test_recent_tail.py
+tests/test_simplestream_dscache_history64.py
 tests/test_simplestream_fixed896_report.py
 tests/test_simplestream_recent_share_ragged.py
 tests/test_simplestream_upstream_protocol.py
