@@ -17,7 +17,7 @@
 | `assets/` | SparseMM 分数、raw scores、冻结 manifest/protocol，以及 OVO 新方法的分头配额表；含固定 K500 近期/历史容量曲线和对应 112 头预算 |
 | `configs/` | 当前小规模 MCQA 标注；其中的视频路径是本机路径 |
 | `requirements/`、`tests/`、`tools/` | 依赖记录、CPU 测试、迁移回归核对工具 |
-| `README.md`、`VALIDATION.md`、`MIGRATION_MANIFEST.json` | 使用说明、验证记录、迁移来源 |
+| `README.md`、`HORIZONKV_EGATE.md`、`VALIDATION.md`、`MIGRATION_MANIFEST.json` | 使用说明、HorizonKV-EGate 方法说明、验证记录、迁移来源 |
 | `validation_examples/` | 五种方法在 3 视频/3 题上的精简真实推理结果与审计摘要 |
 | `.gitignore`、本文件和 `GITHUB_UPLOAD_FILES.txt` | 忽略规则和逐文件上传清单 |
 

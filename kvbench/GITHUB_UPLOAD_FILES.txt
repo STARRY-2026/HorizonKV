@@ -1,10 +1,11 @@
 # HorizonKV/kvbench 发布文件清单；路径相对 kvbench/。
-# 包含紧凑历史 K500、容量曲线逐头预算、在线门控与视觉缓存源码。
+# 包含 HorizonKV-EGate 方法说明、紧凑历史 K500、容量曲线逐头预算、在线门控与视觉缓存源码。
 # 上游 SparseMM 子模块由根目录 .gitmodules 声明；SimpleStream 固定提交见 sparsemm_native/DSCACHE_HISTORY64.md。
 
 GITHUB_UPLOAD_FILES.txt
 .gitignore
 GITHUB_UPLOAD.md
+HORIZONKV_EGATE.md
 MIGRATION_MANIFEST.json
 README.md
 VALIDATION.md
