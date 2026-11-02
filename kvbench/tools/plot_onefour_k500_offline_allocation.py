@@ -26,8 +26,9 @@ def sha256(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--curves', type=Path, required=True,
-                        help='External frozen bank_curves.npz')
+    parser.add_argument('--curves', type=Path,
+                        default=ROOT / 'assets/onefour_k500_offline/bank_curves.npz',
+                        help='Frozen bank_curves.npz (defaults to the published K500 curves)')
     parser.add_argument('--groups', type=Path, default=GROUPS)
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
@@ -74,7 +75,7 @@ def main():
         ))
     csv_path = output / "per_head_allocation.csv"
     with csv_path.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=rows[0].keys())
+        writer = csv.DictWriter(handle, fieldnames=rows[0].keys(), lineterminator='\n')
         writer.writeheader()
         writer.writerows(rows)
 

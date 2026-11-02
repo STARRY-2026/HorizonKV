@@ -1,5 +1,5 @@
 # HorizonKV/kvbench 发布文件清单；路径相对 kvbench/。
-# 包含紧凑历史 K500、在线门控、逐头配额与视觉缓存的源码。
+# 包含紧凑历史 K500、容量曲线逐头预算、在线门控与视觉缓存源码。
 # 上游 SparseMM 子模块由根目录 .gitmodules 声明；SimpleStream 固定提交见 sparsemm_native/DSCACHE_HISTORY64.md。
 
 GITHUB_UPLOAD_FILES.txt
@@ -13,6 +13,10 @@ assets/dp/per_head_allocation_dual_k500.csv
 assets/dp/per_head_allocation_k500.csv
 assets/dp_recent4/history_weights_fixed_capacity.csv
 assets/dp_recent4/legacy_capacity_reference.csv
+assets/onefour_k500_offline/README.md
+assets/onefour_k500_offline/bank_curves.npz
+assets/onefour_k500_offline/per_head_allocation.csv
+assets/onefour_k500_offline/summary.json
 assets/recent1or4/README.md
 assets/recent1or4/per_head_allocations.csv
 assets/sparsemm/head_scores.csv

@@ -1,0 +1,35 @@
+{
+  "protocol": "offline full-cache projected-answer utility; not QA accuracy",
+  "choice": "argmax R_h(r) + H_h(500-r), 32 <= r <= 500, each head independently",
+  "history_ranking": "saved HERMES-scored candidates",
+  "one_four_split": "lowest 56 K1000 recent-share heads use one-frame prefill",
+  "curve_sha256": "9c848a4812a8e8d6c7ddaa75cc3c87b1c5cd6ede8fa28d5072e6ef1daee76636",
+  "group_table_sha256": "acd6ab409a6b83dfa42535a4298e714565c1d7ecba401b9c2033d5da7bbb6fdf",
+  "heads": 112,
+  "per_head_total": 500,
+  "total_tokens": 56000,
+  "recent_tokens": 27364,
+  "history_tokens": 28636,
+  "mean_recent_per_head": 244.32142857142858,
+  "mean_history_per_head": 255.67857142857142,
+  "offline_proxy_utility": 0.2220372245820814,
+  "all_recent_500_proxy_utility": 0.1323003784170471,
+  "heads_at_recent_floor": 22,
+  "heads_recent_at_most_128": 32,
+  "group_summary": {
+    "one_frame": {
+      "count": 56,
+      "recent_tokens": 11299,
+      "history_tokens": 16701,
+      "mean_recent": 201.76785714285714,
+      "mean_history": 298.23214285714283
+    },
+    "four_frames": {
+      "count": 56,
+      "recent_tokens": 16065,
+      "history_tokens": 11935,
+      "mean_recent": 286.875,
+      "mean_history": 213.125
+    }
+  }
+}

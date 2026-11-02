@@ -42,8 +42,8 @@ python -m pytest -q tests/test_simplestream_dscache_history64.py tests/test_dsca
 
 同一入口还保留 `pae_compact_control`、`pae_online_margin_k500`、`pae_online_e_gate_k500` 和 `pae_online_e_recent_only_k500` 等对照。在线门控的回答流程与旧 `pae_history_k500` 不同；请分别使用新的输出目录，并以生成的 `protocol.json` 确认实际策略。`--capture-choice-probs` 可额外记录首 token 的选项概率，用于诊断。
 
-可选 `--allocation-csv /path/to/per_head_allocation.csv` 提供逐头近期/历史配额。文件须按层、KV 头顺序列出 112 行，包含 `layer,kv_head,recent_tokens,history_tokens`；每头近期为 32–500、历史为 0–468，二者之和必须为 500。校准表是实验输入，需自行提供；入口会把其哈希和源码快照写入运行目录。若只需检查配置，先加 `--prepare-only`。
+可选 `--allocation-csv assets/onefour_k500_offline/per_head_allocation.csv` 使用容量曲线算出的冻结逐头近期/历史配额。文件须按层、KV 头顺序列出 112 行，包含 `layer,kv_head,recent_tokens,history_tokens`；每头近期为 32–500、历史为 0–468，二者之和必须为 500。该表和数值曲线均已收录于 `assets/onefour_k500_offline/`；也可传入自己的配额表。入口会把实际输入的哈希和源码快照写入运行目录。若只需检查配置，先加 `--prepare-only`。
 
 `--vision-cache-dir /path/to/cache` 可启用固定 896 视觉 embedding 的原子磁盘缓存；缓存键包括模型、编码器源码和实际 RGB 帧。`run_simplestream_dscache_history64_cached` 是要求指定该参数的兼容入口。另可设置 `KV_BENCH_PERSISTENT_VISION_CACHE=/path/to/cache` 启用 safetensors 格式的逐帧持久缓存；两种缓存不能同时启用。持久缓存默认要求写入后仍有至少 1 TiB 可用磁盘空间。`backfill_ovobench_vision_cache.py` 用于预填充该缓存，运行前也会核验 SimpleStream 提交。缓存目录、模型权重、视频和完整结果都不上传。
 
-`run_simplestream_k500_fixed896.py --budget-map /path/to/budgets.json` 支持近期逐头容量实验。`tools/validate_onefour_tiered_recent.py` 需要显式 `--baseline-queries`；`tools/plot_onefour_k500_offline_allocation.py` 需要显式 `--curves` 与 `--output-dir`，绘图另需安装 `matplotlib`。这些输入通常由本机校准或近期基线结果产生，仓库不包含完整结果数据。
+`run_simplestream_k500_fixed896.py --budget-map /path/to/budgets.json` 支持近期逐头容量实验。`tools/validate_onefour_tiered_recent.py` 需要显式 `--baseline-queries`；`tools/plot_onefour_k500_offline_allocation.py --output-dir /path/to/rebuilt-allocation` 可从仓库内冻结曲线重新生成同一预算 CSV 和图，绘图需安装 `matplotlib`。近期基线和完整实验结果仍需另行提供。
