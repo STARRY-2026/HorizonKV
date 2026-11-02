@@ -5,6 +5,7 @@ only to the currently active history union and incoming frame.  At answer
 time, the same compact frame order is shared by all layer/head selections.
 """
 
+import hashlib
 import torch
 from flash_attn import flash_attn_func
 from transformers.models.qwen2_5_vl.modeling_qwen2_5_vl import (
@@ -167,7 +168,9 @@ def build_history_bank(model, full_dense, recent_positions, history_units,
 def combine_answer_cache(model, bank, full_dense, one_dense, recent_positions,
                          one_indices, recent_counts, prefix_length, allocation,
                          recent_probes, selector_fn, Layer, *, include_history,
-                         position_limit):
+                         position_limit, reserve_history_for_budget=False,
+                         return_unused_history_to_recent=True,
+                         selection_audit=None):
     """Reapply M-RoPE to selected per-head raw keys on one shared timeline."""
     if len(recent_counts) != 4 or any(count != TOKENS_PER_FRAME for count in recent_counts):
         raise ValueError('Pilot needs four 1024-token recent frames')
@@ -182,6 +185,7 @@ def combine_answer_cache(model, bank, full_dense, one_dense, recent_positions,
     recent_one_positions = recent_positions.index_select(
         2, torch.as_tensor(one_indices, device=recent_positions.device))
     per_head = []
+    recent_selection_digest = hashlib.sha256()
     history_slots = 0
     recent_slots = 0
     for layer_idx, decoder_layer in enumerate(model.language_model.layers):
@@ -205,15 +209,20 @@ def combine_answer_cache(model, bank, full_dense, one_dense, recent_positions,
                 (full_rotated, full_raw, full_value, recent_full_uids))
             history_idx = bank['selected'][layer_idx, head] if bank else torch.empty(
                 0, dtype=torch.long, device=full_rotated.device)
-            historical_count = int(history_idx.numel()) if include_history else 0
+            reserved_history_count = int(history_idx.numel())
+            historical_count = reserved_history_count if include_history else 0
             history_quota = int(row['history_quota'])
-            if historical_count > history_quota:
+            if reserved_history_count > history_quota:
                 raise RuntimeError('Historical selection exceeds per-head quota')
-            recent_budget = int(row['recent_quota']) + history_quota - historical_count
+            budgeted_history_count = (reserved_history_count
+                                      if reserve_history_for_budget else historical_count)
+            recent_budget = (int(row['recent_quota']) + history_quota - budgeted_history_count
+                             if return_unused_history_to_recent else int(row['recent_quota']))
             visual_idx = selector_fn(
                 chosen_rotated[0, head],
                 queries[head * group:(head + 1) * group],
                 pseudo_keys[head], prefix_length, recent_budget)
+            recent_selection_digest.update(visual_idx.to(torch.int32).cpu().numpy().tobytes())
             prefix_idx = torch.arange(prefix_length, device=visual_idx.device)
             recent_idx = torch.cat((prefix_idx, visual_idx))
             raw = chosen_raw[0, head].index_select(0, recent_idx)
@@ -239,6 +248,13 @@ def combine_answer_cache(model, bank, full_dense, one_dense, recent_positions,
     global_frame_order = sorted({uid // TOKENS_PER_FRAME for uid in reserved_uids})
     max_position = max(prefix_length - 1, int(global_positions.max().item()))
     suffix_start = max_position + 1
+    if selection_audit is not None:
+        selection_audit.update(
+            recent_selection_sha256=recent_selection_digest.hexdigest(),
+            frame_order=global_frame_order,
+            suffix_start=suffix_start,
+            recent_slots=recent_slots,
+            history_slots=history_slots)
     if suffix_start + 256 >= position_limit:
         raise RuntimeError('Answer positions reached model limit')
     layers = []

@@ -101,7 +101,7 @@ def _ragged_helpers():
 
 
 def _combine_prefix_caches(full_dense, one_dense, low_heads, Layer, counts,
-                           visual_start, full_probes, one_probes):
+                           visual_start, full_probes, one_probes, head_budgets=None):
     """Copy KV from genuinely separate prefix passes into a per-head cache."""
     layers = []
     for layer_idx, ((full_k, full_v), (one_k, one_v)) in enumerate(zip(full_dense, one_dense)):
@@ -115,9 +115,10 @@ def _combine_prefix_caches(full_dense, one_dense, low_heads, Layer, counts,
             chosen_k, chosen_v = (one_k, one_v) if use_one else (full_k, full_v)
             queries, pseudo_keys = (one_probes if use_one else full_probes)[layer_idx]
             groups = queries.shape[0] // 4
+            budget = VISUAL_BUDGET if head_budgets is None else head_budgets[layer_idx, head]
             visual = _attention_visual_indices(
                 chosen_k[0, head], queries[head*groups:(head+1)*groups],
-                pseudo_keys[head], visual_start, VISUAL_BUDGET)
+                pseudo_keys[head], visual_start, budget)
             selected = torch.cat((torch.arange(visual_start, device=chosen_k.device), visual))
             k_parts.append(chosen_k[0, head].index_select(0, selected))
             v_parts.append(chosen_v[0, head].index_select(0, selected))
@@ -185,7 +186,8 @@ def _prefill_question_suffix(model, embeds, position_ids, ragged):
     return model.language_model.norm(hidden)
 
 
-def install(output, *, validation_keep_all=False):
+def install(output, *, validation_keep_all=False, head_budgets=None,
+            capture_choice_probs=False):
     """Replace only the question decoder; preserve upstream image/prompt work."""
     from lib import recent_window_eval_qwen25 as upstream
     from sparsemm_native.supervise_simplestream_upstream import append
@@ -193,6 +195,15 @@ def install(output, *, validation_keep_all=False):
     original_question = upstream.RecentWindowQAModel.generate_with_cached_vision
     original_generate = upstream.RecentWindowQAModel._generate_from_model_inputs
     low_heads = set() if validation_keep_all else set(HEADS)
+    if head_budgets is None:
+        budgets = {(layer, head): VISUAL_BUDGET for layer in range(28) for head in range(4)}
+    else:
+        budgets = {(int(layer), int(head)): int(value)
+                   for (layer, head), value in head_budgets.items()}
+        if (set(budgets) != {(layer, head) for layer in range(28) for head in range(4)}
+                or any(not PROTECT_WINDOW <= value <= VISUAL_BUDGET
+                       for value in budgets.values())):
+            raise ValueError('Expected 112 head budgets between protect32 and 500')
     Layer, Cache, decode_step = _ragged_helpers()
 
     def question(self, cached_embeds, cached_grid_thw, prompt):
@@ -257,7 +268,7 @@ def install(output, *, validation_keep_all=False):
         one_key_ref = weakref.ref(one_dense[-1][0])
         layers = _combine_prefix_caches(full_dense, one_dense, low_heads, Layer,
                                         layout['counts'], layout['old_start'],
-                                        full_probes, one_probes)
+                                        full_probes, one_probes, budgets)
         ragged = Cache(layers)
         del full_dense, one_dense
         if full_key_ref() is not None or one_key_ref() is not None:
@@ -266,10 +277,13 @@ def install(output, *, validation_keep_all=False):
             model, kwargs['inputs_embeds'][:, visual_end:],
             kwargs['position_ids'][:, :, visual_end:], ragged)
         logits = model.lm_head(hidden)[0, -1]
-        expected_low = layout['old_start'] + min(layout['counts'][-1], VISUAL_BUDGET) + (prompt_length - visual_end)
-        expected_high = layout['old_start'] + min(sum(layout['counts']), VISUAL_BUDGET) + (prompt_length - visual_end)
         lens = [layer.head_lens.tolist() for layer in ragged.layers]
-        if any(length != (expected_low if (layer_idx, head) in low_heads else expected_high)
+        expected = {(layer_idx, head): layout['old_start']
+                    + min(layout['counts'][-1] if (layer_idx, head) in low_heads
+                          else sum(layout['counts']), budgets[layer_idx, head])
+                    + (prompt_length - visual_end)
+                    for layer_idx in range(28) for head in range(4)}
+        if any(length != expected[layer_idx, head]
                for layer_idx, row in enumerate(lens) for head, length in enumerate(row)):
             raise RuntimeError('Physical head K/V lengths differ from requested windows')
         physical_slots = sum(sum(row) for row in lens)
@@ -283,9 +297,18 @@ def install(output, *, validation_keep_all=False):
         eos = config.eos_token_id
         stop_ids = set(eos if isinstance(eos, list) else [eos])
         generated = []
+        choice_probabilities = None
+        choice_margin = None
+        choice_prediction = None
         position = int(kwargs['position_ids'].max().item()) + 1
         for step in range(self.max_new_tokens):
             current = _apply_repetition_penalty(logits, layout['ids'] + generated, penalty)
+            if step == 0 and capture_choice_probs:
+                from sparsemm_native.simplestream_dscache_history64 import _four_choice_probabilities
+                choice_probabilities = _four_choice_probabilities(current, self.processor.tokenizer)
+                ranked = sorted(choice_probabilities.values(), reverse=True)
+                choice_margin = ranked[0] - ranked[1]
+                choice_prediction = max(choice_probabilities, key=choice_probabilities.get)
             next_token = int(current.argmax().item())
             if step == 0:
                 self._last_ttft_seconds = time.perf_counter() - started
@@ -305,14 +328,22 @@ def install(output, *, validation_keep_all=False):
             dense_visual_kv_released=True,
             independent_single_frame_prefill=independent_pass,
             one_frame_visual_tokens=layout['counts'][-1],
-            visual_budget_per_head=VISUAL_BUDGET,
+            visual_budget_per_head=VISUAL_BUDGET if head_budgets is None else None,
+            per_head_visual_budgets=[[budgets[layer, head] for head in range(4)]
+                                     for layer in range(28)],
             selector='fixed_mixed_pseudo_qk_fp32_gqa_mean_avgpool5_topk_protect32',
             actual_visual_slots=sum(sum(row) for row in lens) - 112 * (prompt_length - sum(layout['counts'])),
             low_head_count=len(low_heads), dense_kv_slots=dense_slots,
             physical_kv_slots_at_answer_start=physical_slots,
             physical_kv_bytes_at_answer_start=physical_bytes,
-            low_head_tokens=expected_low, high_head_tokens=expected_high,
-            generated_tokens=len(generated)))
+            low_head_tokens=(layout['old_start'] + min(layout['counts'][-1], VISUAL_BUDGET)
+                             + (prompt_length - visual_end)) if head_budgets is None else None,
+            high_head_tokens=(layout['old_start'] + min(sum(layout['counts']), VISUAL_BUDGET)
+                              + (prompt_length - visual_end)) if head_budgets is None else None,
+            generated_tokens=len(generated),
+            choice_probabilities=choice_probabilities,
+            choice_margin=choice_margin,
+            choice_prediction=choice_prediction))
         return self.processor.batch_decode([generated], skip_special_tokens=True,
                     clean_up_tokenization_spaces=False)[0].strip()
 

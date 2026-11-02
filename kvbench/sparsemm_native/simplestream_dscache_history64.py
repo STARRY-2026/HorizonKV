@@ -9,6 +9,8 @@ question decoder.  The two arms differ only in the recent/history quotas.
 import collections
 import contextvars
 import hashlib
+import os
+import re
 import sys
 import time
 import weakref
@@ -28,7 +30,9 @@ FPS = .5
 HISTORY_QUOTA = 64
 ARMS = ('recent_control', 'pae_recent_control', 'diagnostic_k532',
         'strict_k500', 'strict_k500_stable', 'pae_compact_control',
-        'pae_history_k500', 'pae_history_k532_diagnostic')
+        'pae_history_k500', 'pae_history_k532_diagnostic',
+        'pae_online_margin_k500', 'pae_online_e_gate_k500',
+        'pae_online_e_recent_only_k500')
 
 
 def allocation(arm):
@@ -41,7 +45,9 @@ def allocation(arm):
             history = HISTORY_QUOTA if one and arm not in (
                 'recent_control', 'pae_recent_control', 'pae_compact_control') else 0
             recent = (500 - history if arm in (
-                'strict_k500', 'strict_k500_stable', 'pae_history_k500') else 500)
+                'strict_k500', 'strict_k500_stable', 'pae_history_k500',
+                'pae_online_margin_k500', 'pae_online_e_gate_k500',
+                'pae_online_e_recent_only_k500') else 500)
             result[layer, head] = dict(recent_group='one_frame' if one else 'four_frames',
                                        recent_quota=recent, history_quota=history,
                                        total_quota=recent + history)
@@ -54,6 +60,7 @@ ACTIVE_ALLOCATION = allocation('strict_k500')
 ACTIVE_ARM = 'strict_k500'
 CONFIGURED_SLOTS = 56000
 ALLOCATION_SHA256 = hashlib.sha256(repr(sorted(ACTIVE_ALLOCATION.items())).encode()).hexdigest()
+CAPTURE_CHOICE_PROBS = False
 PROTECT_WINDOW = 32
 POOL_KERNEL = 5
 PSEUDO_QUERY = (
@@ -256,6 +263,40 @@ def _prompt_ids(qa, visual_tokens, question):
             + [qa._im_start_id] + tokenizer.encode('assistant\n', add_special_tokens=False))
 
 
+def _has_original_e_option(prompt):
+    return re.search(r'(?<!\w)E\.\s', prompt) is not None
+
+
+def _recent_evidence_prompt(prompt):
+    """Append an abstention choice after the original answer choices."""
+    style = os.environ.get('KV_BENCH_E_GATE_PROMPT_STYLE', 'explicit')
+    if style not in ('explicit', 'neutral'):
+        raise ValueError(f'Unknown E-gate prompt style: {style}')
+    abstention = 'F' if _has_original_e_option(prompt) else 'E'
+    option = (f'{abstention}. Insufficient visual evidence in the shown recent frames to choose an original answer;'
+              if style == 'explicit' else
+              f'{abstention}. The shown video frames do not contain enough evidence to answer.')
+    instruction = (f' If the needed event is not visible in the shown frames, choose {abstention} instead of guessing.'
+                   if style == 'explicit' else '')
+    short_marker = "\nOnly give the best option's letter directly."
+    if prompt.count(short_marker) == 1 and 'Options: ' in prompt:
+        return prompt.replace(
+            short_marker,
+            ' ' + option + short_marker + instruction,
+            1)
+    marker = '\n\nRespond only with the letter corresponding to your chosen option'
+    if prompt.count(marker) != 1 or '\nOptions:\n' not in prompt:
+        raise ValueError('The recent abstention gate requires an OVO multiple-choice prompt')
+    with_e = prompt.replace(marker,
+        '\n' + option
+        + marker, 1)
+    return with_e.replace('(e.g., A, B, C).',
+                          f'(A, B, C, D, {"E, " if abstention == "F" else ""}or {abstention}).', 1).replace(
+        'Do not include any additional text or explanation in your response.',
+        instruction.strip() + (' ' if instruction else '')
+        + 'Do not include any additional text or explanation in your response.', 1)
+
+
 def _apply_repetition_penalty(logits, ids, factor):
     if factor == 1.0:
         return logits
@@ -265,16 +306,42 @@ def _apply_repetition_penalty(logits, ids, factor):
     return logits.scatter(0, indices, selected)
 
 
-def _mcq_first_token_map(tokenizer):
+def _mcq_first_token_map(tokenizer, letters='ABCD'):
     choices = {}
-    for letter in 'ABCD':
+    for letter in letters:
         for spelling in (letter, f' {letter}'):
             ids = tokenizer.encode(spelling, add_special_tokens=False)
             if len(ids) == 1 and tokenizer.decode(ids).strip() == letter:
                 choices[ids[0]] = letter
-    if not all(letter in choices.values() for letter in 'ABCD'):
-        raise RuntimeError('Tokenizer cannot encode the four OVO answer letters')
+    if not all(letter in choices.values() for letter in letters):
+        raise RuntimeError('Tokenizer cannot encode the requested answer letters')
     return choices
+
+
+def _choice_probabilities(logits, tokenizer, letters='ABCD'):
+    """Conditional option probabilities from the actual first-token logits."""
+    token_letters = _mcq_first_token_map(tokenizer, letters)
+    masses = []
+    for letter in letters:
+        token_ids = [token for token, mapped in token_letters.items()
+                     if mapped == letter]
+        masses.append(torch.logsumexp(logits[token_ids].float(), dim=0))
+    probabilities = torch.softmax(torch.stack(masses), dim=0).tolist()
+    return dict(zip(letters, (float(value) for value in probabilities)))
+
+
+def _four_choice_probabilities(logits, tokenizer):
+    return _choice_probabilities(logits, tokenizer, 'ABCD')
+
+
+def _choice_from_first_logits(logits, tokenizer, letters='ABCD'):
+    """Use the existing one-letter answer policy for one answer branch."""
+    choice_tokens = _mcq_first_token_map(tokenizer, letters)
+    first_token = int(logits.argmax().item())
+    if first_token in choice_tokens:
+        return first_token, choice_tokens[first_token], False
+    candidate = max(choice_tokens, key=lambda token: float(logits[token]))
+    return candidate, choice_tokens[candidate], True
 
 
 def _prefill_question_suffix(model, embeds, position_ids, ragged):
@@ -346,11 +413,18 @@ def _prune_history(ragged, visual_start, probes):
         layer._refresh_cu_klen()
 
 
-def install(output, *, arm='strict_k500'):
+def install(output, *, arm='strict_k500', allocation_map=None,
+            capture_choice_probs=False):
     """Install the paired input/answer path; fixed pixels are added per model."""
     global ACTIVE_ALLOCATION, ACTIVE_ARM, CONFIGURED_SLOTS, ALLOCATION_SHA256
-    ACTIVE_ALLOCATION = allocation(arm)
+    global CAPTURE_CHOICE_PROBS
+    ACTIVE_ALLOCATION = allocation(arm) if allocation_map is None else allocation_map
+    if (set(ACTIVE_ALLOCATION) != {(layer, head) for layer in range(28) for head in range(4)}
+            or any(row['recent_quota'] + row['history_quota'] != row['total_quota']
+                   for row in ACTIVE_ALLOCATION.values())):
+        raise ValueError('Invalid per-head recent/history allocation')
     ACTIVE_ARM = arm
+    CAPTURE_CHOICE_PROBS = bool(capture_choice_probs)
     CONFIGURED_SLOTS = sum(row['total_quota'] for row in ACTIVE_ALLOCATION.values())
     ALLOCATION_SHA256 = hashlib.sha256(repr(sorted(ACTIVE_ALLOCATION.items())).encode()).hexdigest()
     from lib import recent_window_eval_qwen25 as upstream
@@ -367,22 +441,37 @@ def install(output, *, arm='strict_k500'):
     vision_cache_bytes = 0
     cache_limit_bytes = 2 * 1024 ** 3
     cache_stats = collections.Counter()
+    persistent_cache = None
 
     @torch.inference_mode()
     def encode_reusable(qa, images):
         """Reuse only bit-identical resized frames under the same model/processor."""
-        nonlocal vision_cache_bytes
-        digest = hashlib.sha256()
-        for frame in images:
-            digest.update(str((frame.mode, frame.size)).encode())
-            digest.update(frame.tobytes())
-        key = digest.hexdigest()
+        nonlocal vision_cache_bytes, persistent_cache
+        from sparsemm_native.persistent_vision_cache import frame_digest
+        key = frame_digest(images)
         if key in vision_cache:
             embeddings, grid = vision_cache.pop(key)
             vision_cache[key] = (embeddings, grid)
             cache_stats['hits'] += 1
             return embeddings.to(qa.model.device), grid.to(qa.model.device)
-        embeddings, grid = qa.encode_vision(images)
+        cache_root = os.environ.get('KV_BENCH_PERSISTENT_VISION_CACHE')
+        if cache_root and persistent_cache is None:
+            from kvbench.fixed_inputs import fixed_input_metadata
+            from sparsemm_native.persistent_vision_cache import PersistentVisionCache, identity
+            from sparsemm_native.supervise_simplestream_upstream import UPSTREAM
+            source = UPSTREAM / 'lib/recent_window_eval_qwen25.py'
+            persistent_cache = PersistentVisionCache(cache_root, identity(
+                qa.model.config._name_or_path, qa.processor.image_processor,
+                fixed_input_metadata(896, 127), source))
+        stored = persistent_cache.get(key) if persistent_cache is not None else None
+        if stored is None:
+            embeddings, grid = qa.encode_vision(images)
+            if persistent_cache is not None:
+                persistent_cache.put(key, embeddings, grid)
+                cache_stats['disk_writes'] += 1
+        else:
+            embeddings, grid = (tensor.to(qa.model.device) for tensor in stored)
+            cache_stats['disk_hits'] += 1
         cpu_embeds, cpu_grid = embeddings.detach().cpu(), grid.detach().cpu()
         size = cpu_embeds.numel() * cpu_embeds.element_size() + cpu_grid.numel() * cpu_grid.element_size()
         if size <= cache_limit_bytes:
@@ -431,9 +520,12 @@ def install(output, *, arm='strict_k500'):
                                    recent_sample_indices=history_context['recent_sample_indices'],
                                    vision_cache_hits=history_context['vision_cache_hits'],
                                    vision_cache_misses=history_context['vision_cache_misses'],
+                                   vision_cache_disk_hits=history_context['vision_cache_disk_hits'],
+                                   vision_cache_disk_writes=history_context['vision_cache_disk_writes'],
                                    recent_frames_sha256=history_context['recent_frames_sha256'],
                                    last_frame_start=last_frame_start,
                                    visual_end=old_start + sum(counts), ids=ids,
+                                   original_prompt=prompt,
                                    prompt_sha256=hashlib.sha256(prompt.encode()).hexdigest()))
         try:
             return original_question(self, cached_embeds, cached_grid_thw, prompt)
@@ -500,13 +592,17 @@ def install(output, *, arm='strict_k500'):
             layout['fallback_to_recent'] = True
             layout['fallback_reason'] = 'full_timeline_exceeds_model_position_limit'
         pae_arm = ACTIVE_ARM in ('pae_compact_control', 'pae_history_k500',
-                                 'pae_history_k532_diagnostic')
+                                 'pae_history_k532_diagnostic',
+                                 'pae_online_margin_k500',
+                                 'pae_online_e_gate_k500',
+                                 'pae_online_e_recent_only_k500')
         pae_bank = None
-        if pae_arm and layout['history_frames']:
+        if (pae_arm and layout['history_frames']
+                and ACTIVE_ARM != 'pae_online_e_recent_only_k500'):
             from sparsemm_native.dscache_pae_history import build_history_bank
             pae_bank = build_history_bank(
                 model, full_dense, recent_positions, layout['history_units'],
-                layout['old_start'], allocation('pae_history_k500'),
+                layout['old_start'], ACTIVE_ALLOCATION,
                 _pseudo_queries_and_keys, _attention_visual_indices,
                 self.processor.tokenizer, position_limit)
         history_ragged = None
@@ -570,17 +666,110 @@ def install(output, *, arm='strict_k500'):
         pae_peak_position = None
         pae_peak_active_tokens = None
         pae_answer_position_max = None
+        online_recent = None
+        recent_selection_audit = None
+        history_selection_audit = None
         if pae_arm:
             from sparsemm_native.dscache_pae_history import combine_answer_cache
+            suffix_length = prompt_length - recent_end
+            if ACTIVE_ARM in ('pae_online_margin_k500', 'pae_online_e_gate_k500',
+                              'pae_online_e_recent_only_k500'):
+                recent_selection_audit = {}
+                recent_layers, recent_history_slots, recent_only_slots, recent_suffix_start, _ = (
+                    combine_answer_cache(
+                        model, pae_bank, full_dense, one_dense, recent_positions,
+                        one_indices, layout['recent_counts'], layout['old_start'],
+                        ACTIVE_ALLOCATION, recent_probes, _attention_visual_indices,
+                        Layer, include_history=False, position_limit=position_limit,
+                        reserve_history_for_budget=True,
+                        return_unused_history_to_recent=(
+                            ACTIVE_ARM != 'pae_online_e_recent_only_k500'),
+                        selection_audit=recent_selection_audit))
+                if recent_history_slots != 0 or recent_only_slots > CONFIGURED_SLOTS:
+                    raise RuntimeError('Online recent-only branch exceeded its visual budget')
+                if ACTIVE_ARM in ('pae_online_e_gate_k500',
+                                  'pae_online_e_recent_only_k500'):
+                    recent_prompt = _recent_evidence_prompt(layout['original_prompt'])
+                    recent_prompt_ids = _prompt_ids(
+                        self, sum(layout['recent_counts']), recent_prompt)
+                    original_recent_ids = _prompt_ids(
+                        self, sum(layout['recent_counts']), layout['original_prompt'])
+                    if (len(original_recent_ids) != prompt_length
+                            or recent_prompt_ids[:recent_end] != original_recent_ids[:recent_end]):
+                        raise RuntimeError('The E option changed the visual prefix')
+                    recent_suffix_ids = torch.tensor(
+                        [recent_prompt_ids[recent_end:]], dtype=torch.long,
+                        device=model.device)
+                    recent_suffix_embeds = model.get_input_embeddings()(recent_suffix_ids)
+                    recent_repetition_ids = recent_prompt_ids
+                    recent_prompt_sha256 = hashlib.sha256(recent_prompt.encode()).hexdigest()
+                else:
+                    recent_suffix_embeds = kwargs['inputs_embeds'][:, recent_end:]
+                    recent_repetition_ids = layout['ids']
+                    recent_prompt_sha256 = layout['prompt_sha256']
+                recent_suffix_length = recent_suffix_embeds.shape[1]
+                recent_answer_positions = torch.arange(
+                    recent_suffix_start, recent_suffix_start + recent_suffix_length,
+                    device=model.device).view(1, 1, -1).expand(3, 1, -1)
+                recent_ragged = Cache(recent_layers)
+                del recent_layers
+                recent_hidden = _prefill_question_suffix(
+                    model, recent_suffix_embeds,
+                    recent_answer_positions, recent_ragged)
+                recent_logits = model.lm_head(recent_hidden)[0, -1]
+                penalty = float(model.generation_config.repetition_penalty or 1.0)
+                recent_first_logits = _apply_repetition_penalty(
+                    recent_logits, recent_repetition_ids, penalty)
+                abstention_letter = ('F' if _has_original_e_option(layout['original_prompt'])
+                                     else 'E')
+                recent_letters = ((
+                    'ABCDEF' if abstention_letter == 'F' else 'ABCDE')
+                    if ACTIVE_ARM in ('pae_online_e_gate_k500',
+                                      'pae_online_e_recent_only_k500')
+                    else ('ABCDE' if abstention_letter == 'F' else 'ABCD'))
+                recent_probs = _choice_probabilities(
+                    recent_first_logits, self.processor.tokenizer, recent_letters)
+                recent_ranked = sorted(recent_probs.values(), reverse=True)
+                recent_token, recent_answer, recent_forced = _choice_from_first_logits(
+                    recent_first_logits, self.processor.tokenizer, recent_letters)
+                online_recent = dict(
+                    probabilities=recent_probs,
+                    margin=recent_ranked[0] - recent_ranked[1],
+                    token=recent_token, answer=recent_answer,
+                    forced_choice=recent_forced,
+                    abstention_letter=(abstention_letter if ACTIVE_ARM in (
+                        'pae_online_e_gate_k500', 'pae_online_e_recent_only_k500') else None),
+                    prompt_sha256=recent_prompt_sha256,
+                    suffix_tokens=recent_suffix_length,
+                    visual_slots=recent_only_slots,
+                    physical_slots=sum(int(layer.head_lens.sum().item())
+                                       for layer in recent_ragged.layers))
+                del recent_ragged, recent_hidden, recent_logits, recent_first_logits
+                if ACTIVE_ARM in ('pae_online_e_gate_k500',
+                                  'pae_online_e_recent_only_k500'):
+                    del recent_suffix_embeds
+            history_selection_audit = {} if online_recent is not None else None
             layers, history_slots, recent_slots, suffix_start, pae_answer_position_max = (
                 combine_answer_cache(
                     model, pae_bank, full_dense, one_dense, recent_positions,
                     one_indices, layout['recent_counts'], layout['old_start'],
                     ACTIVE_ALLOCATION, recent_probes, _attention_visual_indices,
                     Layer, include_history=ACTIVE_ARM in (
-                        'pae_history_k500', 'pae_history_k532_diagnostic'),
-                    position_limit=position_limit))
-            suffix_length = prompt_length - recent_end
+                        'pae_history_k500', 'pae_history_k532_diagnostic',
+                        'pae_online_margin_k500', 'pae_online_e_gate_k500'),
+                    position_limit=position_limit,
+                    reserve_history_for_budget=online_recent is not None,
+                    return_unused_history_to_recent=(
+                        ACTIVE_ARM != 'pae_online_e_recent_only_k500'),
+                    selection_audit=history_selection_audit))
+            if online_recent is not None:
+                if (recent_selection_audit['recent_selection_sha256'] !=
+                        history_selection_audit['recent_selection_sha256']
+                        or recent_selection_audit['frame_order'] !=
+                           history_selection_audit['frame_order']
+                        or recent_selection_audit['suffix_start'] != suffix_start
+                        or recent_selection_audit['recent_slots'] != recent_slots):
+                    raise RuntimeError('The two answer passes selected different recent KV or positions')
             answer_positions = torch.arange(
                 suffix_start, suffix_start + suffix_length, device=model.device)
             answer_positions = answer_positions.view(1, 1, -1).expand(3, 1, -1)
@@ -609,11 +798,14 @@ def install(output, *, arm='strict_k500'):
                 row_allocation = ACTIVE_ALLOCATION[layer_idx, head]
                 quota = int(row_allocation['history_quota'])
                 historical = (0 if layout.get('fallback_to_recent')
-                              or ACTIVE_ARM == 'pae_compact_control'
+                              or ACTIVE_ARM in ('pae_compact_control',
+                                                'pae_online_e_recent_only_k500')
                               else min(historical_tokens, quota))
                 available = (layout['counts'][-1] if row_allocation['recent_group'] == 'one_frame'
                              else sum(layout['recent_counts']))
-                recent = min(available, int(row_allocation['recent_quota']) + quota - historical)
+                recent = min(available, int(row_allocation['recent_quota'])
+                             if ACTIVE_ARM == 'pae_online_e_recent_only_k500'
+                             else int(row_allocation['recent_quota']) + quota - historical)
                 if length != layout['old_start'] + historical + recent + suffix_tokens:
                     raise RuntimeError('Physical head K/V length differs from allocation')
         physical_slots = sum(sum(row) for row in lens)
@@ -626,11 +818,49 @@ def install(output, *, arm='strict_k500'):
         penalty = float(config.repetition_penalty or 1.0)
         stable_choice = ACTIVE_ARM in ('strict_k500_stable',
                                       'pae_compact_control', 'pae_history_k500',
-                                      'pae_history_k532_diagnostic')
+                                      'pae_history_k532_diagnostic',
+                                      'pae_online_margin_k500',
+                                      'pae_online_e_gate_k500',
+                                      'pae_online_e_recent_only_k500')
         first_logits = _apply_repetition_penalty(logits, layout['ids'], penalty)
+        original_letters = ('ABCDE' if _has_original_e_option(layout['original_prompt'])
+                            else 'ABCD')
+        choice_probabilities = (_choice_probabilities(
+            first_logits, self.processor.tokenizer, original_letters)
+            if CAPTURE_CHOICE_PROBS or online_recent is not None else None)
+        choice_margin = (sorted(choice_probabilities.values(), reverse=True)[0]
+                         - sorted(choice_probabilities.values(), reverse=True)[1]) if choice_probabilities else None
+        choice_prediction = (max(choice_probabilities, key=choice_probabilities.get)
+                             if choice_probabilities else None)
         first_token = int(first_logits.argmax().item())
-        if stable_choice:
-            choice_tokens = _mcq_first_token_map(self.processor.tokenizer)
+        online_history = None
+        if online_recent is not None:
+            history_token, history_answer, history_forced = _choice_from_first_logits(
+                first_logits, self.processor.tokenizer, original_letters)
+            online_history = dict(probabilities=choice_probabilities,
+                                  margin=choice_margin,
+                                  token=history_token, answer=history_answer,
+                                  forced_choice=history_forced)
+            if ACTIVE_ARM == 'pae_online_e_recent_only_k500':
+                gate_source = 'recent'
+            elif ACTIVE_ARM == 'pae_online_e_gate_k500':
+                gate_source = ('history' if online_recent['answer'] ==
+                               online_recent['abstention_letter']
+                               else 'recent')
+            else:
+                gate_source = ('history' if choice_margin > online_recent['margin']
+                               else 'recent')
+            chosen = online_history if gate_source == 'history' else online_recent
+            generated = [chosen['token']]
+            answer = chosen['answer']
+            forced_choice = chosen['forced_choice']
+            choice_probabilities = chosen['probabilities']
+            choice_margin = chosen['margin']
+            choice_prediction = max(choice_probabilities, key=choice_probabilities.get)
+            self._last_ttft_seconds = time.perf_counter() - started
+        elif stable_choice:
+            choice_tokens = _mcq_first_token_map(self.processor.tokenizer,
+                                                 original_letters)
             if (ACTIVE_ARM == 'strict_k500_stable' and first_token not in choice_tokens
                     and not layout.get('fallback_to_recent')):
                 # A malformed history answer must not receive accidental credit
@@ -682,6 +912,8 @@ def install(output, *, arm='strict_k500'):
             recent_sample_indices=layout['recent_sample_indices'],
             vision_cache_hits=layout['vision_cache_hits'],
             vision_cache_misses=layout['vision_cache_misses'],
+            vision_cache_disk_hits=layout['vision_cache_disk_hits'],
+            vision_cache_disk_writes=layout['vision_cache_disk_writes'],
             recent_frames_sha256=layout['recent_frames_sha256'],
             recent_probe_position=recent_probe_start,
             recent_image_position=int(recent_positions[0, 0, layout['old_start']].item()),
@@ -698,6 +930,9 @@ def install(output, *, arm='strict_k500'):
             allocation_sha256=ALLOCATION_SHA256,
             arm=ACTIVE_ARM,
             answer_source=('recent_fallback' if layout.get('fallback_to_recent') else
+                           f'online_{"e_recent_only" if ACTIVE_ARM == "pae_online_e_recent_only_k500" else "e_gate" if ACTIVE_ARM == "pae_online_e_gate_k500" else "margin"}_{gate_source}'
+                           if online_recent is not None
+                           else
                            'pae_compact_control' if ACTIVE_ARM == 'pae_compact_control'
                            else 'pae_history' if ACTIVE_ARM in (
                                'pae_history_k500', 'pae_history_k532_diagnostic')
@@ -711,6 +946,35 @@ def install(output, *, arm='strict_k500'):
             position_agnostic_roundtrip_max_error=position_agnostic_roundtrip_max_error,
             rejected_history_first_token=layout.get('rejected_history_first_token'),
             forced_choice=forced_choice,
+            choice_probabilities=choice_probabilities,
+            choice_margin=choice_margin,
+            choice_prediction=choice_prediction,
+            online_recent_answer=(online_recent['answer'] if online_recent else None),
+            online_recent_abstention_letter=(online_recent['abstention_letter']
+                                             if online_recent else None),
+            online_recent_prompt_sha256=(online_recent['prompt_sha256'] if online_recent else None),
+            online_recent_suffix_tokens=(online_recent['suffix_tokens'] if online_recent else None),
+            online_history_answer=(online_history['answer'] if online_history else None),
+            online_recent_control_answer=(online_history['answer']
+                                          if online_history and
+                                          ACTIVE_ARM == 'pae_online_e_recent_only_k500'
+                                          else None),
+            online_recent_probabilities=(online_recent['probabilities'] if online_recent else None),
+            online_history_probabilities=(online_history['probabilities'] if online_history else None),
+            online_recent_margin=(online_recent['margin'] if online_recent else None),
+            online_history_margin=(online_history['margin'] if online_history else None),
+            online_gate_source=(gate_source if online_recent is not None else None),
+            online_recent_visual_slots=(online_recent['visual_slots'] if online_recent else None),
+            online_recent_physical_slots=(online_recent['physical_slots'] if online_recent else None),
+            online_recent_selection_sha256=(
+                recent_selection_audit['recent_selection_sha256']
+                if recent_selection_audit else None),
+            online_history_recent_selection_sha256=(
+                history_selection_audit['recent_selection_sha256']
+                if history_selection_audit else None),
+            online_same_suffix_position=(
+                recent_selection_audit['suffix_start'] == history_selection_audit['suffix_start']
+                if recent_selection_audit else None),
             selector='dscache_cumulative_all_old_frames_pseudo64',
             actual_visual_slots=sum(sum(row) for row in lens) - 112 * (prompt_length - sum(layout['recent_counts'])),
             actual_history_visual_slots=history_slots,
@@ -770,6 +1034,8 @@ def install(output, *, arm='strict_k500'):
         encoded = []
         hits_before = cache_stats['hits']
         misses_before = cache_stats['misses']
+        disk_hits_before = cache_stats['disk_hits']
+        disk_writes_before = cache_stats['disk_writes']
         for (kind, chunk_index), images in buckets:
             embeds, grid = encode_reusable(qa, images)
             if kind == 'history':
@@ -794,6 +1060,8 @@ def install(output, *, arm='strict_k500'):
                                           recent_sample_indices=plan.tail_indices,
                                           vision_cache_hits=cache_stats['hits'] - hits_before,
                                           vision_cache_misses=cache_stats['misses'] - misses_before,
+                                          vision_cache_disk_hits=cache_stats['disk_hits'] - disk_hits_before,
+                                          vision_cache_disk_writes=cache_stats['disk_writes'] - disk_writes_before,
                                           recent_frames_sha256=recent_fingerprint.hexdigest()))
         start = time.perf_counter()
         try:

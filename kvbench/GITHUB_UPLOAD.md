@@ -13,7 +13,7 @@
 | `sparsemm_baselines/` | AdaKV/PyramidKV；其中 `upstream` 作为 Git 子模块 |
 | `sparsemm_protokv/` | Qwen2.5-VL 原生插件、缓存、任务和控制器，排除 `runtime_deps` 和结果 |
 | `sparsemm_lukv/`、`sparsemm_native/`、`sparsemm_uniform/`、`protokv/` | 方法实现及包内校准 profile |
-| `sparsemm_native/DSCACHE_HISTORY64.md` 及对应源码 | 旧紧凑历史 K500 入口、内置 ragged-cache 辅助模块、位置处理与 CPU 测试 |
+| `sparsemm_native/DSCACHE_HISTORY64.md` 及对应源码 | 旧紧凑历史 K500、在线门控、逐头配额、视觉缓存入口，内置 ragged-cache 辅助模块、位置处理与 CPU 测试 |
 | `assets/` | SparseMM 分数、raw scores、冻结 manifest/protocol，以及 OVO 新方法的分头配额表 |
 | `configs/` | 当前小规模 MCQA 标注；其中的视频路径是本机路径 |
 | `requirements/`、`tests/`、`tools/` | 依赖记录、CPU 测试、迁移回归核对工具 |

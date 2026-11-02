@@ -67,9 +67,10 @@ def install_fixed_encoder(qa):
     return state
 
 
-def summarize(output, rows, total):
+def summarize(output, rows, total, *, configured_slots=56000, version=VERSION):
     result = old.summarize(output, rows, total, FPS, 'fixed896')
-    result.update(version=VERSION, fixed_input=fixed_input_metadata(SIZE, PAD),
+    result.update(version=version, configured_mean_visual_budget=configured_slots / 112,
+                  fixed_input=fixed_input_metadata(SIZE, PAD),
                   actual_image_tokens_per_real_frame=1024 if rows else None,
                   temporal_encoding='original independent image, no cross-frame temporal merge')
     old.base.write(output / 'summary.json', result)
@@ -77,12 +78,44 @@ def summarize(output, rows, total):
     return result
 
 
+def snapshot_relative(path):
+    try:
+        return Path('kvbench') / path.relative_to(ROOT)
+    except ValueError:
+        try:
+            return Path('SimpleStream') / path.relative_to(old.base.UPSTREAM)
+        except ValueError:
+            return Path('external_budget') / (old.sha(path)[:12] + '_' + path.name)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--output-root', type=Path, required=True)
+    parser.add_argument('--budget-map', type=Path,
+                        help='JSON with arm and 28x4 per-head visual budgets (32..500)')
+    parser.add_argument('--capture-choice-probs', action='store_true',
+                        help='Debug only: save conditional A-D first-token probabilities')
     parser.add_argument('--prepare-only', action='store_true')
     args = parser.parse_args()
+    tiered = args.budget_map is not None
+    if tiered:
+        budget_path = args.budget_map.resolve()
+        budget_config = json.loads(budget_path.read_text())
+        budget_rows = budget_config['budgets']
+        if (len(budget_rows) != 28 or any(len(row) != 4 for row in budget_rows)
+                or any(type(value) is not int or not 32 <= value <= 500
+                       for row in budget_rows for value in row)):
+            raise ValueError('Expected 28x4 integer head budgets in [32,500]')
+        budgets = {(layer, head): budget_rows[layer][head]
+                   for layer in range(28) for head in range(4)}
+        configured_slots = sum(budgets.values())
+        run_version = 'simplestream_one_four_pseudo_tiered_fixed896_v1'
+    else:
+        budget_path = None
+        budgets = {(layer, head): BUDGET for layer in range(28) for head in range(4)}
+        configured_slots = 56000
+        run_version = VERSION
     output, manifest_path = args.output_root.resolve(), args.manifest.resolve()
     manifest, annotations = old.validate_manifest(manifest_path)
     output.mkdir(parents=True, exist_ok=True)
@@ -95,29 +128,37 @@ def main():
         if (row['task'] != query['task'] or row['target'] != query['target']
                 or not isinstance(row.get('response'), str)
                 or row.get('correct') != official.official_correct(row['task'], row['response'], row['target'])
-                or row.get('budget_audit', {}).get('actual_visual_slots') != 56000
+                or row.get('budget_audit', {}).get('actual_visual_slots') != configured_slots
+                or (tiered and row.get('budget_audit', {}).get('per_head_visual_budgets') != budget_rows)
                 or any(count != 1024 for count in row.get('input_audit', {}).get('per_frame_visual_tokens', []))
                 or row.get('input_audit', {}).get('fixed_input') != fixed_input_metadata(SIZE, PAD)):
             raise ValueError('Existing prediction identity, fixed input, score or budget is invalid')
     paths = [Path(__file__).resolve(), ROOT / 'kvbench/fixed_inputs.py', CONFIG,
              *(ROOT / name for name in old.LOCAL_SOURCES),
              *(old.base.UPSTREAM / name for name in old.base.UPSTREAM_FILES), old.RAGGED, old.HEAD_TABLE]
+    if tiered:
+        paths.append(budget_path)
     paths = list(dict.fromkeys(paths))
     sources = {str(path): old.sha(path) for path in paths}
     clips = {str(q['source_id']): dict(path=str(old.base.DATA / 'chunked_videos' / f"{q['source_id']}.mp4"),
                 bytes=(old.base.DATA / 'chunked_videos' / f"{q['source_id']}.mp4").stat().st_size)
              for q in manifest}
-    pin = dict(version=VERSION, fps=FPS, resolution='fixed896', fixed_input=fixed_input_metadata(SIZE, PAD),
-        image_tokens_per_real_frame=1024, visual_budget_per_head=BUDGET, configured_visual_slots=56000,
+    pin = dict(version=run_version, fps=FPS, resolution='fixed896', fixed_input=fixed_input_metadata(SIZE, PAD),
+        image_tokens_per_real_frame=1024, visual_budget_per_head=BUDGET if not tiered else None,
+        per_head_visual_budgets=budget_rows if tiered else None,
+        configured_visual_slots=configured_slots,
         recent_bucket_count=4, bucket_seconds=1., max_new_tokens=MAX_NEW, model=str(old.base.MODEL),
         model_files_sha256={str(old.base.MODEL / name): old.sha(old.base.MODEL / name) for name in old.base.MODEL_FILES},
         code_sha256=sources, manifest_sha256=old.sha(manifest_path), query_count=len(manifest),
         annotation_sha256=old.sha(old.base.ANNOTATION), required_dependencies=old.REQUIRED_VERSIONS,
         prompt='unchanged released build_qwen25_prompt', visual_encoder='unchanged per-image get_image_features',
         positions='unchanged released continuous-image prefix get_rope_index',
-        selector='unchanged pseudo_budget500.install: probe at visual_end; FP32 GQA mean avgpool5 protect32',
+        selector=('pseudo_budget500.install: probe at visual_end; FP32 GQA mean avgpool5 protect32; per-head cap only'
+                  if tiered else
+                  'unchanged pseudo_budget500.install: probe at visual_end; FP32 GQA mean avgpool5 protect32'),
         head_groups='unchanged 56 one-frame / 56 four-frame', clip_metadata=clips,
         historical_visual_kv=0, question_used_for_selection=False,
+        capture_choice_probs=args.capture_choice_probs,
         source_sampling='original qwen-vl-utils full plan; final four nonempty one-second buckets',
         input_only_changes=['requested sampling FPS=.5', 'shared fixed896 aspect-preserving resize and gray127 padding',
                             'disable image-processor resize after fixed pixel preparation'])
@@ -127,10 +168,10 @@ def main():
     old.base.write(protocol, pin)
     old.base.write(output / 'query_manifest.json', manifest)
     for path in paths:
-        destination = output / 'source_snapshot' / path.relative_to(ROOT.parent)
+        destination = output / 'source_snapshot' / snapshot_relative(path)
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(path.read_bytes())
-    summarize(output, rows, len(manifest))
+    summarize(output, rows, len(manifest), configured_slots=configured_slots, version=run_version)
     if args.prepare_only:
         print(json.dumps(dict(output=str(output), queries=len(manifest), done=len(rows), fps=FPS,
             fixed_input=fixed_input_metadata(SIZE, PAD), model_loaded=False)))
@@ -148,7 +189,8 @@ def main():
     from lib import recent_window_eval_qwen25 as upstream
     from sparsemm_native.simplestream_recent_share_pseudo_budget500 import install, HEADS
     from sparsemm_native.gpu_slots import gpu_lease
-    install(output)
+    install(output, head_budgets=budgets if tiered else None,
+            capture_choice_probs=args.capture_choice_probs)
     input_state = old.install_decode_hook(upstream, FPS, 'native')
     started = time.perf_counter()
     try:
@@ -188,16 +230,28 @@ def main():
                 if len(appended) != 1:
                     raise AssertionError(f'Expected one physical KV audit, got {len(appended)}')
                 audit = appended[0]
+                if args.capture_choice_probs:
+                    probabilities = audit.get('choice_probabilities')
+                    if (not isinstance(probabilities, dict)
+                            or set(probabilities) != set('ABCD')
+                            or abs(sum(probabilities.values()) - 1.0) > 1e-5
+                            or audit.get('choice_prediction') != max(
+                                probabilities, key=probabilities.get)
+                            or abs(audit.get('choice_margin') -
+                                   (sorted(probabilities.values(), reverse=True)[0]
+                                    - sorted(probabilities.values(), reverse=True)[1])) > 1e-5):
+                        raise AssertionError('Invalid four-choice probability audit')
                 counts, grids = audit['frame_visual_tokens'], fixed_state['grids']
                 if (not counts or any(count != 1024 for count in counts)
                         or [int(t*h*w)//4 for t,h,w in grids] != counts
                         or len(fixed_state['frames']) != len(input_state['selected_raw_frame_indices'])):
                     raise AssertionError('Fixed image grid/token count differs from actual frame audit')
-                per_head = [[min(counts[-1] if (layer, head) in HEADS else sum(counts), BUDGET)
+                per_head = [[min(counts[-1] if (layer, head) in HEADS else sum(counts), budgets[layer, head])
                              for head in range(4)] for layer in range(28)]
                 total_slots = sum(map(sum, per_head))
-                if (audit['actual_visual_slots'] != total_slots or total_slots != 56000
-                        or audit['visual_budget_per_head'] != BUDGET
+                if (audit['actual_visual_slots'] != total_slots or total_slots != configured_slots
+                        or audit['visual_budget_per_head'] != (BUDGET if not tiered else None)
+                        or (tiered and audit['per_head_visual_budgets'] != budget_rows)
                         or audit['selector'] != 'fixed_mixed_pseudo_qk_fp32_gqa_mean_avgpool5_topk_protect32'
                         or audit['prompt_sha256'] != hashlib.sha256(prompt.encode()).hexdigest()
                         or result.final_chunk_ids != input_state['selected_chunk_ids']
@@ -213,16 +267,20 @@ def main():
                 budget_audit = dict(audit, actual_tokens_per_head=total_slots / 112,
                     per_head_visual_slots=per_head, actual_history_visual_slots=0,
                     actual_recent_visual_slots=total_slots, recent_candidate_visual_slots=56 * (counts[-1] + sum(counts)),
-                    configured_visual_slots=56000, question_text_used_for_selection=False)
+                    configured_visual_slots=configured_slots, question_text_used_for_selection=False)
                 row = {key: query[key] for key in ('query_id', 'source_id', 'probe_id', 'task', 'group', 'timestamp', 'clip_end', 'target')}
-                row.update(response=result.answer, correct=official.official_correct(query['task'], result.answer, query['target']),
+                row.update(response=result.answer,
+                    choice_probabilities=audit.get('choice_probabilities'),
+                    choice_margin=audit.get('choice_margin'),
+                    choice_prediction=audit.get('choice_prediction'),
+                    correct=official.official_correct(query['task'], result.answer, query['target']),
                     seconds=seconds, input_audit=input_audit, budget_audit=budget_audit,
                     cuda_peak_allocated_mib=torch.cuda.max_memory_allocated()/1048576,
                     cuda_peak_reserved_mib=torch.cuda.max_memory_reserved()/1048576,
                     upstream_result=dataclasses.asdict(result))
                 old.base.append(progress, row)
                 rows.append(row)
-                summarize(output, rows, len(manifest))
+                summarize(output, rows, len(manifest), configured_slots=configured_slots, version=run_version)
                 print(f"{len(rows)}/{len(manifest)} {qid} {query['task']} response={result.answer!r} "
                       f"correct={row['correct']} tokens/frame=1024 tokens/head={total_slots/112:.2f} seconds={seconds:.3f}", flush=True)
         old.base.write(output / 'status.json', dict(state='complete', done=len(rows), total=len(manifest), updated_at=old.base.now(),
