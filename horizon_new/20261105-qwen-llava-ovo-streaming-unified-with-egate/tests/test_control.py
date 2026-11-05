@@ -25,12 +25,21 @@ class ControlTests(unittest.TestCase):
                         plan = make_plan(args(benchmark=benchmark, model=model, method=method), Path('/code'))
                         self.assertEqual(plan['backend'], 'qwen' if model == 'qwen25vl' else 'llava')
                         self.assertEqual(plan['config']['visual_budget'], None if method == 'fullkv' else 500)
+                        profile = plan['config']['input_profile']
+                        self.assertIs(profile['latest_frame_replay'], False)
+                        if model == 'qwen25vl':
+                            self.assertEqual(profile['ordinary_target_pixels'], 448**2)
+                            self.assertEqual(profile['chunk_frames'], 2)
+                        else:
+                            self.assertEqual(profile['ordinary_visual_tokens'], 196)
+                            self.assertEqual(profile['frame_size'], [384, 384])
 
     def test_full_qwen_requires_explicit_scoring_policy(self):
         with self.assertRaisesRegex(ValueError, 'equivalent'):
             make_plan(args(benchmark='streamingbench', cohort='full'), Path('/code'))
         plan = make_plan(args(benchmark='streamingbench', cohort='full', accept_equivalent_choices=True), Path('/code'))
         self.assertEqual(plan['backend'], 'qwen_full2495')
+        self.assertIs(plan['config']['input_profile']['latest_frame_replay'], False)
 
     def test_lukv_calibration_overlap_is_explicit(self):
         with self.assertRaisesRegex(ValueError, 'calibration'):

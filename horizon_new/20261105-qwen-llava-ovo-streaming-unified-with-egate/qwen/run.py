@@ -92,8 +92,8 @@ def main():
     gs=gs[:min(len(gs),len(data))]
     config=dict(version=1,benchmark=a.benchmark,model=a.model,method=a.method,source=str(anno),source_sha256=sha(anno),cohort=a.cohort,excluded_ambiguous_questions=excluded,profile_sha256=sha(PROFILE),calibration_overlap_selected=sum(name(x['video_path']) in calibration for x in data),videos=len(data),questions=sum(len(x['conversations']) for x in data),gpus=gs,fps=a.sample_fps,visual_input=a.visual_input,chunk_frames=a.chunk_frames,visual_budget=None if a.method=='fullkv' else 500,dtype='float16',detailed_cache_trace=False,calibration='Qwen2.5-VL cross-model transfer' if a.model=='llavaov' and a.method in ('sparsemm','lukv') else None,code_sha256={x:sha(Path(__file__).parent/x) for x in ('run.py','worker.py','fixed896_adapter.py','dscache448_adapter.py','qwen_dense_dscache_adapter.py','qwen_vl_utils/vision_process.py')})
     if a.visual_input=='dscache448-video':
-        config.update(latest_frame_pixels=896*896, latest_frame_replay=True,
-                      input_parity_note='Experimental: paired latest chunk is replayed as separate ordinary and high-frame units; not numerically equivalent to DSCache temporal pairing.')
+        config.update(ordinary_frame_pixels=448*448, latest_frame_replay=False,
+                      input_parity_note='All sampled frames use ordinary input units; Qwen pairs at most two sampled frames per native video input.')
     print(json.dumps(config,indent=2,ensure_ascii=False),flush=True)
     if a.dry_run: return 0
     if out.exists() and not (out/'manifest.json').exists() and any(out.iterdir()): raise RuntimeError('Nonempty output directory without manifest')

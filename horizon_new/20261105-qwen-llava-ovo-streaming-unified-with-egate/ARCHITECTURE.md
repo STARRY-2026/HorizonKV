@@ -44,4 +44,4 @@ run.py / summarize.py
 
 ## HorizonKV-EGate 更新
 
-方法代码及冻结预算位于 methods/horizonkv_egate/，统一参数名为 horizonkv-egate，实验标识仍为 pae_online_e_gate_k500。方法内部保留四帧批次和紧凑位置策略；输入层复用当前尺寸、采样率和最新帧重放。逐题 CSV 支持续跑，worker_status.json 仅覆盖最后一次小型诊断，不保存逐 token KV trace。分片结果与答案来源均由方法专用汇总校验。
+方法代码及冻结预算位于 methods/horizonkv_egate/，统一参数名为 horizonkv-egate，实验标识仍为 pae_online_e_gate_k500。方法内部保留四帧批次、独立 one 分支和紧凑位置策略；所有视觉输入使用普通帧尺寸，答题直接使用流式维护的 KV。逐题 CSV 支持续跑，worker_status.json 仅覆盖最后一次小型诊断，不保存逐 token KV trace。分片结果与答案来源均由方法专用汇总校验。

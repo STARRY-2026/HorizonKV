@@ -51,7 +51,7 @@ def smoke_method(method, gpu, root, annotation):
     if len(rows) != 1 or rows[0].get("pred_choice") not in tuple("ABCDEFGH"):
         raise RuntimeError(f"{method} smoke did not produce one valid answer")
     text = (dest/"shard_00"/"unified.log").read_text(errors="replace")
-    if "latest_tokens=" not in text or "196" not in text or "729" not in text:
+    if "ordinary_tokens=196 latest_replay=false" not in text:
         raise RuntimeError(f"{method} smoke token counts not confirmed")
     say("SMOKE_OK", method)
 

@@ -1,3 +1,5 @@
+> Historical experiment record (2026-11-04). The current unified entry uses ordinary visual resolution for every frame and does not replay the latest frame at question time. See the project root README.
+
 # Experimental Qwen input adapter: StreamingBench + OVO-Bench
 
 Qwen2.5-VL, six baselines (AdaKV, PyramidKV, SparseMM, LU-KV, HERMES, Full KV). The opt-in input profile is --visual-input dscache448-video --sample-fps 1 --chunk-frames 2. Ordinary frames target 448² pixel area, and the latest frame in the answer path targets 896². The baseline's existing KV selection/compression policy is retained; temporary latest-frame replay uses cache copies and changes temporal grouping. This is not the DSCache caching algorithm or a proven full numerical reproduction of DSCache.

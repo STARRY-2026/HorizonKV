@@ -22,13 +22,13 @@ AdaKV and PyramidKV intentionally share their original selector implementation u
 
 ## Input and protocol
 
-- Qwen: 1 fps, ordinary target area 448^2, latest target area 896^2, two-frame video units. Latest-frame replay is experimental; temporal pairing equivalence with DSCache has not been established.
-- LLaVA: 1 fps, 384x384, ordinary frame 196 visual tokens and latest frame 729 tokens.
+- Qwen: 1 fps, target area 448² for every sampled frame, with at most two frames per native video unit. Answering uses the persistent streaming KV without replaying the latest frame.
+- LLaVA: 1 fps, 384×384 and 196 visual tokens per frame. Answering uses the persistent streaming KV without replaying the latest frame.
 - Existing K500 compression methods: mean visual budget 500; Full KV: no visual eviction cap. H2SVC retains its paper frame budgets instead of using K500.
 - Qwen full StreamingBench requires explicit `--accept-equivalent-choices`; this handles one duplicate-correct-text question. LLaVA AdaKV/PyramidKV do not yet support this scoring option.
 - LU-KV retains the same frozen profile calibrated on 50 StreamingBench videos. Full-cohort overlap requires `--allow-calibration-overlap`; copying the profile does not recalibrate it.
 - HorizonKV-EGate is available as `--method horizonkv-egate` for both backbones and both benchmarks. It has a fixed 500 visual-token cap per head, independent one/four-frame recent branches, direct selected-KV history transfer, and two-pass evidence gating. Its frozen budget is transferred without new calibration. Actual retained tokens can be below 500 when a branch contains fewer tokens. See `methods/horizonkv_egate/README.md` and `EGATE_VALIDATION.md`. Historical `llava/egate/` files are not the active implementation.
-- H2SVC is registered as `--method h2svc`, but its Qwen and LLaVA head maps still require offline measurement. It is not yet inference-validated and must not be reported as a completed baseline. Its per-head budgets are 4/16/64 sampled frames; Qwen's paired visual KV units are evicted together. See `methods/h2svc/README.md`.
+- H2SVC is registered as `--method h2svc`. Qwen and LLaVA each have a measured 50-video offline head map; end-to-end inference is not yet validated, so benchmark results must not be reported as completed. Its per-head budgets are 4/16/64 sampled frames; Qwen's paired visual KV units are evicted together. See `methods/h2svc/README.md`.
 
 ## Commands
 

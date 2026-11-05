@@ -49,7 +49,7 @@ class Adapter:
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--method',required=True,choices=['fullkv']); p.add_argument('--annotation',required=True); p.add_argument('--output',required=True); args=p.parse_args()
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
-    raw=Path(args.annotation).read_bytes(); config={'method':args.method,'annotation_sha256':hashlib.sha256(raw).hexdigest(),'fps':1.0,'chunk_frames':1,'budget':None,'budget_scope':'unlimited','model':ROOT+'/model/llava-onevision-qwen2-7b-ov','vision_encoder':'siglip-so400m-patch14-384','pool':'ordinary stride 2; latest stride 1 at question','input_profile':'dscache','dtype':'float16','eviction':False,'version':1}
+    raw=Path(args.annotation).read_bytes(); config={'method':args.method,'annotation_sha256':hashlib.sha256(raw).hexdigest(),'fps':1.0,'chunk_frames':1,'budget':None,'budget_scope':'unlimited','model':ROOT+'/model/llava-onevision-qwen2-7b-ov','vision_encoder':'siglip-so400m-patch14-384','pool':'all frames stride 2; no answer-time frame replay','input_profile':'dscache','dtype':'float16','eviction':False,'version':2}
     manifest=out/'config.json'
     if manifest.exists() and json.loads(manifest.read_text())!=config: raise ValueError('Output config mismatch')
     if not manifest.exists(): manifest.write_text(json.dumps(config,indent=2)+'\n')

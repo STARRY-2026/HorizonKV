@@ -1,1 +1,3 @@
+> Historical experiment record (2026-11-04). The current unified entry uses ordinary visual resolution for every frame and does not replay the latest frame at question time. See the project root README.
+
 Experimental Qwen regular-frame input only. Supports StreamingBench SparseMM and LU-KV with --visual-input dscache448-video --chunk-frames 2 --sample-fps 1. Ordinary frames use 448^2 pixel target with smart_resize and Qwen native video encoding. Latest-frame 896 high-resolution path, decoupled DSCache recent cache, EGate variable-grid support, OVO and other baselines are NOT implemented; never label this a full DSCache reproduction. Existing releases unchanged.

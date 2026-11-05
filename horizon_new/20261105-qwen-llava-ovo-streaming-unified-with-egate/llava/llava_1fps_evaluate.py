@@ -9,7 +9,7 @@ class Adapter:
     def __init__(self, model, tokenizer, processor, method):
         self.model=model.eval(); self.tokenizer=tokenizer; self.processor=processor; self.method=method; self.clear_cache()
     def clear_cache(self):
-        self.stream=Streaming(self.model,self.method); self.chunks=0; self.latest_state=None; self.latest_features=None
+        self.stream=Streaming(self.model,self.method); self.chunks=0
     @torch.inference_mode()
     def encode_init_prompt(self):
         prefix='<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n'
@@ -21,10 +21,8 @@ class Adapter:
         if tuple(pix.shape[-2:]) != (384,384): raise RuntimeError('DSCache reference expects 384x384 LLaVA input')
         encoded=self.model.encode_images(pix)
         if os.environ.get('HORIZON_INPUT_PROFILE')=='dscache':
-            if len(frames)!=1: raise RuntimeError('dscache latest-frame path requires one frame per update')
-            self.latest_state=(self.stream.cache.snapshot(),self.stream.cursor,self.stream.seen)
-            self.latest_features=self.model.get_2dPool(encoded,stride=1).reshape(1,-1,encoded.shape[-1])
-            if self.chunks == 0: print('INPUT_PROFILE normal_tokens=196 latest_tokens=',self.latest_features.shape[1],flush=True)
+            if len(frames)!=1: raise RuntimeError('dscache profile requires one frame per update')
+            if self.chunks == 0: print('INPUT_PROFILE ordinary_tokens=196 latest_replay=false',flush=True)
         feats=self.model.get_2dPool(encoded,stride=2)
         if feats.shape[1] != 196: raise RuntimeError('Unexpected ordinary-frame LLaVA token count')
         self.stream.metadata=[]
@@ -38,12 +36,6 @@ class Adapter:
     def question_answering(self, input_text,max_new_tokens=16,temperature=0,repetition_penalty=1.1):
         saved=self.stream.cache.snapshot(); cursor=self.stream.cursor; seen=self.stream.seen
         try:
-            if os.environ.get('HORIZON_INPUT_PROFILE')=='dscache':
-                if self.latest_state is None: raise RuntimeError('Missing latest frame')
-                prior,prior_cursor,prior_seen=self.latest_state
-                self.stream.cache.restore(prior); self.stream.cursor=prior_cursor; self.stream.seen=prior_seen
-                self.stream.forward(self.latest_features,compress=True)
-
             ids=self.tokenizer(input_text['prompt'],return_tensors='pt',add_special_tokens=False).input_ids.to(self.model.device)
             hidden=self.stream.forward(self.model.get_input_embeddings()(ids)); tokens=[]
             for step in range(max_new_tokens):
@@ -59,7 +51,7 @@ class Adapter:
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--method',required=True,choices=['adakv','pyramidkv']); p.add_argument('--annotation',required=True); p.add_argument('--output',required=True); args=p.parse_args()
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
-    raw=Path(args.annotation).read_bytes(); config={'method':args.method,'annotation_sha256':hashlib.sha256(raw).hexdigest(),'fps':1.0,'chunk_frames':1,'budget':500,'budget_scope':'visual','window':32,'model':ROOT+'/model/llava-onevision-qwen2-7b-ov','vision_encoder':'siglip-so400m-patch14-384','pool':('ordinary stride 2; latest stride 1 at question' if os.environ.get('HORIZON_INPUT_PROFILE')=='dscache' else 'bilinear stride 2'),'input_profile':os.environ.get('HORIZON_INPUT_PROFILE','original'),'dtype':'float16','version':1}
+    raw=Path(args.annotation).read_bytes(); config={'method':args.method,'annotation_sha256':hashlib.sha256(raw).hexdigest(),'fps':1.0,'chunk_frames':1,'budget':500,'budget_scope':'visual','window':32,'model':ROOT+'/model/llava-onevision-qwen2-7b-ov','vision_encoder':'siglip-so400m-patch14-384','pool':'ordinary stride 2; no answer-time frame replay','input_profile':os.environ.get('HORIZON_INPUT_PROFILE','original'),'dtype':'float16','version':2}
     manifest=out/'config.json'
     if manifest.exists() and json.loads(manifest.read_text())!=config: raise ValueError('Output config mismatch')
     if not manifest.exists(): manifest.write_text(json.dumps(config,indent=2)+'\n')

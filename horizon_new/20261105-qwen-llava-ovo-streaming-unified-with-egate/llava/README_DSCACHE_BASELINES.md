@@ -1,3 +1,5 @@
+> Historical experiment record (2026-11-04). The current unified entry uses ordinary visual resolution for every frame and does not replay the latest frame at question time. See the project root README.
+
 # LLaVA StreamingBench input adapter (experimental)
 
 Supported methods with --input-profile dscache: adakv, pyramidkv, sparsemm, lukv, hermes, fullkv.

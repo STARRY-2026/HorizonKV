@@ -67,8 +67,8 @@ def main():
     config.update(input_profile=args.input_profile)
     if args.input_profile=='dscache':
         config.update(fps=1.0,chunk_frames=1,version=2,
-                      visual_input='384x384; ordinary stride 2 (196 tokens); latest stride 1 (729 tokens)',
-                      note='Experimental DSCache-style input; latest-frame replay uses each baseline cache, not DSCache cache construction; GPU validation pending.')
+                      visual_input='384x384; all frames stride 2 (196 tokens)', latest_frame_replay=False,
+                      note='One sampled frame per streaming update; answer uses the persistent cache. GPU validation pending.')
     print(json.dumps(config,indent=2,ensure_ascii=False),flush=True)
     if args.dry_run: return 0
     for path in (paths[0]/'transformers/__init__.py',Path('/tmp/siglip-so400m-patch14-384/config.json')):

@@ -45,11 +45,11 @@ def main():
     cfg=dict(version=1,benchmark='ovobench',model='qwen25vl',method=a.method,
              annotation=str(anno),annotation_sha256=sha(anno),max_videos=n,gpus=gpus,
              fps=1.0,chunk_frames=2,visual_input='dscache448-video',
-             ordinary_pixel_area=448*448,latest_pixel_area=896*896,
+             ordinary_pixel_area=448*448,latest_frame_replay=False,
              budget_visual_mean=None if a.method=='fullkv' else 500,
              dtype='float16',trace=False,profile_sha256=sha(profile) if a.method=='lukv' else None,
              code_sha256={x:sha(HERE/x) for x in codes},
-             note='Experimental Qwen OVO input adaptation. Latest-frame replay changes pairing; not DSCache cache reproduction. Long-video performance unvalidated.')
+             note='All sampled frames use ordinary 448-area input units; at most two sampled frames share a native video input. Long-video performance unvalidated.')
     print(json.dumps(cfg,indent=2),flush=True)
     if a.dry_run:return 0
     out=a.output_dir.resolve()

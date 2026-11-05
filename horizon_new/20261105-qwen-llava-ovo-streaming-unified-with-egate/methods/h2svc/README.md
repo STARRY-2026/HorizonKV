@@ -7,17 +7,16 @@ instantaneous, short-term, and episodic heads. There is no K500 variant.
 
 Qwen's unified input merges up to two sampled frames into one visual KV unit.
 The unit is indivisible: FIFO and STCE evict both represented frames together.
-LLaVA uses one frame per unit. Qwen's latest-frame answer replay follows the
-existing project input protocol; the paired persistent KV is not split.
+LLaVA uses one frame per unit. Questions use the persistent H2SVC KV directly;
+the paired Qwen visual unit is not split or re-encoded for answering.
 
-The baseline is **not yet inference-validated**. It needs a separately measured
-head map for each backbone under `assets/qwen25vl_head_map.json` and
-`assets/llavaov_head_map.json`, or an explicit `--head-map` path. Do not create
-a random or copied map as a substitute for offline profiling. Maps must record
-the calibration source and exactly one route for each of 28 × 4 KV heads.
+The baseline is **not yet inference-validated**. Separately measured head maps
+for both backbones are now available under `assets/qwen25vl_head_map.json` and
+`assets/llavaov_head_map.json`. Their 50-video raw observations, plans, and
+measurements are under `observations/h2svc_{qwen,llava}_cal50/` at project root.
+Maps record the calibration source and one route for each of 28 × 4 KV heads.
 `routing.py` freezes a map from measured V2V and T2V temporal attention
-distances. `observe.py` now collects those measurements; a complete 50-video
-observation has not yet run here.
+distances. `observe.py` collected a complete 50-video observation for each model.
 
 ## Offline observation
 
@@ -49,7 +48,7 @@ The supplied paper does not specify those two details at implementation level;
 they are explicit reproduction choices, not verified author-code parity.
 
 Code paths: `policy.py` has the banks and STCE; `state.py` assembles bounded
-per-head ragged KV; `adapter.py` uses the unified visual input and answer
-replay; `run.py`, `worker.py`, and `summarize.py` handle benchmark execution.
+per-head ragged KV; `adapter.py` uses the ordinary visual input and persistent
+cache for answering; `run.py`, `worker.py`, and `summarize.py` handle benchmark execution.
 No model weights, video datasets, pinned runtime, or calibrated maps are
 bundled here.

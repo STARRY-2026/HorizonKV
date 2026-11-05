@@ -93,15 +93,15 @@ def main():
                   ordinary_chunk_frames=2 if a.model == 'qwen25vl' else 1, memory_batch_frames=4,
                   visual_budget_per_head=500, prefix_outside_budget=True, dtype='float16',
                   ordinary_pixels=448**2 if a.model == 'qwen25vl' else [384, 384],
-                  latest_pixels=896**2 if a.model == 'qwen25vl' else [384, 384],
-                  llava_visual_tokens=[196, 729] if a.model == 'llavaov' else None,
+                  latest_frame_replay=False,
+                  llava_visual_tokens=196 if a.model == 'llavaov' else None,
                   allocation_sha256=digest, one_frame_heads=sum(r['recent_group']=='one_frame' for r in allocation.values()),
                   calibration_note='Frozen original Qwen fixed896 allocation transferred to current inputs; not recalibrated. LLaVA allocation is cross-backbone transfer.',
                   reference_heldout_overlap_videos=overlap, excluded_ambiguous_questions=excluded,
                   accept_equivalent_choices=a.accept_equivalent_choices,
                   detailed_cache_trace=False, cpu_video_feature_archive=False,
                   question_policy='Always execute recent-only + original-options history pass; gate selects source; constrained first-token letter decoding.',
-                  input_note='Reuse unified visual sizes and latest-frame replay. EGate keeps its own independent branches, compact RoPE and four-frame memory boundaries. Qwen paired units may split at a memory boundary; DSCache temporal parity is not claimed.',
+                  input_note='All sampled frames use ordinary visual resolution. EGate keeps its own independent one/four-frame branches, compact RoPE and four-frame memory boundaries. Qwen paired units may split at a memory boundary; DSCache temporal parity is not claimed.',
                   code_sha256={str(f.relative_to(PROJECT_ROOT)): sha(f) for f in sorted(HERE.rglob('*.py'))},
                   shared_cache_sha256=sha(SHARED_KVBENCH / 'sparsemm_baselines/cache.py'))
     print(json.dumps(config, ensure_ascii=False, indent=2), flush=True)

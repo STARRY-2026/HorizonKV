@@ -1,3 +1,5 @@
+> Historical experiment record (2026-11-04). The current unified entry uses ordinary visual resolution for every frame and does not replay the latest frame at question time. See the project root README.
+
 # Experimental Qwen StreamingBench input adapter
 
 Methods: AdaKV, PyramidKV, SparseMM, LU-KV, HERMES, Full KV. Ordinary frames target 448x448 pixels by area, latest frame targets 896x896, sampling 1 fps. Maximum 2 sampled frames per native video input. The input adapter is experimental and temporarily replays the last chunk for answering, preserving baseline-specific cache strategies; this is not a DSCache cache reproduction. Two-frame replay can use different temporal grouping and context. Deep cache copies add memory overhead. OVO-Bench and HorizonKV are not supported by this experiment.

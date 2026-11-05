@@ -101,8 +101,8 @@ def main():
                   ordinary_chunk_frames=2 if args.model == 'qwen25vl' else 1,
                   qwen_eviction_unit='indivisible merged two-frame KV unit',
                   ordinary_pixels=448**2 if args.model == 'qwen25vl' else [384, 384],
-                  latest_pixels=896**2 if args.model == 'qwen25vl' else [384, 384],
-                  llava_visual_tokens=[196, 729] if args.model == 'llavaov' else None,
+                  latest_frame_replay=False,
+                  llava_visual_tokens=196 if args.model == 'llavaov' else None,
                   head_routes={kind:sum(route == kind for route in routes.values()) for kind in
                                ('instantaneous', 'short_term', 'episodic')},
                   frame_budgets={'instantaneous':4, 'short_term':16, 'episodic':64},
