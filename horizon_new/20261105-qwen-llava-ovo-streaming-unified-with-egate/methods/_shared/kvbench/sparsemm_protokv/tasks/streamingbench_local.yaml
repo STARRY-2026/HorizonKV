@@ -1,0 +1,2 @@
+task: streamingbench_local
+class: !function streamingbench_local.StreamingBenchLocal

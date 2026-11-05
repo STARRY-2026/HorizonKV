@@ -1,0 +1,15 @@
+{
+  "release": "20261014-ppu-dp500-v5-8way",
+  "source_release": "20261014-ppu-dp1000-v4-8way",
+  "files": {
+    "tools/run_sharded.py": "9afdc8e59776791d6c56531b2e5dce6a05f1db5de3e47e5e0786f0999d2f8164",
+    "tools/run_experiment.py": "2eaeb2446357bf39f31172d92c64c304f4df0a63149928360b54ad5dc8d35c30",
+    "configs/experiments/protocols.json": "c912225cba57ef33f21d0f6f4ca1320763e15796500ff9dfd60eaa864ee960d6",
+    "data/streamingbench/streamingbench_realtime_half.json": "343087d65c9b3f9532f122f31df9a942c59bec2e4d9021a9502e011e00b6f617",
+    "results/myobservations/two_bank_grid_dp_k500_floor375_20260925/dp_k500_exact_budget_scores.csv": "7041414dac1142d14b2294f792e539d21961879b43853063c09ccec8cfe82e99",
+    "results/myobservations/two_bank_grid_dp_k500_floor375_20260925/recent_ratio_profile.csv": "9c5d517d06c45d1882966a0893db6c6f1e66c9d2e515bb8def1dd8e77736c9b4",
+    "results/myobservations/two_bank_grid_dp_k500_floor375_20260925/per_head_allocation.csv": "fa164606d409a30acda7a6c881a9af24a2e956d7d494ff0417fc03aa90acff84"
+  },
+  "profile_source_zip": "/ossfs/workspace/HorizonKV-main.zip",
+  "profile_source_zip_sha256": "45057ab513bcf38d87d0e9b2a945ae882f8105b9b6873ed7dbb7a9b1347b0f71"
+}

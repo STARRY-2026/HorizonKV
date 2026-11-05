@@ -1,0 +1,1 @@
+Full visual KV inference copied from 20261020-fullkv-fp16-v1. Per-video CSV checkpoints now use a temporary file and os.replace with retries, to preserve the last completed checkpoint on shared warehouse write errors. Algorithm, sampling, FP16, FA2 and no-eviction behavior are unchanged.

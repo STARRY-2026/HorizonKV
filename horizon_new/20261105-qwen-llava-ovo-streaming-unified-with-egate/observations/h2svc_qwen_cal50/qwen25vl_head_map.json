@@ -1,0 +1,619 @@
+{
+  "schema_version": 1,
+  "model": "qwen25vl",
+  "calibration_source_sha256": "c52fe1ec5d4318e23c80ad600aeb7c1d6a37d0c0d1e3c86ad938b374c367c2d6",
+  "calibration_videos": [
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_301_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_253_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_348_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_403_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_296_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_293_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_335_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_478_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_318_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_495_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_116_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_53_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_64_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_279_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_323_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_20_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_483_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_10_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_236_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_248_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_244_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_239_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_415_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_407_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_364_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_367_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_180_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_94_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_78_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_84_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_448_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_257_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_144_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_303_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_39_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_14_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_445_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_324_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_220_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_223_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_225_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_229_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_179_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_328_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_270_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_170_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_107_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_28_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_498_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_120_real.mp4"
+  ],
+  "heads": [
+    {
+      "layer": 0,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 0,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 0,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 0,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 1,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 1,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 1,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 1,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 2,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 2,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 2,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 2,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 3,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 3,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 3,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 3,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 4,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 4,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 4,
+      "head": 2,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 4,
+      "head": 3,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 5,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 5,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 5,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 5,
+      "head": 3,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 6,
+      "head": 0,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 6,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 6,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 6,
+      "head": 3,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 7,
+      "head": 0,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 7,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 7,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 7,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 8,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 8,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 8,
+      "head": 2,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 8,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 9,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 9,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 9,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 9,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 10,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 10,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 10,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 10,
+      "head": 3,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 11,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 11,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 11,
+      "head": 2,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 11,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 12,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 12,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 12,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 12,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 13,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 13,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 13,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 13,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 14,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 14,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 14,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 14,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 15,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 15,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 15,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 15,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 16,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 16,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 16,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 16,
+      "head": 3,
+      "route": "short_term"
+    },
+    {
+      "layer": 17,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 17,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 17,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 17,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 18,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 18,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 18,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 18,
+      "head": 3,
+      "route": "short_term"
+    },
+    {
+      "layer": 19,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 19,
+      "head": 1,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 19,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 19,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 20,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 20,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 20,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 20,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 21,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 21,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 21,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 21,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 22,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 22,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 22,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 22,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 23,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 23,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 23,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 23,
+      "head": 3,
+      "route": "short_term"
+    },
+    {
+      "layer": 24,
+      "head": 0,
+      "route": "instantaneous"
+    },
+    {
+      "layer": 24,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 24,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 24,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 25,
+      "head": 0,
+      "route": "short_term"
+    },
+    {
+      "layer": 25,
+      "head": 1,
+      "route": "episodic"
+    },
+    {
+      "layer": 25,
+      "head": 2,
+      "route": "short_term"
+    },
+    {
+      "layer": 25,
+      "head": 3,
+      "route": "short_term"
+    },
+    {
+      "layer": 26,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 26,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 26,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 26,
+      "head": 3,
+      "route": "episodic"
+    },
+    {
+      "layer": 27,
+      "head": 0,
+      "route": "episodic"
+    },
+    {
+      "layer": 27,
+      "head": 1,
+      "route": "short_term"
+    },
+    {
+      "layer": 27,
+      "head": 2,
+      "route": "episodic"
+    },
+    {
+      "layer": 27,
+      "head": 3,
+      "route": "episodic"
+    }
+  ]
+}

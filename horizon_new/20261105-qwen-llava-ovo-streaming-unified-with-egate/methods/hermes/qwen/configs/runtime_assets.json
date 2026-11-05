@@ -1,0 +1,22 @@
+{
+  "model": "qwen2.5_vl_7b",
+  "num_layers": 28,
+  "num_query_heads": 28,
+  "num_kv_heads": 4,
+  "dp": {
+    "100": "results/myobservations/two_bank_grid_dp_k100_floor75_20260929",
+    "250": "results/myobservations/k250_cachecomp_score_pilot_20260923",
+    "500": "results/myobservations/two_bank_grid_dp_k500_floor375_20260925",
+    "800": "results/myobservations/two_bank_grid_dp_k800_floor600_20260928",
+    "1000": "results/myobservations/k1000_dp_cachecomp_score_20260924"
+  },
+  "timestamp_v8": {
+    "scores": "results/myobservations/relocatev3/v8_blend3_scores.csv",
+    "policy": "results/myobservations/relocatev3/v8_budget.csv"
+  },
+  "horizonkv": {
+    "policy": "results/myobservations/horizonkv_pilot_10v_fixed896/pseudo_trend_memory_budget_6000_qwen_adaptive_recent2691.csv",
+    "average_budget": 6000,
+    "recent_capacity": 2691
+  }
+}

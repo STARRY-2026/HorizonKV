@@ -1,0 +1,10 @@
+# Separate streaming adapter runtime, matching the existing hermes-qwen env.
+# No HERMES inference/policy code is imported by this reproduction.
+torch==2.9.1
+transformers==4.57.1
+flash-attn==2.8.3
+qwen-vl-utils==0.0.8
+decord==0.6.0
+numpy==2.3.3
+pillow==11.3.0
+pandas==2.3.2

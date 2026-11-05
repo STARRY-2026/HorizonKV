@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "model": "qwen2.5_vl_7b",
+  "sample_fps": 0.5,
+  "dtype": "float16",
+  "methods": {
+    "hermes": {
+      "name": "Original HERMES dense cache",
+      "default_budget": 1000,
+      "options": {
+        "kv_head_ragged_prefill": false
+      },
+      "source": "scripts/run_sb_hermes.sh; scripts/run_infer.sh",
+      "note": "Original dense HERMES path, no physical per-head budget patch. Long-term K comprises K-1 selected visual tokens plus one pooled summary KV."
+    },
+    "uniform": {
+      "name": "Uniform physical KV-head ragged control",
+      "default_budget": 1000,
+      "options": {
+        "kv_head_ragged_prefill": true,
+        "kv_head_budget_scheme": "sparsemm",
+        "kv_head_budget_sparsemm_ratio": 0.2,
+        "kv_head_budget_sparsemm_window_size": 32,
+        "kv_head_budget_union_cap_ratio": 1.0,
+        "kv_head_budget_scores": "results/observations/memory_core_budget_scores/uniform.csv"
+      },
+      "source": "scripts/run_k100_dp_vs_hermes_first150.sh (hermes_uniform); scripts/run_native_k800_first150_one.sh",
+      "note": "Same physical cache/selector protocol as DP, uniform capacities, no head alpha/k."
+    },
+    "dp": {
+      "name": "Exact DP capacities plus head recency alpha/k",
+      "default_budget": 1000,
+      "supported_budgets": [
+        100,
+        250,
+        500,
+        800,
+        1000
+      ],
+      "options": {
+        "kv_head_ragged_prefill": true,
+        "kv_head_budget_scheme": "sparsemm",
+        "kv_head_budget_sparsemm_ratio": 0.2,
+        "kv_head_budget_sparsemm_window_size": 32,
+        "kv_head_budget_union_cap_ratio": 1.0,
+        "kv_head_recency_metric": "recent_ratio",
+        "kv_head_recency_delta": 0.1,
+        "kv_head_recency_tau": 1.0,
+        "kv_head_recency_alpha_min": 0.0,
+        "kv_head_recency_alpha_max": 1.0,
+        "kv_head_recency_k_delta": 2.0,
+        "kv_head_recency_k_min": 0.0,
+        "kv_head_recency_k_max": 20.0
+      },
+      "budgets": {
+        "100": {
+          "kv_head_budget_scores": "results/myobservations/two_bank_grid_dp_k100_floor75_20260929/dp_k100_exact_budget_scores.csv",
+          "kv_head_recency_scores": "results/myobservations/two_bank_grid_dp_k100_floor75_20260929/recent_ratio_profile.csv"
+        },
+        "250": {
+          "kv_head_budget_scores": "results/myobservations/k250_cachecomp_score_pilot_20260923/dp_k250_exact_budget_scores.csv",
+          "kv_head_recency_scores": "results/myobservations/k250_cachecomp_score_pilot_20260923/recent_ratio_profile.csv"
+        },
+        "500": {
+          "kv_head_budget_scores": "results/myobservations/two_bank_grid_dp_k500_floor375_20260925/dp_k500_exact_budget_scores.csv",
+          "kv_head_recency_scores": "results/myobservations/two_bank_grid_dp_k500_floor375_20260925/recent_ratio_profile.csv"
+        },
+        "800": {
+          "kv_head_budget_scores": "results/myobservations/two_bank_grid_dp_k800_floor600_20260928/dp_k800_exact_budget_scores.csv",
+          "kv_head_recency_scores": "results/myobservations/two_bank_grid_dp_k800_floor600_20260928/recent_ratio_profile.csv"
+        },
+        "1000": {
+          "kv_head_budget_scores": "results/myobservations/k1000_dp_cachecomp_score_20260924/dp_k1000_exact_budget_scores.csv",
+          "kv_head_recency_scores": "results/myobservations/k1000_dp_cachecomp_score_20260924/recent_ratio_profile.csv"
+        }
+      },
+      "source": "scripts/run_k100_dp_vs_hermes_first150.sh; scripts/run_k250_cachecomp_score_pilot.sh (explicit DP score override); scripts/run_k500_dp_cachecomp_first150.sh; scripts/run_k1000_dp_cachecomp_first250.sh",
+      "note": "K800 runtime CSVs are deterministic exports from the frozen allocation, with provenance and cross-checks. K250 pilot shell defaults to uniform; this protocol intentionally selects its existing exact DP scores."
+    },
+    "v8": {
+      "name": "MemHeadKV / v8 native head-budget allocation",
+      "default_budget": 1000,
+      "supported_budgets": [
+        1000
+      ],
+      "options": {
+        "kv_head_ragged_prefill": true,
+        "kv_head_budget_scheme": "sparsemm",
+        "kv_head_budget_sparsemm_ratio": 0.2,
+        "kv_head_budget_sparsemm_window_size": 32,
+        "kv_head_budget_union_cap_ratio": 1.0,
+        "kv_head_budget_scores": "results/myobservations/relocatev3/v8_blend3_scores.csv"
+      },
+      "rounding_delta": {
+        "1000": 4
+      },
+      "source": "scripts/run_native_k1000_budget.sh with results/myobservations/relocatev3/v8_blend3_scores.csv",
+      "note": "MemHeadKV is an alias for native v8 head-budget allocation only. No timestamp policy or fixed448 override. Historical independent integer rounding gives112004 slots atK1000."
+    },
+    "current-ourtop": {
+      "name": "Timestamp v8 current-ourtop recalibrated profile",
+      "default_budget": 1000,
+      "supported_budgets": [
+        1000
+      ],
+      "options": {
+        "kv_head_ragged_prefill": true,
+        "kv_head_budget_scheme": "sparsemm",
+        "kv_head_budget_sparsemm_ratio": 0.2,
+        "kv_head_budget_sparsemm_window_size": 32,
+        "kv_head_budget_union_cap_ratio": 1.0,
+        "kv_head_budget_scores": "results/myobservations/current_ourtop_k1000_fixed448_g0/current_ourtop_scores.csv",
+        "timestamp_v8_policy": "results/myobservations/current_ourtop_k1000_fixed448_g0/current_ourtop_v8_policy.csv",
+        "timestamp_v8_grace_frames": 0,
+        "kv_head_budget_floor_ratio": 0.0,
+        "fixed_frame_canvas_size": 448,
+        "fixed_frame_pad_mode": "letterbox"
+      },
+      "rounding_delta": {
+        "1000": 1
+      },
+      "source": "scripts/run_current_ourtop_profile_and_half_2gpu.sh (evaluation stage)",
+      "note": "Separate recalibrated v8 variant, historical integer rounding total112001."
+    },
+    "horizonkv": {
+      "name": "HorizonKV fixed Recent + Memory runtime",
+      "default_budget": 6000,
+      "supported_budgets": [
+        6000
+      ],
+      "options": {
+        "kv_head_ragged_prefill": true,
+        "horizonkv_policy": "results/myobservations/horizonkv_pilot_10v_fixed896/pseudo_trend_memory_budget_6000_qwen_adaptive_recent2691.csv",
+        "horizonkv_recent_capacity": 2691,
+        "horizonkv_ema_gamma": 0.9,
+        "horizonkv_apply_age_penalty": true,
+        "horizonkv_temporal_coverage": "cold",
+        "horizonkv_probe_style": "original",
+        "horizonkv_score_blend": "head_type"
+      },
+      "source": "docs/HORIZONKV_IMPLEMENTATION.md v0.6 runtime smoke and head_analysis/horizonkv_policy.py defaults",
+      "note": "Real independent --horizonkv_policy runtime. Frozen 6000/head, total672000, no timestamp_v8 alias or dynamic rescaling."
+    },
+    "timestamp-v8": {
+      "name": "Timestamp v8 eviction, fixed448",
+      "default_budget": 1000,
+      "supported_budgets": [
+        1000
+      ],
+      "options": {
+        "kv_head_ragged_prefill": true,
+        "kv_head_budget_scheme": "sparsemm",
+        "kv_head_budget_sparsemm_ratio": 0.2,
+        "kv_head_budget_sparsemm_window_size": 32,
+        "kv_head_budget_union_cap_ratio": 1.0,
+        "kv_head_budget_scores": "results/myobservations/relocatev3/v8_blend3_scores.csv",
+        "timestamp_v8_policy": "results/myobservations/relocatev3/v8_budget.csv",
+        "timestamp_v8_grace_frames": 0,
+        "kv_head_budget_floor_ratio": 0.0,
+        "fixed_frame_canvas_size": 448,
+        "fixed_frame_pad_mode": "letterbox"
+      },
+      "rounding_delta": {
+        "1000": 4
+      },
+      "source": "scripts/run_timestamp_v8_nofloor_g0_half_gpu0.sh",
+      "note": "Separate timestamp_v8_policy eviction runtime with fixed448 input; not the native allocation-only MemHeadKV experiment."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "method": "HorizonKV-EGate",
+  "cli_method": "horizonkv-egate",
+  "experiment_arm": "pae_online_e_gate_k500",
+  "reference_directory": "/mnt/aifordata2026-p/common/aifordata/541707/code/horizonkv/releases/20261104-egate-dscache-input-work-v2/egate/",
+  "reference_description": "KV-only recent-transfer pilot derived from the uploaded ed9cb6b EGate protocol. This is a new input/backend adaptation, not an unmodified export of that commit.",
+  "allocation": {
+    "source": "egate/assets/per_head_allocation.csv",
+    "sha256": "d7f644848b3521a18fdb73441e9a42052933141513b4753e273796539909a0d3",
+    "recalibrated": false
+  },
+  "selection_reference_sha256": "2840e936d1383019ff5a072ef39fe5c11c23cb99fb41e207c45e1db0c431c271",
+  "reused_components": [
+    "methods/_shared/kvbench/sparsemm_baselines/cache.py",
+    "qwen/dscache448_adapter.py:set_size",
+    "qwen/qwen_vl_utils/vision_process.py:smart_resize"
+  ],
+  "adaptations": [
+    "dynamic visual grids and permanent frame/row/column IDs",
+    "Qwen 4.57 and LLaVA 4.40 decoders with raw keys captured at projection",
+    "shared latest-frame replay input sizes",
+    "independent one-frame branch under paired Qwen video inputs",
+    "OVO 1..8 options extension; E/F unchanged for 4/5",
+    "self-contained sharded runner and partial-video resume"
+  ],
+  "unchanged_contract": [
+    "112 ordered frozen per-head quotas, recent+history=500, 56 one-frame and 56 four-frame heads",
+    "original recent32 selector softmax/mask/pooling/protection logic",
+    "direct selected-KV transfer without old feature reconstruction",
+    "identical selected recent entries and suffix start for both passes",
+    "always execute both passes; route through insufficient-evidence option",
+    "constrained first-logit letter choice policy"
+  ]
+}

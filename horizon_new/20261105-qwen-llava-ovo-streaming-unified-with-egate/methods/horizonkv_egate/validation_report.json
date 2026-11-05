@@ -1,0 +1,447 @@
+{
+  "elapsed_seconds": 297.78,
+  "runs": [
+    {
+      "model": "qwen25vl",
+      "benchmark": "streamingbench",
+      "exit_code": 0,
+      "output": "/mnt/aifordata2026-p/common/aifordata/541707/experiments/horizonkv/unified-egate-gpu-smoke-55430687-20261105-02/qwen25vl-streamingbench",
+      "summary_exit": 0,
+      "status": {
+        "completed": 3,
+        "expected": 3,
+        "last_question": {
+          "recent_selection_sha256": "daf27687c59e8f4d7ad99960a1d103f8469c87295cfa8140caebb84e2a7eab3d",
+          "recent_slots": 27364,
+          "history_slots": 28636,
+          "suffix_start": 2587,
+          "max_visual_per_head": 500,
+          "history_transfers": 75,
+          "recent_answer": "E",
+          "history_answer": "A",
+          "gate_source": "history",
+          "constrained_choice_fallbacks": [
+            false,
+            false
+          ],
+          "persistent_state_unchanged": true,
+          "sampled_frames": 301,
+          "persistent_history_transfers": 75
+        },
+        "last_input_units": [
+          {
+            "high": false,
+            "frames": 2,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": false,
+            "frames": 2,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": false,
+            "frames": 2,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              24,
+              42
+            ],
+            "tokens": 252
+          },
+          {
+            "high": true,
+            "frames": 1,
+            "grid": [
+              1,
+              48,
+              84
+            ],
+            "tokens": 1008
+          }
+        ],
+        "decoder_parity": {
+          "max_abs": 0.21875,
+          "mean_abs": 0.0037268088199198246,
+          "flash_attention": true
+        },
+        "peak_rss_gib": 20.504039764404297,
+        "max_gpu_allocated_gib": 16.05807065963745
+      },
+      "partial_resume_exit": 0,
+      "partial_resume_results_identical": true
+    },
+    {
+      "model": "qwen25vl",
+      "benchmark": "ovobench",
+      "exit_code": 0,
+      "output": "/mnt/aifordata2026-p/common/aifordata/541707/experiments/horizonkv/unified-egate-gpu-smoke-55430687-20261105-02/qwen25vl-ovobench",
+      "summary_exit": 0,
+      "status": {
+        "completed": 1,
+        "expected": 1,
+        "last_question": {
+          "recent_selection_sha256": "2eb9bb70731a50a1981297ee71528cd3e7111ba4dbedb796fa0e0b4a6f469fc9",
+          "recent_slots": 33405,
+          "history_slots": 22595,
+          "suffix_start": 110,
+          "max_visual_per_head": 500,
+          "history_transfers": 1,
+          "recent_answer": "E",
+          "history_answer": "B",
+          "gate_source": "history",
+          "constrained_choice_fallbacks": [
+            false,
+            false
+          ],
+          "persistent_state_unchanged": true,
+          "sampled_frames": 6,
+          "persistent_history_transfers": 1
+        },
+        "last_input_units": [
+          {
+            "high": false,
+            "frames": 2,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": false,
+            "frames": 2,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": false,
+            "frames": 2,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              1,
+              22,
+              42
+            ],
+            "tokens": 231
+          },
+          {
+            "high": true,
+            "frames": 1,
+            "grid": [
+              1,
+              48,
+              86
+            ],
+            "tokens": 1032
+          }
+        ],
+        "decoder_parity": {
+          "max_abs": 0.21875,
+          "mean_abs": 0.0037268088199198246,
+          "flash_attention": true
+        },
+        "peak_rss_gib": 20.503185272216797,
+        "max_gpu_allocated_gib": 16.05801773071289
+      }
+    },
+    {
+      "model": "llavaov",
+      "benchmark": "streamingbench",
+      "exit_code": 0,
+      "output": "/mnt/aifordata2026-p/common/aifordata/541707/experiments/horizonkv/unified-egate-gpu-smoke-55430687-20261105-02/llavaov-streamingbench",
+      "summary_exit": 0,
+      "status": {
+        "completed": 3,
+        "expected": 3,
+        "last_question": {
+          "recent_selection_sha256": "f0cad03ff9b1a32a23c9212fbdb4fadeed76605f87d4fd9845cb253020f15a44",
+          "recent_slots": 27364,
+          "history_slots": 28636,
+          "suffix_start": 28967,
+          "max_visual_per_head": 500,
+          "history_transfers": 75,
+          "recent_answer": "A",
+          "history_answer": "A",
+          "gate_source": "recent",
+          "constrained_choice_fallbacks": [
+            false,
+            false
+          ],
+          "persistent_state_unchanged": true,
+          "sampled_frames": 301,
+          "persistent_history_transfers": 75
+        },
+        "last_input_units": [
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          }
+        ],
+        "decoder_parity": {
+          "max_abs": 0.125,
+          "mean_abs": 0.0029479963704943657,
+          "flash_attention": true
+        },
+        "peak_rss_gib": 8.133373260498047,
+        "max_gpu_allocated_gib": 17.473382472991943
+      },
+      "partial_resume_exit": 0,
+      "partial_resume_results_identical": true
+    },
+    {
+      "model": "llavaov",
+      "benchmark": "ovobench",
+      "exit_code": 0,
+      "output": "/mnt/aifordata2026-p/common/aifordata/541707/experiments/horizonkv/unified-egate-gpu-smoke-55430687-20261105-02/llavaov-ovobench",
+      "summary_exit": 0,
+      "status": {
+        "completed": 1,
+        "expected": 1,
+        "last_question": {
+          "recent_selection_sha256": "f41fcb70532ec25e0ab16bf00733f46a2455798646724943451edddb696512b2",
+          "recent_slots": 34815,
+          "history_slots": 21185,
+          "suffix_start": 1723,
+          "max_visual_per_head": 500,
+          "history_transfers": 1,
+          "recent_answer": "A",
+          "history_answer": "A",
+          "gate_source": "recent",
+          "constrained_choice_fallbacks": [
+            false,
+            false
+          ],
+          "persistent_state_unchanged": true,
+          "sampled_frames": 6,
+          "persistent_history_transfers": 1
+        },
+        "last_input_units": [
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          },
+          {
+            "high": false,
+            "frames": 1,
+            "grid": [
+              14,
+              14
+            ],
+            "tokens": 196
+          }
+        ],
+        "decoder_parity": {
+          "max_abs": 0.125,
+          "mean_abs": 0.0029479963704943657,
+          "flash_attention": true
+        },
+        "peak_rss_gib": 8.226974487304688,
+        "max_gpu_allocated_gib": 17.473382472991943
+      }
+    }
+  ]
+}

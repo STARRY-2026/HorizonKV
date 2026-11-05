@@ -1,0 +1,20 @@
+{
+  "model": "llavaov",
+  "model_path": "/home/yujun/program/horizonkv_llava_method/20261104-streaming-ovo-llava-dscache-input-work-v1/source_dependencies/model/llava-onevision-qwen2-7b-ov",
+  "annotation": "/home/yujun/program/hermes/data/streamingbench/streamingbench_realtime_local.json",
+  "annotation_sha256": "26e1af9c191780cc312e7bb876a9b20cd0aa2c21a267b3e760d1e57b95922f69",
+  "calibration_profile_sha256": "3bd31517199a0256b25150e67adc2a6fcfc2e011aafbe6f1e3eb6089db93c266",
+  "calibration_videos": [
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_301_real.mp4"
+  ],
+  "max_frames": 2,
+  "max_new_tokens": 2,
+  "description": "Please provide a detailed description of the video, focusing on the main subjects, their actions, the background scenes.",
+  "fps": 1,
+  "qwen_pair_representation": "later sampled frame",
+  "normal_pixel_area": null,
+  "llava_resolution": [
+    384,
+    384
+  ]
+}

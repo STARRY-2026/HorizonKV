@@ -1,0 +1,1 @@
+Input profile is experimental. LLaVA AdaKV/PyramidKV replaces the most recent visual update at question time with stride-1 features, while keeping 1fps, 384 input and standard K=500 method compression; this is not DSCache independent recent-cache construction. Qwen dscache mode is explicitly rejected pending variable token indexing and position support.

@@ -1,0 +1,733 @@
+{
+  "schema_version": 1,
+  "model": "qwen25vl",
+  "source_sha256": "c52fe1ec5d4318e23c80ad600aeb7c1d6a37d0c0d1e3c86ad938b374c367c2d6",
+  "calibration_videos": [
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_301_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_253_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_348_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_403_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_296_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_293_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_335_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_478_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_318_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_495_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_116_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_53_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_64_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_279_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_323_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_20_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_483_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_10_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_236_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_248_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_244_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_239_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_415_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_407_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_364_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_367_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_180_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_94_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_78_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_84_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_448_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_257_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_144_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_303_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_39_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_14_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_445_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_324_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_220_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_223_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_225_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_229_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_179_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_328_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_270_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_170_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_107_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_28_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_498_real.mp4",
+    "/home/yujun/program/streaming_data/streamingbench/videos/sample_120_real.mp4"
+  ],
+  "heads": [
+    {
+      "layer": 0,
+      "head": 0,
+      "tad_v2v": 5.1140497872313535,
+      "tad_t2v": 3.32389466803582
+    },
+    {
+      "layer": 0,
+      "head": 1,
+      "tad_v2v": 4.355913870638747,
+      "tad_t2v": 2.3701912386788697
+    },
+    {
+      "layer": 0,
+      "head": 2,
+      "tad_v2v": 8.75586797890772,
+      "tad_t2v": 7.669111069773064
+    },
+    {
+      "layer": 0,
+      "head": 3,
+      "tad_v2v": 4.684636070175964,
+      "tad_t2v": 3.230267441429076
+    },
+    {
+      "layer": 1,
+      "head": 0,
+      "tad_v2v": 5.7551303712286135,
+      "tad_t2v": 5.359607208674072
+    },
+    {
+      "layer": 1,
+      "head": 1,
+      "tad_v2v": 3.008323614126594,
+      "tad_t2v": 3.6855497617604307
+    },
+    {
+      "layer": 1,
+      "head": 2,
+      "tad_v2v": 2.3947666644576997,
+      "tad_t2v": 3.3365960278081115
+    },
+    {
+      "layer": 1,
+      "head": 3,
+      "tad_v2v": 5.78789393930732,
+      "tad_t2v": 4.027622239101129
+    },
+    {
+      "layer": 2,
+      "head": 0,
+      "tad_v2v": 3.8148617491149905,
+      "tad_t2v": 3.952926529997685
+    },
+    {
+      "layer": 2,
+      "head": 1,
+      "tad_v2v": 5.0383022142236165,
+      "tad_t2v": 3.4203940806037094
+    },
+    {
+      "layer": 2,
+      "head": 2,
+      "tad_v2v": 7.578501905232108,
+      "tad_t2v": 4.6395166015625
+    },
+    {
+      "layer": 2,
+      "head": 3,
+      "tad_v2v": 5.481638394753544,
+      "tad_t2v": 3.6327957864667555
+    },
+    {
+      "layer": 3,
+      "head": 0,
+      "tad_v2v": 3.276908652153827,
+      "tad_t2v": 1.6003158140182494
+    },
+    {
+      "layer": 3,
+      "head": 1,
+      "tad_v2v": 5.4555901499321875,
+      "tad_t2v": 3.9939338915758444
+    },
+    {
+      "layer": 3,
+      "head": 2,
+      "tad_v2v": 7.060428101300067,
+      "tad_t2v": 4.352437710312547
+    },
+    {
+      "layer": 3,
+      "head": 3,
+      "tad_v2v": 5.337421337190527,
+      "tad_t2v": 2.514457054871028
+    },
+    {
+      "layer": 4,
+      "head": 0,
+      "tad_v2v": 2.1119704271184636,
+      "tad_t2v": 2.585711979328609
+    },
+    {
+      "layer": 4,
+      "head": 1,
+      "tad_v2v": 2.4506913559041426,
+      "tad_t2v": 1.097613679502831
+    },
+    {
+      "layer": 4,
+      "head": 2,
+      "tad_v2v": 1.2176940033085684,
+      "tad_t2v": 0.6527678362780908
+    },
+    {
+      "layer": 4,
+      "head": 3,
+      "tad_v2v": 1.0269303392259315,
+      "tad_t2v": 0.7278960857283875
+    },
+    {
+      "layer": 5,
+      "head": 0,
+      "tad_v2v": 4.567504595371426,
+      "tad_t2v": 5.237238539203268
+    },
+    {
+      "layer": 5,
+      "head": 1,
+      "tad_v2v": 2.181375996698748,
+      "tad_t2v": 1.940557724774861
+    },
+    {
+      "layer": 5,
+      "head": 2,
+      "tad_v2v": 2.3069565713623077,
+      "tad_t2v": 1.423754910044983
+    },
+    {
+      "layer": 5,
+      "head": 3,
+      "tad_v2v": 1.365532324511881,
+      "tad_t2v": 0.5314614183809914
+    },
+    {
+      "layer": 6,
+      "head": 0,
+      "tad_v2v": 0.0769973067971144,
+      "tad_t2v": 0.21787965235529377
+    },
+    {
+      "layer": 6,
+      "head": 1,
+      "tad_v2v": 4.908122901597564,
+      "tad_t2v": 5.05673112185275
+    },
+    {
+      "layer": 6,
+      "head": 2,
+      "tad_v2v": 1.2320438792380106,
+      "tad_t2v": 1.3744155623263024
+    },
+    {
+      "layer": 6,
+      "head": 3,
+      "tad_v2v": 0.8484530197174064,
+      "tad_t2v": 0.733150605730346
+    },
+    {
+      "layer": 7,
+      "head": 0,
+      "tad_v2v": 1.085151847145086,
+      "tad_t2v": 1.0669582470689642
+    },
+    {
+      "layer": 7,
+      "head": 1,
+      "tad_v2v": 2.0290446833975118,
+      "tad_t2v": 1.352303804335047
+    },
+    {
+      "layer": 7,
+      "head": 2,
+      "tad_v2v": 2.85274103210774,
+      "tad_t2v": 2.3445990817957236
+    },
+    {
+      "layer": 7,
+      "head": 3,
+      "tad_v2v": 3.6239983609044675,
+      "tad_t2v": 5.174969951930593
+    },
+    {
+      "layer": 8,
+      "head": 0,
+      "tad_v2v": 4.928424812915458,
+      "tad_t2v": 5.811371728553147
+    },
+    {
+      "layer": 8,
+      "head": 1,
+      "tad_v2v": 3.0500442849488048,
+      "tad_t2v": 5.355220578156534
+    },
+    {
+      "layer": 8,
+      "head": 2,
+      "tad_v2v": 0.3253371866009851,
+      "tad_t2v": 0.41452808375241323
+    },
+    {
+      "layer": 8,
+      "head": 3,
+      "tad_v2v": 6.427279075234483,
+      "tad_t2v": 4.79584969747262
+    },
+    {
+      "layer": 9,
+      "head": 0,
+      "tad_v2v": 3.919570816517517,
+      "tad_t2v": 6.875185718262782
+    },
+    {
+      "layer": 9,
+      "head": 1,
+      "tad_v2v": 3.1958144712298777,
+      "tad_t2v": 4.4638491462390935
+    },
+    {
+      "layer": 9,
+      "head": 2,
+      "tad_v2v": 3.708376354804881,
+      "tad_t2v": 4.161924944881533
+    },
+    {
+      "layer": 9,
+      "head": 3,
+      "tad_v2v": 5.414335778370532,
+      "tad_t2v": 8.950550845372872
+    },
+    {
+      "layer": 10,
+      "head": 0,
+      "tad_v2v": 4.66371902670789,
+      "tad_t2v": 6.158736487685657
+    },
+    {
+      "layer": 10,
+      "head": 1,
+      "tad_v2v": 1.6563238725402796,
+      "tad_t2v": 1.2867360451426664
+    },
+    {
+      "layer": 10,
+      "head": 2,
+      "tad_v2v": 2.81560706235786,
+      "tad_t2v": 3.4779774729541093
+    },
+    {
+      "layer": 10,
+      "head": 3,
+      "tad_v2v": 0.7991603039309263,
+      "tad_t2v": 0.6506212514492333
+    },
+    {
+      "layer": 11,
+      "head": 0,
+      "tad_v2v": 3.3482247237944627,
+      "tad_t2v": 4.707464607191867
+    },
+    {
+      "layer": 11,
+      "head": 1,
+      "tad_v2v": 3.8583888582321317,
+      "tad_t2v": 3.428464566176055
+    },
+    {
+      "layer": 11,
+      "head": 2,
+      "tad_v2v": 1.0735679486910377,
+      "tad_t2v": 0.5663409341493102
+    },
+    {
+      "layer": 11,
+      "head": 3,
+      "tad_v2v": 6.003576186688869,
+      "tad_t2v": 10.801316910962589
+    },
+    {
+      "layer": 12,
+      "head": 0,
+      "tad_v2v": 2.3344819666001717,
+      "tad_t2v": 2.133998343915236
+    },
+    {
+      "layer": 12,
+      "head": 1,
+      "tad_v2v": 6.278099790332231,
+      "tad_t2v": 8.384322777419793
+    },
+    {
+      "layer": 12,
+      "head": 2,
+      "tad_v2v": 4.901540062704315,
+      "tad_t2v": 5.513628995574888
+    },
+    {
+      "layer": 12,
+      "head": 3,
+      "tad_v2v": 4.46673731797412,
+      "tad_t2v": 5.463425417610856
+    },
+    {
+      "layer": 13,
+      "head": 0,
+      "tad_v2v": 3.5371388639027437,
+      "tad_t2v": 4.711904346962444
+    },
+    {
+      "layer": 13,
+      "head": 1,
+      "tad_v2v": 2.348946971612137,
+      "tad_t2v": 2.4992979671525175
+    },
+    {
+      "layer": 13,
+      "head": 2,
+      "tad_v2v": 5.664907288583858,
+      "tad_t2v": 10.069277596708204
+    },
+    {
+      "layer": 13,
+      "head": 3,
+      "tad_v2v": 4.189854430790166,
+      "tad_t2v": 7.234265860475477
+    },
+    {
+      "layer": 14,
+      "head": 0,
+      "tad_v2v": 4.8465855701254235,
+      "tad_t2v": 4.691270988730134
+    },
+    {
+      "layer": 14,
+      "head": 1,
+      "tad_v2v": 7.7082199853968305,
+      "tad_t2v": 15.990557490020503
+    },
+    {
+      "layer": 14,
+      "head": 2,
+      "tad_v2v": 5.452897388782461,
+      "tad_t2v": 9.46215117837562
+    },
+    {
+      "layer": 14,
+      "head": 3,
+      "tad_v2v": 6.463940727746144,
+      "tad_t2v": 9.844547103272111
+    },
+    {
+      "layer": 15,
+      "head": 0,
+      "tad_v2v": 3.7394891143608295,
+      "tad_t2v": 5.598821517131367
+    },
+    {
+      "layer": 15,
+      "head": 1,
+      "tad_v2v": 1.6189498591602092,
+      "tad_t2v": 1.502688802255959
+    },
+    {
+      "layer": 15,
+      "head": 2,
+      "tad_v2v": 5.017058998171495,
+      "tad_t2v": 4.612436284041795
+    },
+    {
+      "layer": 15,
+      "head": 3,
+      "tad_v2v": 3.6117135350198764,
+      "tad_t2v": 5.589861868834887
+    },
+    {
+      "layer": 16,
+      "head": 0,
+      "tad_v2v": 6.894802528103473,
+      "tad_t2v": 15.476866842254264
+    },
+    {
+      "layer": 16,
+      "head": 1,
+      "tad_v2v": 4.987622794314552,
+      "tad_t2v": 4.283438526499467
+    },
+    {
+      "layer": 16,
+      "head": 2,
+      "tad_v2v": 6.022312585954378,
+      "tad_t2v": 14.421998237078308
+    },
+    {
+      "layer": 16,
+      "head": 3,
+      "tad_v2v": 2.2067383594778707,
+      "tad_t2v": 2.0449868253997114
+    },
+    {
+      "layer": 17,
+      "head": 0,
+      "tad_v2v": 3.0079521586147333,
+      "tad_t2v": 1.9933507479702843
+    },
+    {
+      "layer": 17,
+      "head": 1,
+      "tad_v2v": 2.8762691253535504,
+      "tad_t2v": 2.941055815864782
+    },
+    {
+      "layer": 17,
+      "head": 2,
+      "tad_v2v": 3.9731905239875602,
+      "tad_t2v": 10.846840232239394
+    },
+    {
+      "layer": 17,
+      "head": 3,
+      "tad_v2v": 4.6652949004609265,
+      "tad_t2v": 8.423239166697519
+    },
+    {
+      "layer": 18,
+      "head": 0,
+      "tad_v2v": 1.1013201020084489,
+      "tad_t2v": 1.2891127653542114
+    },
+    {
+      "layer": 18,
+      "head": 1,
+      "tad_v2v": 2.13274999687639,
+      "tad_t2v": 4.652095882970778
+    },
+    {
+      "layer": 18,
+      "head": 2,
+      "tad_v2v": 3.586310681962879,
+      "tad_t2v": 11.059963388442993
+    },
+    {
+      "layer": 18,
+      "head": 3,
+      "tad_v2v": 2.7983928516410583,
+      "tad_t2v": 3.4262999671111345
+    },
+    {
+      "layer": 19,
+      "head": 0,
+      "tad_v2v": 2.7577974698919796,
+      "tad_t2v": 6.518517745713719
+    },
+    {
+      "layer": 19,
+      "head": 1,
+      "tad_v2v": 0.8980986996686835,
+      "tad_t2v": 0.8648533382791964
+    },
+    {
+      "layer": 19,
+      "head": 2,
+      "tad_v2v": 5.697342623299803,
+      "tad_t2v": 17.44092098970882
+    },
+    {
+      "layer": 19,
+      "head": 3,
+      "tad_v2v": 5.134191234880868,
+      "tad_t2v": 13.55850296786574
+    },
+    {
+      "layer": 20,
+      "head": 0,
+      "tad_v2v": 1.9705574934522527,
+      "tad_t2v": 2.5763302500130703
+    },
+    {
+      "layer": 20,
+      "head": 1,
+      "tad_v2v": 2.3091979896151202,
+      "tad_t2v": 3.477484031661612
+    },
+    {
+      "layer": 20,
+      "head": 2,
+      "tad_v2v": 3.4712475343295845,
+      "tad_t2v": 11.706653923362984
+    },
+    {
+      "layer": 20,
+      "head": 3,
+      "tad_v2v": 3.928269329887354,
+      "tad_t2v": 11.422957200691348
+    },
+    {
+      "layer": 21,
+      "head": 0,
+      "tad_v2v": 4.019555637962969,
+      "tad_t2v": 12.403564158228578
+    },
+    {
+      "layer": 21,
+      "head": 1,
+      "tad_v2v": 1.5956248403587368,
+      "tad_t2v": 3.5666011769263473
+    },
+    {
+      "layer": 21,
+      "head": 2,
+      "tad_v2v": 2.1299660068546302,
+      "tad_t2v": 4.018337375961367
+    },
+    {
+      "layer": 21,
+      "head": 3,
+      "tad_v2v": 2.471923873397007,
+      "tad_t2v": 11.939649994021556
+    },
+    {
+      "layer": 22,
+      "head": 0,
+      "tad_v2v": 2.96614722292688,
+      "tad_t2v": 3.844386150504722
+    },
+    {
+      "layer": 22,
+      "head": 1,
+      "tad_v2v": 2.7526461239362594,
+      "tad_t2v": 12.077827971685128
+    },
+    {
+      "layer": 22,
+      "head": 2,
+      "tad_v2v": 2.4150891819778475,
+      "tad_t2v": 8.076167221655613
+    },
+    {
+      "layer": 22,
+      "head": 3,
+      "tad_v2v": 2.360916387828163,
+      "tad_t2v": 10.240530728746633
+    },
+    {
+      "layer": 23,
+      "head": 0,
+      "tad_v2v": 1.6872734296544711,
+      "tad_t2v": 10.71154001783152
+    },
+    {
+      "layer": 23,
+      "head": 1,
+      "tad_v2v": 3.401028649290215,
+      "tad_t2v": 4.430906551900458
+    },
+    {
+      "layer": 23,
+      "head": 2,
+      "tad_v2v": 3.0807319172691767,
+      "tad_t2v": 5.638018019707476
+    },
+    {
+      "layer": 23,
+      "head": 3,
+      "tad_v2v": 1.4319131722365654,
+      "tad_t2v": 1.2328326615446905
+    },
+    {
+      "layer": 24,
+      "head": 0,
+      "tad_v2v": 0.5440881806164276,
+      "tad_t2v": 0.769059969433507
+    },
+    {
+      "layer": 24,
+      "head": 1,
+      "tad_v2v": 2.6043511659166527,
+      "tad_t2v": 1.108432063802344
+    },
+    {
+      "layer": 24,
+      "head": 2,
+      "tad_v2v": 1.3385605103549612,
+      "tad_t2v": 7.731861812482115
+    },
+    {
+      "layer": 24,
+      "head": 3,
+      "tad_v2v": 3.8167390279531883,
+      "tad_t2v": 9.250860778503732
+    },
+    {
+      "layer": 25,
+      "head": 0,
+      "tad_v2v": 1.2602004998039187,
+      "tad_t2v": 1.9909829387948161
+    },
+    {
+      "layer": 25,
+      "head": 1,
+      "tad_v2v": 4.1581815028901365,
+      "tad_t2v": 10.54929410371624
+    },
+    {
+      "layer": 25,
+      "head": 2,
+      "tad_v2v": 1.6319891155685213,
+      "tad_t2v": 1.4490297097651685
+    },
+    {
+      "layer": 25,
+      "head": 3,
+      "tad_v2v": 3.264454122201189,
+      "tad_t2v": 5.195104641220609
+    },
+    {
+      "layer": 26,
+      "head": 0,
+      "tad_v2v": 2.878209586450235,
+      "tad_t2v": 11.70306996337703
+    },
+    {
+      "layer": 26,
+      "head": 1,
+      "tad_v2v": 2.6560754511764277,
+      "tad_t2v": 2.943618298182722
+    },
+    {
+      "layer": 26,
+      "head": 2,
+      "tad_v2v": 3.3421744486558596,
+      "tad_t2v": 10.457538523283162
+    },
+    {
+      "layer": 26,
+      "head": 3,
+      "tad_v2v": 3.5110219588957476,
+      "tad_t2v": 8.168510664037017
+    },
+    {
+      "layer": 27,
+      "head": 0,
+      "tad_v2v": 3.8609871855126765,
+      "tad_t2v": 11.670388139857621
+    },
+    {
+      "layer": 27,
+      "head": 1,
+      "tad_v2v": 2.205577603630955,
+      "tad_t2v": 0.8528957574075607
+    },
+    {
+      "layer": 27,
+      "head": 2,
+      "tad_v2v": 3.4915722580734365,
+      "tad_t2v": 12.704749227351831
+    },
+    {
+      "layer": 27,
+      "head": 3,
+      "tad_v2v": 4.268116980967802,
+      "tad_t2v": 11.707820385245027
+    }
+  ],
+  "observation_plan_sha256": "882d3a3767b3aa3cff85c580d8161565d38b0839e5c8744bfede5e1328b608f2",
+  "complete": true
+}
